@@ -1,0 +1,57 @@
+<resources>
+    <!--
+   * DatingApp
+    * https://github.com/quintuslabs/DatingApp
+    * Created on 25-sept-2018.
+    * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
+    -->
+    <string name="app_name">Huddle App</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Firebase database fields -->
+    <string name="dbfemale">female</string>
+    <string name="dbmale">male</string>
+    <string name="title_activity_check_profile_before_matched">activity_checkProfileBeforeMatched
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="match_notification">Match Notification</string>
+    <string name="ok">ok</string>
+    <string name="permission_camera_rationale">Request for camera permission</string>
+    <string name="permission_contacts_rationale">GALLERY PERMISSION</string>
+    <string name="permision_available_camera">camera available</string>
+
+    <!-- introduction pictures-->
+    <integer-array name="img_id_arr">
+        <item>@drawable/img1</item>
+        <item>@drawable/img2</item>
+        <item>@drawable/img3</item>
+        <item>@drawable/img4</item>
+    </integer-array>
+
+    <string name="no_internet">Please make sure you are connected to the internet.</string>
+    <string name="please_try_later">Try Again</string>
+    <string name="email_id">Email Id</string>
+    <string name="password">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="forgot_password">Forgot your password ?</string>
+    <string name="don_t_have_an_account">No account yet?</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="create_one">Create one</string>
+    <string name="by_creating_an_account_you_agree_to_the_term_and_use_and_privacy_policy">By creating an account,you agree to the <u>Term and use</u> and <u>Privacy policy</u></string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">My Booking</string>
+    <string name="title_notification">RSA</string>
+    <string name="title_profile">Profile</string>
+    <string name="mobile">Mobile</string>
+</resources>

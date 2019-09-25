@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.shawnlin:PreferencesManager:1.0.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/afb49722bbb627a3b5e615e4f34037d6/PreferencesManager-1.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/afb49722bbb627a3b5e615e4f34037d6/PreferencesManager-1.0.3/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shawnlin/PreferencesManager/1.0.3/1ba1246a07769127c4a06f579db1e6f330a2bcd8/PreferencesManager-1.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shawnlin/PreferencesManager/1.0.3/27262563fc3d0222ab5af66535ab84b28fcca046/PreferencesManager-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

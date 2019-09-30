@@ -35,6 +35,13 @@ public class TempStorage {
         return userData;
     }
 
+
+    public static UserData getUser() {
+        return PreferencesManager.getObject(AppConstants.Pref.USER_MODEL_OBJECT,UserData.class);
+    }
+
+
+
     public static void setUserData(UserData userData) {
         PreferencesManager.putObject(AppConstants.Pref.USER_MODEL_OBJECT, userData);
         TempStorage.userData=userData;

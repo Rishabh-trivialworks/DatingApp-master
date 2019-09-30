@@ -127,27 +127,5 @@ public class RegisterBasicInfo extends AppCompatActivity {
 
     }
 
-    private void registerToApp() {
-        RegisterRequest registerRequest = new RegisterRequest(mEmail.getText().toString(), mPassword.getText().toString(), mUsername.getText().toString());
-        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().signup(registerRequest);
-        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
-            @Override
-            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
-                ToastUtils.show(mContext, message);
-            }
 
-            @Override
-            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
-                if (RestCallBack.isSuccessFull(response)) {
-                    TempStorage.setUserData(response.data);
-                    ToastUtils.show(mContext, response.data.getName());
-                    Intent in=new Intent(mContext,MainActivity.class);
-                    startActivity(in);
-                    finish();
-                } else {
-                    ToastUtils.show(mContext, response.errorMessage);
-                }
-            }
-        });
-    }
 }

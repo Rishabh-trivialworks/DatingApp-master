@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Login.Login;
+import com.quintus.labs.datingapp.Profile.Profile_Activity;
+import com.quintus.labs.datingapp.Utils.TempStorage;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,20 +28,16 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent in = new Intent(SplashActivity.this, Login.class);
+
+                if(TempStorage.getUser()!=null){
+                    Intent in=new Intent(SplashActivity.this, Profile_Activity.class);
                     startActivity(in);
                     finish();
-                // This method will be executed once the timer is over
-                // Start your app main activity
-//                if(TempStorage.getUserData()!=null){
-//                    Intent in=new Intent(SplashActivity.this,MainActivity.class);
-//                    startActivity(in);
-//                    finish();
-//                }else{
-//                    Intent in = new Intent(SplashActivity.this,LoginScreenActivity.class);
-//                    startActivity(in);
-//                    finish();
-//                }
+                }else{
+                    Intent in = new Intent(SplashActivity.this,Login.class);
+                    startActivity(in);
+                    finish();
+                }
             }
         }, 3000);
 

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.Profile.Profile_Activity;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
@@ -112,7 +113,7 @@ public class Login extends AppCompatActivity {
 
                     TempStorage.setUserData(response.data);
                     ToastUtils.show(mContext,response.data.getName());
-                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    Intent intent = new Intent(Login.this, Profile_Activity.class);
                     startActivity(intent);
                     finish();
                 }else{

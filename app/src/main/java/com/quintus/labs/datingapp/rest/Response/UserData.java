@@ -56,6 +56,10 @@ public class UserData implements Serializable {
     @Expose
     private String rsaExpiry;
 
+    @SerializedName("fullName")
+    @Expose
+    private String fullName;
+
     public int getId() {
         return id;
     }
@@ -174,5 +178,13 @@ public class UserData implements Serializable {
 
     public void setRsaExpiry(String rsaExpiry) {
         this.rsaExpiry = rsaExpiry;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

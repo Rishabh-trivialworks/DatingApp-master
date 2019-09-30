@@ -7,7 +7,7 @@ package com.quintus.labs.datingapp.rest.Response;
 public class ResponseModel<T> {
 
     public boolean dataFromWiderWindow;
-    public String success;
+    public String statusCode;
     public String errorMessage;
     public String updateInfoText;
     public int totalCount;

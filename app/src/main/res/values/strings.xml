@@ -54,4 +54,7 @@
     <string name="title_notification">RSA</string>
     <string name="title_profile">Profile</string>
     <string name="mobile">Mobile</string>
+
+    <string name="info_screen_desc_4">"I don't know where to start" Is no longer an excuse.</string>
+
 </resources>

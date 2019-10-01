@@ -2,7 +2,7 @@ package com.quintus.labs.datingapp.Login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +10,19 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.Profile.Profile_Activity;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.TempStorage;
+import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.User;
+import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.rest.RestCallBack;
+import com.quintus.labs.datingapp.rest.RestServiceFactory;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -64,17 +74,7 @@ public class RegisterHobby extends AppCompatActivity {
         hobbiesContinueButton = findViewById(R.id.hobbiesContinueButton);
 
         // Initially all the buttons needs to be grayed out so this code is added, on selection we will enable it later
-        sportsSelectionButton.setAlpha(.5f);
-        sportsSelectionButton.setBackgroundColor(Color.GRAY);
 
-        travelSelectionButton.setAlpha(.5f);
-        travelSelectionButton.setBackgroundColor(Color.GRAY);
-
-        musicSelectionButton.setAlpha(.5f);
-        musicSelectionButton.setBackgroundColor(Color.GRAY);
-
-        fishingSelectionButton.setAlpha(.5f);
-        fishingSelectionButton.setBackgroundColor(Color.GRAY);
 
 
         sportsSelectionButton.setOnClickListener(new View.OnClickListener() {
@@ -110,68 +110,109 @@ public class RegisterHobby extends AppCompatActivity {
 
     public void sportsButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (sportsSelectionButton.getAlpha() == 1.0f) {
-            sportsSelectionButton.setAlpha(.5f);
-            sportsSelectionButton.setBackgroundColor(Color.GRAY);
+        toggleView(sportsSelectionButton,userInfo.isSports());
+
+        if (userInfo.isSports()==true) {
             userInfo.setSports(false);
         } else {
-            sportsSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
-            sportsSelectionButton.setAlpha(1.0f);
             userInfo.setSports(true);
         }
+
     }
 
     public void travelButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (travelSelectionButton.getAlpha() == 1.0f) {
-            travelSelectionButton.setAlpha(.5f);
-            travelSelectionButton.setBackgroundColor(Color.GRAY);
+        toggleView(travelSelectionButton,userInfo.isTravel());
+
+        if (userInfo.isTravel()==true) {
             userInfo.setTravel(false);
         } else {
-            travelSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
-            travelSelectionButton.setAlpha(1.0f);
             userInfo.setTravel(true);
-
         }
+        toggleView(travelSelectionButton,userInfo.isTravel());
 
     }
 
     public void musicButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (musicSelectionButton.getAlpha() == 1.0f) {
-            musicSelectionButton.setAlpha(.5f);
-            musicSelectionButton.setBackgroundColor(Color.GRAY);
-            userInfo.setMusic(false);
-        } else {
-            musicSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
-            musicSelectionButton.setAlpha(1.0f);
-            userInfo.setMusic(true);
+        toggleView(musicSelectionButton,userInfo.isMusic());
 
+        if (userInfo.isMusic()==true) {
+            userInfo.setMusic(false);
+         } else {
+            userInfo.setMusic(true);
         }
 
     }
 
     public void fishingButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (fishingSelectionButton.getAlpha() == 1.0f) {
-            fishingSelectionButton.setAlpha(.5f);
-            fishingSelectionButton.setBackgroundColor(Color.GRAY);
+        toggleView(fishingSelectionButton,userInfo.isFishing());
+        if (userInfo.isFishing()==true) {
             userInfo.setFishing(false);
         } else {
-            fishingSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
-            fishingSelectionButton.setAlpha(1.0f);
             userInfo.setFishing(true);
 
         }
 
     }
+    private void toggleView(Button view,boolean isSelected){
+        if (isSelected==true) {
+            view.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view.setBackground(getResources().getDrawable(R.drawable.background_rounded_border));
+            }
+            else{
+                view.setBackgroundResource(R.drawable.background_rounded_border);
 
+            }
+        } else {
+            view.setTextColor(getResources().getColor(R.color.white));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view.setBackground(getResources().getDrawable(R.drawable.white_rounded_button));
+            }
+            else{
+                view.setBackgroundResource(R.drawable.white_rounded_button);
+
+            }
+
+        }
+
+    }
+    private void registerToApp() {
+        RegisterRequest registerRequest = new RegisterRequest(userInfo.getEmail(), password, userInfo.getUsername(),"USER",userInfo.getSex(),userInfo.getDateOfBirth(),userInfo.getPreferSex());
+        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().signup(registerRequest);
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
+                ToastUtils.show(mContext, message);
+                hobbiesContinueButton.setText("Register");
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
+                hobbiesContinueButton.setText("Register");
+                if (RestCallBack.isSuccessFull(response)) {
+                    TempStorage.setUserData(response.data);
+                    TempStorage.userData = response.data;
+                    ToastUtils.show(mContext, response.data.getFullName());
+                    Intent in=new Intent(mContext,Profile_Activity.class);
+                    startActivity(in);
+                    finish();
+                } else {
+                    ToastUtils.show(mContext, response.errorMessage);
+                }
+            }
+        });
+    }
     public void init() {
         hobbiesContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+                hobbiesContinueButton.setText("Please Wait...");
+                registerToApp();
+
 
             }
         });

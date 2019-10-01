@@ -14,7 +14,7 @@ public class AppConstants {
     public static final int LOCATION_REQUEST = 1000;
 
     public static class Pref {
-        public static final String NAME = "ustadJi";
+        public static final String NAME = "dating_app";
         public static final String LOGIN_MODEL_OBJECT = "login_detail_model_object";
         public static final String USER_MODEL_OBJECT = "user_detail_model_object";
         public static final String AUTH_TOKEN = "auth_token";

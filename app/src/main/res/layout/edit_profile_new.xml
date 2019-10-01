@@ -6,6 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tool_bar_height"
+            android:background="?attr/colorPrimary"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            android:elevation="4dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="enterAlways|scroll" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -100,14 +123,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/women_lauout" />
 
-    <com.crystal.crystalrangeseekbar.widgets.BubbleThumbSeekbar
+    <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
         android:id="@+id/rangeSeekbarmaximum"
-        app:corner_radius="10"
-        app:min_value="50"
-        app:max_value="150"
         app:bar_color="#430c1f"
-        app:bar_highlight_color="#A54B17"
-        app:left_thumb_color="#775E4F"
+        app:bar_highlight_color="#430c1f"
+        app:left_thumb_color="#430c1f"
         app:left_thumb_color_pressed="#430c1f"
         app:data_type="_integer"
         android:layout_width="0dp"
@@ -120,6 +140,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewmaximumDistance" />
+
+    <TextView
+        android:id="@+id/textViewMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="1"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbarmaximum" />
+
+    <TextView
+        android:id="@+id/textViewMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="100"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbarmaximum" />
+
     <TextView
         android:id="@+id/textViewAgeRange"
         android:layout_width="0dp"
@@ -132,12 +175,10 @@
         android:textStyle="bold"
         android:text="Age Range"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbarmaximum" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMin" />
     <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
         android:id="@+id/rangeSeekbaragerange"
         app:corner_radius="10"
-        app:min_value="50"
-        app:max_value="100"
         app:gap="20"
         app:bar_color="#8990C4"
         app:bar_highlight_color="#430c1f"
@@ -156,4 +197,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAgeRange" />
+
+    <TextView
+        android:id="@+id/textViewAgeMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="1"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbaragerange" />
+
+    <TextView
+        android:id="@+id/textViewAgeMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="100"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbaragerange" />
 </androidx.constraintlayout.widget.ConstraintLayout>

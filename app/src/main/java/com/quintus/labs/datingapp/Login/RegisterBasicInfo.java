@@ -13,20 +13,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.quintus.labs.datingapp.Main.MainActivity;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.GPS;
-import com.quintus.labs.datingapp.Utils.TempStorage;
-import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.User;
-import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
-import com.quintus.labs.datingapp.rest.Response.ResponseModel;
-import com.quintus.labs.datingapp.rest.Response.UserData;
-import com.quintus.labs.datingapp.rest.RestCallBack;
-import com.quintus.labs.datingapp.rest.RestServiceFactory;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Grocery App
@@ -127,27 +116,5 @@ public class RegisterBasicInfo extends AppCompatActivity {
 
     }
 
-    private void registerToApp() {
-        RegisterRequest registerRequest = new RegisterRequest(mEmail.getText().toString(), mPassword.getText().toString(), mUsername.getText().toString());
-        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().signup(registerRequest);
-        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
-            @Override
-            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
-                ToastUtils.show(mContext, message);
-            }
 
-            @Override
-            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
-                if (RestCallBack.isSuccessFull(response)) {
-                    TempStorage.setUserData(response.data);
-                    ToastUtils.show(mContext, response.data.getName());
-                    Intent in=new Intent(mContext,MainActivity.class);
-                    startActivity(in);
-                    finish();
-                } else {
-                    ToastUtils.show(mContext, response.errorMessage);
-                }
-            }
-        });
-    }
 }

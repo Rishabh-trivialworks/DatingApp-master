@@ -56,6 +56,34 @@ public class UserData implements Serializable {
     @Expose
     private String rsaExpiry;
 
+    @SerializedName("fullName")
+    @Expose
+    private String fullName;
+
+    @SerializedName("gender")
+    @Expose
+    private String gender;
+
+    @SerializedName("dob")
+    @Expose
+    private String dob;
+
+    @SerializedName("interested")
+    @Expose
+    private String interested;
+
+    @SerializedName("minRange")
+    @Expose
+    private int minRange;
+
+    @SerializedName("maxRange")
+    @Expose
+    private int maxRange;
+
+    @SerializedName("about")
+    @Expose
+    private String about;
+
     public int getId() {
         return id;
     }
@@ -174,5 +202,61 @@ public class UserData implements Serializable {
 
     public void setRsaExpiry(String rsaExpiry) {
         this.rsaExpiry = rsaExpiry;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getInterested() {
+        return interested;
+    }
+
+    public void setInterested(String interested) {
+        this.interested = interested;
+    }
+
+    public int getMinRange() {
+        return minRange;
+    }
+
+    public void setMinRange(int minRange) {
+        this.minRange = minRange;
+    }
+
+    public int getMaxRange() {
+        return maxRange;
+    }
+
+    public void setMaxRange(int maxRange) {
+        this.maxRange = maxRange;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

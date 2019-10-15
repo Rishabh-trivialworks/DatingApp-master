@@ -73,7 +73,7 @@ public class RestServiceFactory {
                 }
             });
 
-            httpClient.readTimeout(2, TimeUnit.MINUTES);
+            httpClient.readTimeout(10, TimeUnit.MINUTES);
             httpClient.connectTimeout(2, TimeUnit.MINUTES);
             httpClient.writeTimeout(10, TimeUnit.MINUTES);
 

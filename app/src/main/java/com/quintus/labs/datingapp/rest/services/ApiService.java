@@ -24,12 +24,16 @@ import com.quintus.labs.datingapp.rest.Response.UserData;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -45,6 +49,15 @@ public interface ApiService {
     @Headers("Content-type: application/json")
     @POST(AppConstants.Url.SIGNUP)
     Call<ResponseModel<UserData>> signup(@Body RegisterRequest registerRequest);
+
+
+    @Headers("Content-type: application/json")
+    @PUT(AppConstants.Url.GETUSER)
+    Call<ResponseModel<UserData>> updateUser(@Body EditProfileUpdateRequest editProfileUpdateRequest);
+
+    @Multipart
+    @PUT(AppConstants.Url.GETUSER)
+    Call<ResponseModel<UserData>> fileUpload(@Part MultipartBody.Part bodyfullName,@Part MultipartBody.Part bodygender, @Part MultipartBody.Part bodydob, @Part MultipartBody.Part bodyintrested,@Part MultipartBody.Part bodyminrange,@Part MultipartBody.Part bodymaxrange,@Part MultipartBody.Part bodydistance, @Part MultipartBody.Part file);
 
     //
     @Headers("Content-type: application/json")

@@ -80,6 +80,10 @@ public class UserData implements Serializable {
     @Expose
     private int maxRange;
 
+    @SerializedName("distance")
+    @Expose
+    private int distance;
+
     @SerializedName("about")
     @Expose
     private String about;
@@ -258,5 +262,13 @@ public class UserData implements Serializable {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

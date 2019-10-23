@@ -161,7 +161,9 @@
         android:text="100"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbarmaximum" />
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbarmaximum"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/textViewAgeRange"
@@ -219,4 +221,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rangeSeekbaragerange" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ public class ResponseModel<T> {
     public String errorMessage;
     public String updateInfoText;
     public int totalCount;
+    public String statusCode;
     public T data;
 
 }

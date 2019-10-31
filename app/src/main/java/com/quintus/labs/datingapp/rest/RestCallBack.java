@@ -107,7 +107,7 @@ public abstract class RestCallBack<T> implements Callback<T> {
     }
 
     public static boolean isSuccessFull(ResponseModel responseModel) {
-        if (responseModel.success.equals(AppConstants.ApiParamValue.SUCCESS_RESPONSE_CODE))
+        if (responseModel.statusCode.equals(AppConstants.ApiParamValue.SUCCESS_RESPONSE_CODE))
             return true;
         else
             return false;

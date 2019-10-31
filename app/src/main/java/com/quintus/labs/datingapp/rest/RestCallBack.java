@@ -76,7 +76,7 @@ public abstract class RestCallBack<T> implements Callback<T> {
                 ResponseModel responseModel = gson.fromJson(response.errorBody().string(), ResponseModel.class);
 
                 //Send user to login screen if authentication error comes...
-                if (responseModel.statusCode.equals(AppConstants.ApiParamValue.AUTHENTICATION_ERROR)) {
+                if (responseModel.success.equals(AppConstants.ApiParamValue.AUTHENTICATION_ERROR)) {
                     Intent intent;
 //                    if (AppSharedPreferences.getInstance().getUserName() != null && !AppSharedPreferences.getInstance().getUserName().equalsIgnoreCase("")) {
 //                        intent = new Intent(AppContext.getInstance().getContext(), RegisterLoginActivity.class);
@@ -91,9 +91,9 @@ public abstract class RestCallBack<T> implements Callback<T> {
 //                    AppSharedPreferences.getInstance().clearAllData(false);
 //                    AppContext.getInstance().getContext().startActivity(intent);
 
-                } else if (responseModel.statusCode.equals(AppConstants.ApiParamValue.FORCE_UPDATE_ERROR)) {
+                } else if (responseModel.success.equals(AppConstants.ApiParamValue.FORCE_UPDATE_ERROR)) {
 
-                } else if (responseModel.statusCode.equals(AppConstants.ApiParamValue.RESPONSE_ERROR)) {
+                } else if (responseModel.success.equals(AppConstants.ApiParamValue.RESPONSE_ERROR)) {
 
                 }
 
@@ -107,7 +107,7 @@ public abstract class RestCallBack<T> implements Callback<T> {
     }
 
     public static boolean isSuccessFull(ResponseModel responseModel) {
-        if (responseModel.statusCode.equals(AppConstants.ApiParamValue.SUCCESS_RESPONSE_CODE))
+        if (responseModel.success.equals(AppConstants.ApiParamValue.SUCCESS_RESPONSE_CODE))
             return true;
         else
             return false;

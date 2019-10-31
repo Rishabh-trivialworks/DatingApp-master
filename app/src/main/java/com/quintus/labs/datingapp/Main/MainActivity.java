@@ -23,10 +23,18 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.PulsatorLayout;
+import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
+import com.quintus.labs.datingapp.rest.Response.CardList;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.RestCallBack;
+import com.quintus.labs.datingapp.rest.RestServiceFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -42,18 +50,20 @@ public class MainActivity extends Activity {
     final private int MY_PERMISSIONS_REQUEST_LOCATION = 123;
     ListView listView;
     List<Cards> rowItems;
+    //ArrayList<com.quintus.labs.datingapp.rest.Response.CardList> rowItems = new ArrayList<>();
     FrameLayout cardFrame, moreFrame;
     private Context mContext = MainActivity.this;
     private NotificationHelper mNotificationHelper;
-    private Cards cards_data[];
+    private CardList cards_data[];
     private PhotoAdapter arrayAdapter;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+                     context=this;
         cardFrame = findViewById(R.id.card_frame);
         moreFrame = findViewById(R.id.more_frame);
         // start pulsator
@@ -63,6 +73,8 @@ public class MainActivity extends Activity {
 
 
         setupTopNavigationView();
+
+        hitApiToGetFeed();
 
 
         rowItems = new ArrayList<Cards>();
@@ -80,11 +92,38 @@ public class MainActivity extends Activity {
         rowItems.add(cards);
         cards = new Cards("7", "Sudeshna Roy", 19, "https://talenthouse-res.cloudinary.com/image/upload/c_fill,f_auto,h_640,w_640/v1411380245/user-415406/submissions/hhb27pgtlp9akxjqlr5w.jpg", "Papa's Pari", "Art", 5000);
         rowItems.add(cards);
-
-        arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
+        arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
+        arrayAdapter.notifyDataSetChanged();
 
         checkRowItem();
         updateSwipeCard();
+
+    }
+
+    private void hitApiToGetFeed() {
+        Call<ResponseModel<List<CardList>>> responseModelCall = RestServiceFactory.createService().myFeeds();
+
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<List<CardList>>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<List<CardList>>> call, String message) {
+                ToastUtils.show(MainActivity.this, message);
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<List<CardList>>> call, Response<ResponseModel<List<CardList>>> restResponse, ResponseModel<List<CardList>> response) {
+                if (RestCallBack.isSuccessFull(response)) {
+                    ToastUtils.show(MainActivity.this, "Successs");
+                    for (int i = 0; i < response.data.size(); i++) {
+
+
+                        Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), 21, "https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), 200);
+                        rowItems.add(cards);
+                    }
+
+
+                }
+            }
+        });
     }
 
     private void checkRowItem() {

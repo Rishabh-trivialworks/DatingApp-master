@@ -48,7 +48,7 @@ public class BtnLikeActivity extends AppCompatActivity {
                 Glide.with(mContext).load(R.drawable.default_man).into(like);
                 break;
             default:
-                Glide.with(mContext).load(profileUrl).into(like);
+                Glide.with(mContext).load(R.drawable.default_woman).into(like);
                 break;
         }
 

@@ -12,8 +12,8 @@ import com.quintus.labs.datingapp.rest.RequestModel.PaymentRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.SaveBookingModel;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
+import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.CatagoryList;
-import com.quintus.labs.datingapp.rest.Response.MapItem;
 import com.quintus.labs.datingapp.rest.Response.MyBooking;
 import com.quintus.labs.datingapp.rest.Response.RSAList;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -86,8 +85,8 @@ public interface ApiService {
     Call<ResponseModel<Map<String, String>>> savebooking(@Body SaveBookingModel saveBookingModel);
 
     @Headers("Content-type: application/json")
-    @GET(AppConstants.Url.SAVEBOOKING)
-    Call<ResponseModel<List<MyBooking>>> myBookings();
+    @GET(AppConstants.Url.FEEDS)
+    Call<ResponseModel<List<CardList>>> myFeeds();
 
     @Headers("Content-type: application/json")
     @GET(AppConstants.Url.GETUSER)
@@ -131,7 +130,4 @@ public interface ApiService {
     Call<ResponseModel<UserData>> paymentToRsaServer(@Body PaymentRSARequest paymentRequest);
 
 
-    @Headers("Content-type: application/json")
-    @POST(AppConstants.Url.RSAMAPAPI+ "/{id}")
-    Call<ResponseModel<MapItem>> rsaMapApi(@Path("id") int rsaServiceKey);
 }

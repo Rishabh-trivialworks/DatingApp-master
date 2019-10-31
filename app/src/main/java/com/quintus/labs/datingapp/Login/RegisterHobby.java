@@ -1,7 +1,10 @@
 package com.quintus.labs.datingapp.Login;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +12,18 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import com.quintus.labs.datingapp.Profile.Profile_Activity;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.quintus.labs.datingapp.Main.MainActivity;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.GpsUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.User;
@@ -20,6 +32,8 @@ import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -46,8 +60,13 @@ public class RegisterHobby extends AppCompatActivity {
     private Button musicSelectionButton;
     private Button fishingSelectionButton;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationRequest locationRequest;
 
+    private boolean isGPS = false;
+    private LocationCallback locationCallback;
     private String append = "";
+    private double latitude,longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +83,64 @@ public class RegisterHobby extends AppCompatActivity {
         initWidgets();
 
         init();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10 * 1000); // 10 seconds
+        locationRequest.setFastestInterval(5 * 1000); // 5 seconds
+        getLocation();
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                isGPS = isGPSEnable;
+            }
+        });
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+
+                    }
+                }
+            }
+        };
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(RegisterHobby.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(RegisterHobby.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RegisterHobby.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    AppConstants.LOCATION_REQUEST);
+
+        } else {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(RegisterHobby.this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                       latitude = location.getLatitude();
+                       longitude = location.getLongitude();
+                    } else {
+                        if (ActivityCompat.checkSelfPermission(RegisterHobby.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RegisterHobby.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+                    }
+                }
+            });
+        }
     }
 
     private void initWidgets() {
@@ -180,7 +257,20 @@ public class RegisterHobby extends AppCompatActivity {
 
     }
     private void registerToApp() {
-        RegisterRequest registerRequest = new RegisterRequest(userInfo.getEmail(), password, userInfo.getUsername(),"USER",userInfo.getSex(),userInfo.getDateOfBirth(),userInfo.getPreferSex());
+        ArrayList<String> interest= new ArrayList<>();
+        if(userInfo.isMusic()){
+            interest.add("Music");
+        }
+        if(userInfo.isSports()){
+            interest.add("Sports");
+        }
+        if(userInfo.isFishing()){
+            interest.add("Fishing");
+        }
+        if(userInfo.isTravel()){
+            interest.add("Travel");
+        }
+        RegisterRequest registerRequest = new RegisterRequest(userInfo.getEmail(), password, userInfo.getUsername(),"USER",userInfo.getSex(),userInfo.getDateOfBirth(),userInfo.getPreferSex(),longitude,latitude,interest);
         Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().signup(registerRequest);
         responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
             @Override
@@ -197,7 +287,7 @@ public class RegisterHobby extends AppCompatActivity {
                     TempStorage.setUserData(response.data);
                     TempStorage.userData = response.data;
                     ToastUtils.show(mContext, response.data.getFullName());
-                    Intent in=new Intent(mContext,Profile_Activity.class);
+                    Intent in=new Intent(mContext, MainActivity.class);
                     startActivity(in);
                     finish();
                 } else {

@@ -86,7 +86,7 @@ public class AppConstants {
         public static final String INITIATE = "api/v1/rsa/initiate";
         public static final String RSA ="api/v1/rsa";
         public static  final String RSAPayment ="api/v1/rsa/payment";
-        public static final String RSAMAPAPI = "api/v1/rsa/request";
+        public static final String FEEDS = "/api/v1/feeds";
 
     }
 

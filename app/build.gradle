@@ -75,6 +75,9 @@ dependencies {
     implementation 'com.crystal:crystalrangeseekbar:1.1.3'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'com.aminography:choosephotohelper:1.0.3'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
 
 }

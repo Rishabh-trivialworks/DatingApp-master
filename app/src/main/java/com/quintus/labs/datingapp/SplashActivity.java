@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Login.Login;
-import com.quintus.labs.datingapp.Profile.Profile_Activity;
+import com.quintus.labs.datingapp.Main.MainActivity;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 
 
@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                 if(TempStorage.getUser()!=null){
-                    Intent in=new Intent(SplashActivity.this, Profile_Activity.class);
+                    Intent in=new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(in);
                     finish();
                 }else{

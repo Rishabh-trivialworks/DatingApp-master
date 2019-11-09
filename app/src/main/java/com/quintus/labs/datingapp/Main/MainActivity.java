@@ -32,6 +32,7 @@ import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-                     context=this;
+        context = this;
         cardFrame = findViewById(R.id.card_frame);
         moreFrame = findViewById(R.id.more_frame);
         // start pulsator
@@ -96,9 +97,8 @@ public class MainActivity extends Activity {
 //        rowItems.add(cards);
 //        cards = new Cards("7", "Sudeshna Roy", 19, "https://talenthouse-res.cloudinary.com/image/upload/c_fill,f_auto,h_640,w_640/v1411380245/user-415406/submissions/hhb27pgtlp9akxjqlr5w.jpg", "Papa's Pari", "Art", 5000);
 //        rowItems.add(cards);
-       // arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
+        // arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
         //arrayAdapter.notifyDataSetChanged();
-
 
 
     }
@@ -117,11 +117,14 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<ResponseModel<List<CardList>>> call, Response<ResponseModel<List<CardList>>> restResponse, ResponseModel<List<CardList>> response) {
                 if (RestCallBack.isSuccessFull(response)) {
-                    ToastUtils.show(MainActivity.this, "Successs");
                     for (int i = 0; i < response.data.size(); i++) {
+                        String segments[] = response.data.get(i).getDob().split("-");
+                        String year = segments[0];
+                        String month = segments[1];
+                        String day = segments[2];
 
-
-                        Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), 21, "https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), 200);
+                        String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
+                        Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance());
                         rowItems.add(cards);
                     }
 
@@ -135,13 +138,32 @@ public class MainActivity extends Activity {
 
             }
         });
-    }
 
-    private void dismissProgress(){
-        if (pd!=null&&pd.isShowing()) {
+
+    }
+    private String getAge (int year, int month, int day){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ageS = ageInt.toString();
+
+        return ageS;
+    }
+    private void dismissProgress() {
+        if (pd != null && pd.isShowing()) {
             pd.dismiss();
         }
     }
+
     private void checkRowItem() {
         if (rowItems.isEmpty()) {
             moreFrame.setVisibility(View.VISIBLE);
@@ -295,10 +317,11 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
 
     }
+
     @Override
     protected void onDestroy() {
-      dismissProgress();
-      super.onDestroy();
+        dismissProgress();
+        super.onDestroy();
     }
 
 }

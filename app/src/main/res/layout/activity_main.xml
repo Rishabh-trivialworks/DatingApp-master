@@ -60,10 +60,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:gravity="center"
+                    android:layout_marginLeft="-10dp"
+                    android:layout_marginRight="-10dp"
+                    android:background="@drawable/background"
                     android:orientation="horizontal">
 
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/dislikebtn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -71,13 +74,13 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
+                        android:background="@drawable/round_button_with_border"
                         android:onClick="DislikeBtn"
                         android:padding="10dp"
-                        android:src="@drawable/ic_dislike" />
+                        android:src="@drawable/cancel" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/commentbtn"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -85,24 +88,24 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
+                        android:background="@drawable/round_button_with_border"
                         android:padding="10dp"
-                        android:src="@drawable/ic_comment" />
+                        android:src="@drawable/heart" />
 
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/likebtn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
+                        android:background="@drawable/round_button_with_border"
                         android:onClick="LikeBtn"
                         android:padding="10dp"
-                        android:src="@drawable/ic_like1" />
+                        android:src="@drawable/check" />
 
 
                 </LinearLayout>
@@ -123,6 +126,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:text="No one near by you"/>
 
             <com.quintus.labs.datingapp.Utils.PulsatorLayout
                 android:id="@+id/pulsator"

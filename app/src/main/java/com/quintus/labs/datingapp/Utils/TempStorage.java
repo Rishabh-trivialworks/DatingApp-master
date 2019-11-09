@@ -1,8 +1,8 @@
 package com.quintus.labs.datingapp.Utils;
 
 
-import com.quintus.labs.datingapp.rest.Response.LoginData;
 import com.quintus.labs.datingapp.rest.Response.UserData;
+
 import com.shawnlin.preferencesmanager.PreferencesManager;
 
 /**

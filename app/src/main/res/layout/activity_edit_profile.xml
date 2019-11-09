@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/backgroungColor"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                                     android:id="@+id/image_view_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="fitXY" />
+                                    android:scaleType="centerInside" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                                         android:id="@+id/image_view_2"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:scaleType="fitXY" />
+                                        android:scaleType="centerInside" />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                                         android:id="@+id/image_view_3"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:scaleType="fitXY" />
+                                        android:scaleType="centerInside" />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                                     android:id="@+id/image_view_4"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="fitXY" />
+                                    android:scaleType="centerInside" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -249,7 +249,7 @@
                                     android:id="@+id/image_view_5"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="fitXY" />
+                                    android:scaleType="centerInside" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -291,7 +291,7 @@
                                     android:id="@+id/image_view_6"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="fitXY" />
+                                    android:scaleType="centerInside" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"

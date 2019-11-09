@@ -108,16 +108,16 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
-                //if(RestCallBack.isSuccessFull(response)){
+                if(RestCallBack.isSuccessFull(response)){
 
                     TempStorage.setUserData(response.data);
                     ToastUtils.show(mContext,response.data.getFullName());
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-//                }else{
-//                    ToastUtils.show(mContext,response.errorMessage);
-//                }
+                }else{
+                    ToastUtils.show(mContext,response.errorMessage);
+                }
             }
         });
 

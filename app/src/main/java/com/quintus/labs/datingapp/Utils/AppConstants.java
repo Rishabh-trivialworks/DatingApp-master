@@ -54,6 +54,7 @@ public class AppConstants {
 
 
     public static class ApiParamKey {
+        public static final String ID = "image-id";
         public static String DEBUG = "debug";
         public static final String USTADJI_AUTH_TOKEN = "x-auth";
         public static final String APP_LANGUAGE = "Content-Language";
@@ -87,6 +88,8 @@ public class AppConstants {
         public static final String RSA ="api/v1/rsa";
         public static  final String RSAPayment ="api/v1/rsa/payment";
         public static final String FEEDS = "/api/v1/feeds";
+        public static final String UPLOADIMAGE = "api/v1/image-upload";
+        public static final String DELETEIMAGE = "api/v1/image-upload/{image-id}";
 
     }
 

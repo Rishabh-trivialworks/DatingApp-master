@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.aminography:choosephotohelper:1.0.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7fc7899785194b49a6c57f7e6016b22c/jetified-choosephotohelper-1.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7fc7899785194b49a6c57f7e6016b22c/jetified-choosephotohelper-1.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/48cbfc7acf3f3f25f46d26e82c691888/jetified-choosephotohelper-1.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/48cbfc7acf3f3f25f46d26e82c691888/jetified-choosephotohelper-1.0.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.aminography/choosephotohelper/1.0.3/5998063f671b5104f560157853f5de2280bbcbb4/choosephotohelper-1.0.3-javadoc.jar!/" />

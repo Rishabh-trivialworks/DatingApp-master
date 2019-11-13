@@ -116,6 +116,7 @@
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.7.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.7.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.1.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxjava:1.1.6@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.chabbal:slidingdotsplash:1.0.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:commons:0.9.4.3@aar" level="project" />
@@ -177,5 +178,6 @@
     <orderEntry type="library" name="Gradle: com.shawnlin:PreferencesManager:1.0.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.aminography:choosephotohelper:1.0.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: id.zelory:compressor:1.0.4@aar" level="project" />
   </component>
 </module>

@@ -14,6 +14,7 @@ import com.quintus.labs.datingapp.rest.RequestModel.SaveBookingModel;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.CatagoryList;
+import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.MyBooking;
 import com.quintus.labs.datingapp.rest.Response.RSAList;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -24,9 +25,12 @@ import com.quintus.labs.datingapp.rest.Response.UserData;
 import java.util.List;
 import java.util.Map;
 
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -56,7 +60,19 @@ public interface ApiService {
 
     @Multipart
     @PUT(AppConstants.Url.GETUSER)
-    Call<ResponseModel<UserData>> fileUpload(@Part MultipartBody.Part bodyfullName,@Part MultipartBody.Part bodygender, @Part MultipartBody.Part bodydob, @Part MultipartBody.Part bodyintrested,@Part MultipartBody.Part bodyminrange,@Part MultipartBody.Part bodymaxrange,@Part MultipartBody.Part bodydistance, @Part MultipartBody.Part file);
+    Call<ResponseModel<UserData>> fileUpload(@Part("fullName") RequestBody bodyfullName, @Part("gender") RequestBody bodygender,
+                                             @Part("dob") RequestBody bodydob, @Part("interested") RequestBody bodyintrested,
+                                             @Part("minRange") RequestBody bodyminrange, @Part("maxRange") RequestBody bodymaxrange,
+                                             @Part("distance") RequestBody bodydistance, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(AppConstants.Url.UPLOADIMAGE)
+    Call<ResponseModel<ImageModel>> uploadImage(@Part MultipartBody.Part file);
+
+    @Headers("Content-type: application/json")
+    @DELETE(AppConstants.Url.DELETEIMAGE)
+    Call<ResponseModel<ImageModel>> deleteImage(@Path(AppConstants.ApiParamKey.ID) long mediaId);
+
 
     //
     @Headers("Content-type: application/json")
@@ -91,6 +107,8 @@ public interface ApiService {
     @Headers("Content-type: application/json")
     @GET(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> getUserDetails();
+
+
 
 
     @Headers("Content-type: application/json")

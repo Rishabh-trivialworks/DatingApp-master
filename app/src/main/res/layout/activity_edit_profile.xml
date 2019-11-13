@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <include layout="@layout/layout_top_navigation_back" />
+    <include layout="@layout/view_app_bar_one" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                                     android:id="@+id/image_view_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerInside" />
+                                    android:scaleType="centerCrop" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                                         android:id="@+id/image_view_2"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:scaleType="centerInside" />
+                                        android:scaleType="centerCrop" />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                                         android:id="@+id/image_view_3"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:scaleType="centerInside" />
+                                        android:scaleType="centerCrop" />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                                     android:id="@+id/image_view_4"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerInside" />
+                                    android:scaleType="centerCrop" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -249,7 +249,7 @@
                                     android:id="@+id/image_view_5"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerInside" />
+                                    android:scaleType="centerCrop" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -291,7 +291,7 @@
                                     android:id="@+id/image_view_6"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerInside" />
+                                    android:scaleType="centerCrop" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -324,20 +324,29 @@
                         android:padding="5dp"
                         android:text="About You"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:background="@android:color/transparent"
                         android:gravity="bottom"
-                        android:hint="Write something about you" />
+                        android:hint="Write something about you"
+                        android:visibility="gone"
+
+                        />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@color/colorAccent"
+                        android:visibility="gone"
+
+                        />
 
                     <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
@@ -345,7 +354,9 @@
                         android:padding="5dp"
                         android:text="Job Title"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -353,13 +364,19 @@
                         android:background="@android:color/transparent"
                         android:gravity="bottom"
                         android:hint="Add job title"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:visibility="gone"
+
+                        />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@color/colorAccent"
+                        android:visibility="gone"
+
+                        />
 
                     <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
@@ -367,7 +384,10 @@
                         android:padding="5dp"
                         android:text="Company"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -375,13 +395,19 @@
                         android:background="@android:color/transparent"
                         android:gravity="bottom"
                         android:hint="Add company"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:visibility="gone"
+
+                        />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@color/colorAccent"
+                        android:visibility="gone"
+
+                        />
 
                     <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
@@ -389,7 +415,10 @@
                         android:padding="5dp"
                         android:text="School"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -397,25 +426,39 @@
                         android:background="@android:color/transparent"
                         android:gravity="bottom"
                         android:hint="Add school"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:visibility="gone"
+
+
+                        />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@color/colorAccent"
+                        android:visibility="gone"
+
+                        />
 
                     <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Gender"
+                        android:text="Intrested In"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="visible"
+
+
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+
+                        >
 
                         <TextView
                             android:id="@+id/man_text"
@@ -439,7 +482,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        >
 
                         <TextView
                             android:id="@+id/woman_text"
@@ -466,18 +511,41 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_5dp"
                         android:text="Control Your Profile"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_10dp"
+
+
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:id="@+id/control_profile"
+
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="Don't Show my age"
+                            android:text="Control Your Profile"
                             android:textSize="18dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_forward"
+                            >
+
+
+                        </ImageView>
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:layout_width="wrap_content"
@@ -491,13 +559,18 @@
                             android:button="@drawable/custom_switch"
                             android:checked="false"
                             android:thumb="@null"
-                            app:track="@null" />
+                            app:track="@null"
+                            android:visibility="gone"
+                            />
 
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"

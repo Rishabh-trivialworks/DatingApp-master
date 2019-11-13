@@ -2,11 +2,12 @@ package com.quintus.labs.datingapp.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,11 +21,18 @@ import com.aminography.choosephotohelper.ChoosePhotoHelper;
 import com.bumptech.glide.Glide;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.InfoScreenData;
+import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.ViewPagerIndicator;
+import com.quintus.labs.datingapp.rest.ProgressRequestBody;
+import com.quintus.labs.datingapp.rest.Response.ImageModel;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 
 import java.io.File;
@@ -32,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -85,10 +95,9 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
                 });
         name.setText(userInfo.getFullName());
 
-
         ImageButton edit_btn = findViewById(R.id.edit_profile);
         edit_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(Profile_Activity.this, EditProfileNewActivity.class);
+            Intent intent = new Intent(Profile_Activity.this, EditProfileActivity.class);
             startActivity(intent);
         });
         imagePerson.setOnClickListener(v -> {
@@ -102,8 +111,16 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 //                startActivity(intent);
             ToastUtils.show(Profile_Activity.this,"Work in Progress");
         });
-        setViewPagerAdapter();
         viewPager.addOnPageChangeListener(this);
+    }
+
+    private void setUserInfo(){
+        if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
+            Glide.with(context).load(userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+
+        }
+        setViewPagerAdapter();
+        name.setText(userInfo.getFullName());
 
     }
 
@@ -111,6 +128,7 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: resume to the page");
+        getUser();
 
     }
 
@@ -142,20 +160,22 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
     }
 
     private void setViewPagerAdapter() {
-        // Create data..
-        List<InfoScreenData> infoScreenDataList = new ArrayList<>(4);
-        infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), R.drawable.info_screen_1));
-        infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), R.drawable.info_screen_1));
-        infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), R.drawable.info_screen_1));
-        infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), R.drawable.info_screen_1));
+        if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>1){
+            Glide.with(context).load("http://"+userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+            List<InfoScreenData> infoScreenDataList = new ArrayList<>(userInfo.getMedia().size());
+            for (ImageModel model:userInfo.getMedia()) {
+                infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), model.getUrl()));
+            }
+            infoScreenAdapter = new InfoScreenAdapter(context, this, infoScreenDataList);
+            viewPager.setAdapter(infoScreenAdapter);
+            layoutIndicator.removeAllViews();
+            new ViewPagerIndicator(context, ViewPagerIndicator.STYLE_SMALL).setup(viewPager, layoutIndicator, R.drawable.circle_black, R.drawable.circle_grey);
 
-        // Pager Setup..
-        infoScreenAdapter = new InfoScreenAdapter(context, this, infoScreenDataList);
-        viewPager.setAdapter(infoScreenAdapter);
+        }else{
+            viewPager.setVisibility(View.INVISIBLE);
+        }
 
-        // Indicator setup..
-        new ViewPagerIndicator(context, ViewPagerIndicator.STYLE_SMALL).setup(viewPager, layoutIndicator, R.drawable.circle_black, R.drawable.circle_grey);
-    }
+           }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,67 +191,90 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     }
 
-//    private void updateProfile(){
-//        String intrestedIn = menSwitch.isChecked()?"Male":"Female";
-//        EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(userInfo.getEmail(), userInfo.getFullName(),"USER",userInfo.getGender(),userInfo.getDob(),intrestedIn,
-//                Integer.valueOf(textViewAgeMin.getText().toString()), Integer.valueOf(textViewAgeMax.getText().toString()), Integer.valueOf(textViewMin.getText().toString()) );
-//        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().updateUser(updateRequest);
-//        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
-//            @Override
-//            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
-//                ToastUtils.show(mContext, message);
-//                // hobbiesContinueButton.setText("Register");
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
-//                //hobbiesContinueButton.setText("Register");
-//                if (RestCallBack.isSuccessFull(response)) {
-//                    TempStorage.setUserData(response.data);
-//                    TempStorage.userData = response.data;
-//                    ToastUtils.show(mContext, "Profile updated successfully");
-//
-//                } else {
-//                    ToastUtils.show(mContext, response.errorMessage);
-//                }
-//            }
-//        });
-//    }
+
 
     public void fileUpload(String filePath) {
         File file = new File(filePath);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-        MultipartBody.Part bodyfullName = MultipartBody.Part.createFormData("fullName", userInfo.getFullName());
+           uploadImage(file);
+    }
 
-        MultipartBody.Part bodygender = MultipartBody.Part.createFormData("gender", userInfo.getFullName());
+    private void uploadImage(File file){
 
-        MultipartBody.Part bodydob = MultipartBody.Part.createFormData("dob", userInfo.getDob());
+        try {
+            file = new Compressor.Builder(this)
+                    .setMaxWidth(1280)
+                    .setMaxHeight(1280)
+                    .setQuality(90)
+                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                    .setDestinationDirectoryPath(context.getCacheDir().getPath())
+                    .build()
+                    .compressToFile(file);
 
-        MultipartBody.Part bodyintrested = MultipartBody.Part.createFormData("interested", userInfo.getInterested());
-
-        MultipartBody.Part bodyminRange = MultipartBody.Part.createFormData("minRange", userInfo.getMinRange()+"");
-
-        MultipartBody.Part bodymaxRange = MultipartBody.Part.createFormData("maxRange", userInfo.getMaxRange()+"");
-
-        MultipartBody.Part bodydistance = MultipartBody.Part.createFormData("distance", userInfo.getDistance()+"");
-
-        Call<ResponseModel<UserData>> call = RestServiceFactory.createService().fileUpload(bodyfullName,bodygender,bodydob,bodyintrested,bodyminRange,bodymaxRange,bodydistance,body);
-        call.enqueue(new Callback<ResponseModel<UserData>>() {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ProgressRequestBody fileBody = new ProgressRequestBody(file, new ProgressRequestBody.UploadCallbacks() {
             @Override
-            public void onResponse(@NonNull Call<ResponseModel<UserData>> call, @NonNull Response<ResponseModel<UserData>> response) {
-                Log.d("Response: " , response.message());
+            public void onProgressUpdate(int percentage) {
+                LogUtils.debug("Progress:- "+percentage);
 
+            }
+
+            @Override
+            public void onError() {
+            }
+
+            @Override
+            public void onFinish() {
+            }
+        });
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), fileBody);
+
+
+        Call<ResponseModel<ImageModel>> call = RestServiceFactory.createService().uploadImage(body);
+        call.enqueue(new Callback<ResponseModel<ImageModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseModel<ImageModel>> call, @NonNull Response<ResponseModel<ImageModel>> response) {
+                Log.d("Response: " , response.message());
+                getUser();
 
 
             }
 
             @Override
-            public void onFailure(@NonNull Call<ResponseModel<UserData>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseModel<ImageModel>> call, @NonNull Throwable t) {
                 Log.d("Exception: ",t.getMessage());
             }
         });
     }
+
+
+    private void getUser(){
+
+        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().getUserDetails();
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
+                ToastUtils.show(mContext, message);
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
+                if (RestCallBack.isSuccessFull(response)) {
+                    TempStorage.setUserData(response.data);
+                    TempStorage.userData = response.data;
+                    userInfo = TempStorage.getUser();
+                    setUserInfo();
+
+                } else {
+                    ToastUtils.show(mContext, response.errorMessage);
+                }
+            }
+        });
+    }
+
+
 
 }

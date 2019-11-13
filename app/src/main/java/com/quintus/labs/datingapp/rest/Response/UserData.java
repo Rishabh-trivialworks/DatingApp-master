@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class UserData implements Serializable {
 
@@ -87,6 +88,10 @@ public class UserData implements Serializable {
     @SerializedName("about")
     @Expose
     private String about;
+
+    @SerializedName("media")
+    @Expose
+    private ArrayList<ImageModel> media;
 
     public int getId() {
         return id;
@@ -270,5 +275,13 @@ public class UserData implements Serializable {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public ArrayList<ImageModel> getMedia() {
+        return media;
+    }
+
+    public void setMedia(ArrayList<ImageModel> media) {
+        this.media = media;
     }
 }

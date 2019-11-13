@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.viewpager.widget.PagerAdapter;
 
 
+import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.InfoScreenData;
 
@@ -23,9 +24,11 @@ import java.util.List;
 public class InfoScreenAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private List<InfoScreenData> infoScreenDataList;
+    private Context context;
 
     public InfoScreenAdapter(Context context, Activity activity, List<InfoScreenData> infoScreenDataList) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context=context;
         this.infoScreenDataList = infoScreenDataList;
     }
 
@@ -37,8 +40,7 @@ public class InfoScreenAdapter extends PagerAdapter {
         ImageView image = view.findViewById(R.id.image);
         TextView text = view.findViewById(R.id.text);
         InfoScreenData infoScreenData = infoScreenDataList.get(position);
-
-        image.setImageResource(infoScreenData.resource);
+        Glide.with(context).load("http://"+infoScreenData.url).into(image);
         text.setText(infoScreenData.text);
 
         return view;

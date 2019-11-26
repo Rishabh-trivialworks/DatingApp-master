@@ -1,5 +1,6 @@
 package com.quintus.labs.datingapp.Matched;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +18,17 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.User;
+import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.RestCallBack;
+import com.quintus.labs.datingapp.rest.RestServiceFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * DatingApp
@@ -43,6 +52,7 @@ public class Matched_Activity extends AppCompatActivity {
     private RecyclerView recyclerView, mRecyclerView;
     private ActiveUserAdapter adapter;
     private MatchUserAdapter mAdapter;
+    private List<String> images = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +67,21 @@ public class Matched_Activity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.matche_recycler_view);
 
         adapter = new ActiveUserAdapter(usersList, getApplicationContext());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false);
+        @SuppressLint("WrongConstant") RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        prepareActiveData();
+       // prepareActiveData();
 
         mAdapter = new MatchUserAdapter(matchList, getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager1);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+        setUpImagesList();
 
-        prepareMatchData();
+        //prepareMatchData();
+        getFriendList();
 
 
     }
@@ -104,6 +116,8 @@ public class Matched_Activity extends AppCompatActivity {
         matchList.add(users);
 
         mAdapter.notifyDataSetChanged();
+
+
     }
 
     private void searchFunc() {
@@ -175,6 +189,53 @@ public class Matched_Activity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
     }
+    private void getFriendList(){
+        Call<ResponseModel<List<MatchedFriend>>> responseModelCall = RestServiceFactory.createService().getFriendsList();
 
 
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<List<MatchedFriend>>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<List<MatchedFriend>>> call, String message) {
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<List<MatchedFriend>>> call, Response<ResponseModel<List<MatchedFriend>>> restResponse, ResponseModel<List<MatchedFriend>> response) {
+                if (RestCallBack.isSuccessFull(response)) {
+                    for (MatchedFriend friend:response.data) {
+                        prepareMatchDataOne(friend);
+                    }
+
+                }
+            }
+        });
+    }
+    private void prepareMatchDataOne(MatchedFriend friend) {
+        Users users = new Users(String.valueOf(friend.getSender().getId()), friend.getSender().getFullName(), 21, getRandomImage(), "Simple and beautiful Girl", "Acting", friend.getSender().getDistance());
+        matchList.add(users);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void setUpImagesList(){
+        images.add("https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg");
+        images.add("https://i0.wp.com/profilepicturesdp.com/wp-content/uploads/2018/06/beautiful-indian-girl-image-for-profile-picture-8.jpg");
+        images.add("https://pbs.twimg.com/profile_images/967542394898952192/_M_eHegh_400x400.jpg");
+        images.add("http://profilepicturesdp.com/wp-content/uploads/2018/07/fb-real-girls-dp-3.jpg");
+        images.add("https://dp.profilepics.in/profile_pictures/selfie-girls-profile-pics-dp/selfie-pics-dp-for-whatsapp-facebook-profile-25.jpg");
+        images.add("https://pbs.twimg.com/profile_images/485824669732200448/Wy__CJwU.jpeg");
+        images.add("https://talenthouse-res.cloudinary.com/image/upload/c_fill,f_auto,h_640,w_640/v1411380245/user-415406/submissions/hhb27pgtlp9akxjqlr5w.jpg");
+        images.add("https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg");
+        images.add("https://i0.wp.com/profilepicturesdp.com/wp-content/uploads/2018/06/beautiful-indian-girl-image-for-profile-picture-8.jpg");
+        images.add("https://pbs.twimg.com/profile_images/967542394898952192/_M_eHegh_400x400.jpg");
+        images.add("http://profilepicturesdp.com/wp-content/uploads/2018/07/fb-real-girls-dp-3.jpg");
+        images.add("https://dp.profilepics.in/profile_pictures/selfie-girls-profile-pics-dp/selfie-pics-dp-for-whatsapp-facebook-profile-25.jpg");
+        images.add("https://pbs.twimg.com/profile_images/485824669732200448/Wy__CJwU.jpeg");
+        images.add("https://talenthouse-res.cloudinary.com/image/upload/c_fill,f_auto,h_640,w_640/v1411380245/user-415406/submissions/hhb27pgtlp9akxjqlr5w.jpg");
+
+    }
+    public String getRandomImage()
+    {
+        Random rand = new Random();
+        return images.get(rand.nextInt(images.size()));
+    }
 }

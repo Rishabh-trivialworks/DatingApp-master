@@ -31,7 +31,7 @@ public class EditText_Roboto_Italic extends EditText {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Italic.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/Roboto-Italic.ttf");
             setTypeface(tf);
         }
     }

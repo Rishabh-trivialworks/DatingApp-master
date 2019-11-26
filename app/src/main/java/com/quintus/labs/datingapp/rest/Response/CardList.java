@@ -68,13 +68,13 @@ public class CardList implements Serializable {
     private Object imageId;
     @SerializedName("howFar")
     @Expose
-    private int howFar;
+    private double howFar;
     @SerializedName("interests")
     @Expose
     private List<Interest> interests = null;
     @SerializedName("media")
     @Expose
-    private List<Object> media = null;
+    private List<ImageModel> media = null;
 
     public int getId() {
         return id;
@@ -228,11 +228,11 @@ public class CardList implements Serializable {
         this.imageId = imageId;
     }
 
-    public int getHowFar() {
+    public double getHowFar() {
         return howFar;
     }
 
-    public void setHowFar(int howFar) {
+    public void setHowFar(double howFar) {
         this.howFar = howFar;
     }
 
@@ -244,11 +244,11 @@ public class CardList implements Serializable {
         this.interests = interests;
     }
 
-    public List<Object> getMedia() {
+    public List<ImageModel> getMedia() {
         return media;
     }
 
-    public void setMedia(List<Object> media) {
+    public void setMedia(List<ImageModel> media) {
         this.media = media;
     }
 

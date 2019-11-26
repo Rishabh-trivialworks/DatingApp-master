@@ -32,7 +32,7 @@ public class EditText_Roboto_Bold extends EditText {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Bold.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/Roboto-Bold.ttf");
             setTypeface(tf);
         }
     }

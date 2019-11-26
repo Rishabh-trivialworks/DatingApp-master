@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutNoData"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:visibility="gone">
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/twenty"
+        android:visibility="gone"
+        android:src="@drawable/arrowback"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:layout_marginTop="@dimen/twenty"
+        android:paddingLeft="@dimen/twenty"
+        android:paddingRight="@dimen/twenty"
+        android:paddingBottom="@dimen/twenty"
+        android:gravity="bottom|center_horizontal">
+        <TextView
+            android:id="@+id/textViewEmptyLayoutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:gravity="center"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/empty_chat_message"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_rect_bg"
+                android:padding="32dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/imageViewEmptyLayoutImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/empty_messages"
+                    android:textAlignment="center" />
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textViewEmptyLayoutTextBelow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:layout_marginTop="@dimen/twenty_five"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/you_are_marked_present"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -15,4 +15,17 @@
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_10dp">10dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="twenty_five">25dp</dimen>
+    <dimen name="text_medium">17sp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="text_extra_large">18sp</dimen>
+    <dimen name="bottom_text_button_height">48dp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="text_small">14sp</dimen>
+
+    <item name="button_letter_spacing" type="dimen" format="float">0.01</item>
 </resources>

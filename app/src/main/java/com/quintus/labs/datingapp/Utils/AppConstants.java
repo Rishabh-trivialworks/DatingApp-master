@@ -12,6 +12,9 @@ public class AppConstants {
 
     public static final int GPS_REQUEST = 1001;
     public static final int LOCATION_REQUEST = 1000;
+    public static final String ACCEPTED = "Accepted";
+    public static final String REJECTED = "Rejected";
+
 
     public static class Pref {
         public static final String NAME = "dating_app";
@@ -20,8 +23,8 @@ public class AppConstants {
         public static final String AUTH_TOKEN = "auth_token";
     }
 
-    public static class Limits {
-        public static final int PAGINATION_LIMIT_COMMENTS = 25;
+    public static class Navigation {
+        public static final int HOME_PAGE = 001;
 
 
     }
@@ -90,6 +93,10 @@ public class AppConstants {
         public static final String FEEDS = "/api/v1/feeds";
         public static final String UPLOADIMAGE = "api/v1/image-upload";
         public static final String DELETEIMAGE = "api/v1/image-upload/{image-id}";
+        public static final String FRIEND_LIST = "api/v1/friends";
+        public static final String REQUEST_FRIEND = "api/v1/friend-user";
+
+
 
     }
 

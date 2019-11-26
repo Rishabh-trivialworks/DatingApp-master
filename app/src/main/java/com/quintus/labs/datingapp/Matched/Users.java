@@ -1,4 +1,7 @@
 package com.quintus.labs.datingapp.Matched;
+
+import java.io.Serializable;
+
 /**
  * DatingApp
  * https://github.com/quintuslabs/DatingApp
@@ -6,7 +9,7 @@ package com.quintus.labs.datingapp.Matched;
  * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
  */
 
-public class Users {
+public class Users implements Serializable {
     private String userId;
     private String name, profileImageUrl, bio, interest;
     private int age;

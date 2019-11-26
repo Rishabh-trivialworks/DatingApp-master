@@ -3,7 +3,9 @@ package com.quintus.labs.datingapp.rest;
 import android.content.Intent;
 
 import com.google.gson.Gson;
+import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.SplashActivity;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.AppContext;
 import com.quintus.labs.datingapp.Utils.NetworkUtil;
@@ -76,7 +78,7 @@ public abstract class RestCallBack<T> implements Callback<T> {
                 ResponseModel responseModel = gson.fromJson(response.errorBody().string(), ResponseModel.class);
 
                 //Send user to login screen if authentication error comes...
-                if (responseModel.success.equals(AppConstants.ApiParamValue.AUTHENTICATION_ERROR)) {
+                if (responseModel.statusCode.equals(AppConstants.ApiParamValue.AUTHENTICATION_ERROR)) {
                     Intent intent;
 //                    if (AppSharedPreferences.getInstance().getUserName() != null && !AppSharedPreferences.getInstance().getUserName().equalsIgnoreCase("")) {
 //                        intent = new Intent(AppContext.getInstance().getContext(), RegisterLoginActivity.class);
@@ -88,12 +90,16 @@ public abstract class RestCallBack<T> implements Callback<T> {
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 //
-//                    AppSharedPreferences.getInstance().clearAllData(false);
-//                    AppContext.getInstance().getContext().startActivity(intent);
+                    TempStorage.logoutUser();
+                    Intent in = new Intent(AppContext.getInstance().getContext(), Login.class);
+                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    AppContext.getInstance().getContext().startActivity(in);
 
-                } else if (responseModel.success.equals(AppConstants.ApiParamValue.FORCE_UPDATE_ERROR)) {
+                } else if (responseModel.statusCode.equals(AppConstants.ApiParamValue.FORCE_UPDATE_ERROR)) {
 
-                } else if (responseModel.success.equals(AppConstants.ApiParamValue.RESPONSE_ERROR)) {
+                } else if (responseModel.statusCode.equals(AppConstants.ApiParamValue.RESPONSE_ERROR)) {
 
                 }
 

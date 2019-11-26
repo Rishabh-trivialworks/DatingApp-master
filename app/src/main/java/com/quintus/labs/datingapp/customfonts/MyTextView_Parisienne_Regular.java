@@ -32,7 +32,7 @@ public class MyTextView_Parisienne_Regular extends TextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Parisienne-Regular.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/Parisienne-Regular.ttf");
             setTypeface(tf);
         }
     }

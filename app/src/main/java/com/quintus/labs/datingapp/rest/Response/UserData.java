@@ -133,6 +133,10 @@ public class UserData implements Serializable {
     @Expose
     private String religion;
 
+    @SerializedName("bio")
+    @Expose
+    private String bio;
+
 
     public int getId() {
         return id;
@@ -404,5 +408,13 @@ public class UserData implements Serializable {
 
     public void setReligion(String religion) {
         this.religion = religion;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

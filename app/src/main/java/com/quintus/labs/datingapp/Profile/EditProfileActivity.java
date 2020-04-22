@@ -30,8 +30,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.bumptech.glide.Glide;
+import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
@@ -60,31 +64,22 @@ import retrofit2.Response;
 
 
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
     private static final String TAG = "EditProfileActivity";
     private static final int PERMISSION_CALLBACK_CONSTANT = 100;
     //firebase
     private static final int REQUEST_PERMISSION_SETTING = 101;
     Button man, woman;
     TextView man_text, women_text,toolbartag;
-    ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView,imageViewOptions;
-    Bitmap myBitmap;
-    Uri picUri;
+    ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6,imageViewOptions;
+
+    TextView textViewAddImages;
     String[] permissionsRequired = new String[]{Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private Context mContext = EditProfileActivity.this;
-    private ImageView mProfileImage,back;
-    private String userId, profileImageUri;
-    private Uri resultUri;
-    private String userSex;
-    private EditText phoneNumber, aboutMe;
-    private CheckBox sportsCheckBox, travelCheckBox, musicCheckBox, fishingCheckBox;
-    private boolean isSportsClicked = false;
-    private boolean isTravelClicked = false;
-    private boolean isFishingClicked = false;
-    private boolean isMusicClicked = false;
-    private RadioGroup userSexSelection;
+    private ImageView back;
+
     private SharedPreferences permissionStatus;
     private boolean sentToSettings = false;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -92,7 +87,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private Context context;
     private UserData userInfo;
     private ImageModel selectedImageModel;
-    private RelativeLayout control_profile;
+    private RelativeLayout control_profile,logout;
+    private MyRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +106,10 @@ public class EditProfileActivity extends AppCompatActivity {
         imageView5 = findViewById(R.id.image_view_5);
         imageView6 = findViewById(R.id.image_view_6);
         imageViewOptions = findViewById(R.id.imageViewOptions);
+        textViewAddImages = findViewById(R.id.textViewAddImages);
         toolbartag = findViewById(R.id.textViewTitle);
         control_profile = findViewById(R.id.control_profile);
+        logout = findViewById(R.id.logout);
 
         toolbartag.setText("Manage Profile");
         imageViewOptions.setVisibility(View.GONE);
@@ -121,12 +121,27 @@ public class EditProfileActivity extends AppCompatActivity {
         back = findViewById(R.id.imageViewBack);
         context = this;
         userInfo=TempStorage.getUser();
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+
+        recyclerView = findViewById(R.id.rvNumbers);
+        adapter = new MyRecyclerViewAdapter(this);
+        adapter.setClickListener(this);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        try {
+            ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.debug(e.getMessage());
+        }
+
+        back.setOnClickListener(v -> onBackPressed());
+        textViewAddImages.setOnClickListener(v->{
+            proceedAfterPermission();
         });
+
+
+
         control_profile.setOnClickListener(v -> {
             Intent i = new Intent(context,EditProfileNewActivity.class);
             startActivity(i);
@@ -141,83 +156,77 @@ public class EditProfileActivity extends AppCompatActivity {
 
         }
 
-        woman.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                userInfo.setInterested("Female");
-                setUpGeneder(women_text,woman,man_text,man);
-                updateProfile();
+        woman.setOnClickListener(v -> {
+            userInfo.setInterested("Female");
+            setUpGeneder(women_text,woman,man_text,man);
+            updateProfile();
 
-            }
         });
 
-        man.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                userInfo.setInterested("Male");
-                setUpGeneder(man_text,man,women_text,woman);
-                updateProfile();
+        man.setOnClickListener(v -> {
+            userInfo.setInterested("Male");
+            setUpGeneder(man_text,man,women_text,woman);
+            updateProfile();
 
 
-            }
+        });
+        logout.setOnClickListener(v -> {
+            TempStorage.logoutUser();
+            Intent i = new Intent(mContext, Login.class);
+            startActivity(i);
+            finish();
         });
 
 
-
-        imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView1;
-                proceedAfterPermission();
-
-            }
-        });
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView2;
-                proceedAfterPermission();
-
-            }
-        });
-
-        imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView3;
-                proceedAfterPermission();
-
-            }
-        });
-
-        imageView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView4;
-                proceedAfterPermission();
-
-            }
-        });
-
-        imageView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView5;
-                proceedAfterPermission();
-
-            }
-        });
-
-        imageView6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageView = imageView6;
-                proceedAfterPermission();
-
-            }
-        });
+//        imageView1.setOnClickListener(v -> {
+//            imageView = imageView1;
+//            proceedAfterPermission();
+//
+//        });
+//        imageView2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView = imageView2;
+//                proceedAfterPermission();
+//
+//            }
+//        });
+//
+//        imageView3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView = imageView3;
+//                proceedAfterPermission();
+//
+//            }
+//        });
+//
+//        imageView4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView = imageView4;
+//                proceedAfterPermission();
+//
+//            }
+//        });
+//
+//        imageView5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView = imageView5;
+//                proceedAfterPermission();
+//
+//            }
+//        });
+//
+//        imageView6.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imageView = imageView6;
+//                proceedAfterPermission();
+//
+//            }
+//        });
 
         setUpImages();
     }
@@ -233,70 +242,74 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     private void setUpImages(){
-        imageView1.setTag(null);
-        imageView2.setTag(null);
-        imageView3.setTag(null);
-        imageView4.setTag(null);
-        imageView5.setTag(null);
-        imageView6.setTag(null);
+//        imageView1.setTag(null);
+//        imageView2.setTag(null);
+//        imageView3.setTag(null);
+//        imageView4.setTag(null);
+//        imageView5.setTag(null);
+//        imageView6.setTag(null);
+
 
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
-           for(int i=0;i<6;i++){
-               String url=null;
-               int tagId=-1;
-               try{
-                   if(userInfo.getMedia().get(i)!=null){
-                       url = "http://"+userInfo.getMedia().get(i).getUrl();
-                       tagId = userInfo.getMedia().get(i).getId();
-                   }
-               }catch (Exception e){
-
-               }
-
-
-               switch (i){
-                   case 0:
-
-                       setUpImage(url,tagId,imageView1);
-
-
-                       break;
-                   case 1:
-                       setUpImage(url,tagId,imageView2);
-
-
-                       break;
-                   case 2:
-                       setUpImage(url,tagId,imageView3);
-
-
-
-                       break;
-                   case 3:
-                       setUpImage(url,tagId,imageView4);
-
-
-                       break;
-                   case 4:
-                       setUpImage(url,tagId,imageView5);
-
-
-                       break;
-                   case 5:
-                       setUpImage(url,tagId,imageView6);
-                       break;
-               }
-           }
+            adapter.clearImages();
+            adapter.addImages(userInfo.getMedia());
+            adapter.notifyDataSetChanged();
+//           for(int i=0;i<6;i++){
+//               String url=null;
+//               int tagId=-1;
+//               try{
+//                   if(userInfo.getMedia().get(i)!=null){
+//                       url = "http://"+userInfo.getMedia().get(i).getUrl();
+//                       tagId = userInfo.getMedia().get(i).getId();
+//                   }
+//               }catch (Exception e){
+//
+//               }
+//
+//
+//               switch (i){
+//                   case 0:
+//
+//                       setUpImage(url,tagId,imageView1);
+//
+//
+//                       break;
+//                   case 1:
+//                       setUpImage(url,tagId,imageView2);
+//
+//
+//                       break;
+//                   case 2:
+//                       setUpImage(url,tagId,imageView3);
+//
+//
+//
+//                       break;
+//                   case 3:
+//                       setUpImage(url,tagId,imageView4);
+//
+//
+//                       break;
+//                   case 4:
+//                       setUpImage(url,tagId,imageView5);
+//
+//
+//                       break;
+//                   case 5:
+//                       setUpImage(url,tagId,imageView6);
+//                       break;
+//               }
+//           }
         }
     }
 
-    private void setUpImage(String url,int tag,ImageView imageView){
-        if(url!=null){
-            Glide.with(context).load(url).into(imageView);
-            imageView6.setTag(tag);
-        }
-
-    }
+//    private void setUpImage(String url,int tag,ImageView imageView){
+//        if(url!=null){
+//            Glide.with(context).load(url).into(imageView);
+//            imageView6.setTag(tag);
+//        }
+//
+//    }
 
 
     private void requestMultiplePermissions() {
@@ -367,89 +380,84 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void proceedAfterPermission() {
 
-        if(imageView.getTag()!=null){
-            int id = (int) imageView.getTag();
-
-            CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel","Delete Image"};
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
-
-            builder.setTitle("Add Photo!");
-
-            builder.setItems(options, new DialogInterface.OnClickListener() {
-
-                @Override
-
-                public void onClick(DialogInterface dialog, int item) {
-
-                    if (options[item].equals("Take Photo"))
-
-                    {
-
-                        cameraIntent();
-
-                    } else if (options[item].equals("Choose from Gallery"))
-
-                    {
-
-                        galleryIntent();
-
-
-                    } else if (options[item].equals("Cancel")) {
-
-                        dialog.dismiss();
-
-                    }
-                    else if (options[item].equals("Delete Image")) {
-
-                        dialog.dismiss();
-                        deleteImage(id);
-
-                    }
-
-                }
-
-            });
-
-            builder.show();
-        }
-        else{
+//        if(imageView.getTag()!=null){
+//            int id = (int) imageView.getTag();
+//
+//            CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel","Delete Image"};
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+//
+//            builder.setTitle("Add Photo!");
+//
+//            builder.setItems(options, new DialogInterface.OnClickListener() {
+//
+//                @Override
+//
+//                public void onClick(DialogInterface dialog, int item) {
+//
+//                    if (options[item].equals("Take Photo"))
+//
+//                    {
+//
+//                        cameraIntent();
+//
+//                    } else if (options[item].equals("Choose from Gallery"))
+//
+//                    {
+//
+//                        galleryIntent();
+//
+//
+//                    } else if (options[item].equals("Cancel")) {
+//
+//                        dialog.dismiss();
+//
+//                    }
+//                    else if (options[item].equals("Delete Image")) {
+//
+//                        dialog.dismiss();
+//                        deleteImage(id);
+//
+//                    }
+//
+//                }
+//
+//            });
+//
+//            builder.show();
+//        }
+//        else{
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
 
             builder.setTitle("Add Photo!");
 
-            builder.setItems(options, new DialogInterface.OnClickListener() {
+            builder.setItems(options, (dialog, item) -> {
 
-                @Override
+                if (options[item].equals("Take Photo"))
 
-                public void onClick(DialogInterface dialog, int item) {
+                {
 
-                    if (options[item].equals("Take Photo"))
+                    cameraIntent();
 
-                    {
+                } else if (options[item].equals("Choose from Gallery"))
 
-                        cameraIntent();
+                {
 
-                    } else if (options[item].equals("Choose from Gallery"))
-
-                    {
-
-                        galleryIntent();
+                    galleryIntent();
 
 
-                    } else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals("Cancel")) {
 
-                        dialog.dismiss();
-
-                    }
+                    dialog.dismiss();
 
                 }
 
             });
 
-            builder.show();        }
+            builder.show();
+    //}
 
 
 
@@ -508,7 +516,7 @@ public class EditProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        imageView.setImageBitmap(thumbnail);
+        //imageView.setImageBitmap(thumbnail);
         try {
             uploadImage(getFile(thumbnail));
         } catch (IOException e) {
@@ -528,7 +536,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
 
-        imageView.setImageBitmap(bm);
+       // imageView.setImageBitmap(bm);
         try {
             uploadImage(getFile(bm));
         } catch (IOException e) {
@@ -575,10 +583,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadImage(File file){
-        if(imageView.getTag()!=null){
-            int id = (int) imageView.getTag();
-            deleteImage(id);
-        }
+//        if(imageView.getTag()!=null){
+//            int id = (int) imageView.getTag();
+//            deleteImage(id);
+//        }
         try {
             file = new Compressor.Builder(this)
                     .setMaxWidth(1280)
@@ -677,7 +685,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void updateProfile(){
         EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(userInfo.getEmail(), userInfo.getFullName(),"USER",userInfo.getGender(),userInfo.getDob(),userInfo.getInterested(),
-                userInfo.getMinRange(),userInfo.getMaxRange(), userInfo.getDistance() );
+                userInfo.getMinRange(),userInfo.getMaxRange(), userInfo.getDistance(),userInfo.getMobile() );
         Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().updateUser(updateRequest);
         responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
             @Override
@@ -700,6 +708,28 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClick(View view, int position, ImageModel model) {
+
+
+        switch (view.getId()){
+            case R.id.delete:
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+                builder.setTitle("Are You Sure?");
+                builder.setMessage("Do you really want to remove this picture?");
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    dialog.cancel();
+                    deleteImage(model.getId());
+
+                });
+                builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+                builder.show();
+
+                break;
+        }
+
     }
 }
 

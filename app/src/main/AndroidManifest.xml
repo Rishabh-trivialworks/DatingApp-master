@@ -51,6 +51,12 @@
         <activity android:name=".Profile.SettingsActivity" />
         <activity android:name=".Main.BtnLikeActivity" />
         <activity android:name=".Main.BtnDislikeActivity" />
+        <service android:name=".xmpp.MyService"
+            />
+
+        <activity android:name=".chatview.activities.ImageFFActivity"></activity>
+        <activity android:name=".chatview.activities.VideoFFActivity"></activity>
+
     </application>
 
 </manifest>

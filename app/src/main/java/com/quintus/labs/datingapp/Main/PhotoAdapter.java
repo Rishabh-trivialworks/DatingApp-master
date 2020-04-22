@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
 
 import java.util.List;
 
@@ -45,30 +46,31 @@ public class PhotoAdapter extends ArrayAdapter<Cards> {
         ImageButton btnInfo = convertView.findViewById(R.id.checkInfoBeforeMatched);
 
         name.setText(card_item.getName() + ", " + card_item.getAge());
-        btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProfileCheckinMain.class);
-                intent.putExtra("name", card_item.getName() + ", " + card_item.getAge());
-                intent.putExtra("photo", card_item.getProfileImageUrl());
-                intent.putExtra("bio", card_item.getBio());
-                intent.putExtra("interest", card_item.getInterest());
-                intent.putExtra("distance", card_item.getDistance());
-                mContext.startActivity(intent);
-            }
+        btnInfo.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, ProfileCheckinMain.class);
+            intent.putExtra("name", card_item.getName() + ", " + card_item.getAge());
+            intent.putExtra("photo", card_item.getProfileImageUrl());
+            intent.putExtra("bio", card_item.getBio());
+            intent.putExtra("interest", card_item.getInterest());
+            intent.putExtra("distance", card_item.getDistance());
+            intent.putExtra("gender", card_item.getGender());
+
+            mContext.startActivity(intent);
         });
 
         name.setText(card_item.getName() + ", " + card_item.getAge());
 
-        switch (card_item.getProfileImageUrl()) {
-            case "defaultFemale":
-                Glide.with(getContext()).load(R.drawable.default_woman).into(image);
+
+
+        switch (card_item.getGender()) {
+            case "Female":
+                GlideUtils.loadImage(getContext(),card_item.getProfileImageUrl(),image,R.drawable.default_woman);
                 break;
-            case "defaultMale":
-                Glide.with(getContext()).load(R.drawable.default_man).into(image);
+            case "Male":
+                GlideUtils.loadImage(getContext(),card_item.getProfileImageUrl(),image,R.drawable.default_man);
                 break;
             default:
-                Glide.with(getContext()).load(card_item.getProfileImageUrl()).into(image);
+                GlideUtils.loadImage(getContext(),card_item.getProfileImageUrl(),image,R.drawable.default_man);
                 break;
         }
 

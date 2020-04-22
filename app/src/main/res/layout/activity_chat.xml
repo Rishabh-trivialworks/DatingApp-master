@@ -29,6 +29,31 @@
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="enterAlways|scroll" />
     </com.google.android.material.appbar.AppBarLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/layoutProgress"
+       android:background="@color/colorAccent"
+       android:orientation="vertical"
+       android:visibility="gone"
+       >
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/sending_message"
+           android:id="@+id/progressText"
+           android:layout_marginLeft="@dimen/margin_20"
+           android:layout_marginTop="@dimen/margin_10"
+           android:layout_marginBottom="@dimen/margin_10"
+           android:textColor="@color/white"
+
+           >
+
+
+       </TextView>
+
+   </LinearLayout>
 
     <com.quintus.labs.datingapp.chatview.widget.ChatView
         android:id="@+id/chatView"
@@ -39,6 +64,7 @@
         app:rightBubbleLayoutColor="@color/colorAccent2"
         app:rightBubbleTextColor="@android:color/black"
         app:showSenderLayout="true"
-        app:showSenderName="true"></com.quintus.labs.datingapp.chatview.widget.ChatView>
+        app:showSenderName="true"
+        ></com.quintus.labs.datingapp.chatview.widget.ChatView>
 
 </LinearLayout>

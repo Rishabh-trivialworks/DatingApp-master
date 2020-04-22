@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quintus.labs.datingapp.R;
-import com.squareup.picasso.Picasso;
+import com.quintus.labs.datingapp.Utils.ImageUtils;
 
 import java.util.List;
 
@@ -46,7 +46,8 @@ public class ActiveUserAdapter extends RecyclerView.Adapter<ActiveUserAdapter.My
         Users users = usersList.get(position);
         holder.name.setText(users.getName());
         if (users.getProfileImageUrl() != null) {
-            Picasso.get().load(users.getProfileImageUrl()).into(holder.imageView);
+            ImageUtils.setImage(context,users.getProfileImageUrl(),holder.imageView);
+
         }
     }
 

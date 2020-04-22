@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/actionSeeProfile"
+        android:icon="@drawable/view_icon"
+        android:iconTint="@color/theme_dark_text"
+        android:title="@string/see_profile"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:id="@+id/actionDeleteHistory"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="@color/theme_dark_text"
+        android:title="@string/delete_history"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:id="@+id/actionCancelCrush"
+        android:icon="@drawable/ic_cancel"
+        android:iconTint="@color/theme_dark_text"
+        android:title="@string/cancel_this_crush"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:id="@+id/actionBlock"
+        android:icon="@drawable/ic_block"
+        android:iconTint="@color/theme_dark_text"
+        android:title="@string/block_report"
+        app:showAsAction="ifRoom">
+
+    </item>
+
+
+    See profile
+    Delete history
+    Cancel this crush
+    Block and report
+
+</menu>

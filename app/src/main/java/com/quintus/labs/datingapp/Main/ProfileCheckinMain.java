@@ -4,24 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
 
-/**
- * DatingApp
- * https://github.com/quintuslabs/DatingApp
- * Created on 25-sept-2018.
- * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
- */
+
 public class ProfileCheckinMain extends AppCompatActivity {
 
     private Context mContext;
     String profileImageUrl;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,31 +42,50 @@ public class ProfileCheckinMain extends AppCompatActivity {
         TextView profileBio = findViewById(R.id.bio_beforematch);
         TextView profileInterest = findViewById(R.id.interests_beforematch);
         TextView profileDistance = findViewById(R.id.distance_main);
+        LinearLayout layoutBio = findViewById(R.id.layoutBio);
+        LinearLayout layoutIntrest = findViewById(R.id.layoutIntrest);
+        Button close = findViewById(R.id.close);
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String bio = intent.getStringExtra("bio");
         String interest = intent.getStringExtra("interest");
         int distance = intent.getIntExtra("distance", 1);
+         id = intent.getIntExtra("id", -1);
+         String gender = intent.getStringExtra("gender");
+
         String append = (distance == 1) ? "mile away" : "miles away";
 
         profileDistance.setText(distance + " " + append);
         profileName.setText(name);
-        profileBio.setText(bio);
-        profileInterest.setText(interest);
+        if(bio!=null&&bio.length()>0){
+            profileBio.setText(bio);
+        }else{
+            layoutBio.setVisibility(View.GONE);
+        }
+        if(interest!=null&&interest.length()>0){
+            profileInterest.setText(interest);
+        }else{
+            layoutIntrest.setVisibility(View.GONE);
+        }
+
 
         profileImageUrl = intent.getStringExtra("photo");
-        switch (profileImageUrl) {
-            case "defaultFemale":
-                Glide.with(mContext).load(R.drawable.default_woman).into(profileImage);
+
+        switch (gender) {
+            case "Female":
+                GlideUtils.loadImage(mContext,profileImageUrl,profileImage,R.drawable.default_woman);
                 break;
-            case "defaultMale":
-                Glide.with(mContext).load(R.drawable.default_man).into(profileImage);
+            case "Male":
+                GlideUtils.loadImage(mContext,profileImageUrl,profileImage,R.drawable.default_man);
                 break;
             default:
-                Glide.with(mContext).load(profileImageUrl).into(profileImage);
+                GlideUtils.loadImage(mContext,profileImageUrl,profileImage,R.drawable.default_man);
                 break;
         }
+        close.setOnClickListener(v -> {
+           finish();
+        });
     }
 
 
@@ -75,14 +93,18 @@ public class ProfileCheckinMain extends AppCompatActivity {
 
             Intent btnClick = new Intent(mContext, BtnDislikeActivity.class);
             btnClick.putExtra("url", profileImageUrl);
-            startActivity(btnClick);
+        btnClick.putExtra("id", id);
+
+        startActivity(btnClick);
 
     }
 
     public void LikeBtn(View v) {
             Intent btnClick = new Intent(mContext, BtnLikeActivity.class);
             btnClick.putExtra("url", profileImageUrl);
-            startActivity(btnClick);
+        btnClick.putExtra("id", id);
+
+        startActivity(btnClick);
 
     }
 

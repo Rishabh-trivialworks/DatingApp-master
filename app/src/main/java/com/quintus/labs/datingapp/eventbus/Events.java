@@ -4,6 +4,33 @@ package com.quintus.labs.datingapp.eventbus;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
 
 public class Events {
+    public static class XMPP {
+
+        public int progress;
+
+        public enum Callback {
+            CONNECTING,
+            AUTHENTICATED,
+            CHECKING_MESSAGES_STARED,
+            CHECKING_MESSAGES_PROGRESS,
+            CHECKING_MESSAGES_COMPLETED
+        }
+
+        public Callback callback;
+        private long messageTime;
+
+        public XMPP(Callback callback) {
+            this.callback = callback;
+        }
+
+        public long getMessageTime() {
+            return messageTime;
+        }
+
+        public void setMessageTime(long messageTime) {
+            this.messageTime = messageTime;
+        }
+    }
 
 
     public static class AddressUpdate {

@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.InfoScreenData;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
@@ -115,7 +116,8 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     private void setUserInfo(){
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
-            Glide.with(context).load("http://"+userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+
+            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
 
         }
         setViewPagerAdapter();
@@ -160,7 +162,8 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     private void setViewPagerAdapter() {
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>1){
-            Glide.with(context).load("http://"+userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
+
             List<InfoScreenData> infoScreenDataList = new ArrayList<>(userInfo.getMedia().size());
             for (ImageModel model:userInfo.getMedia()) {
                 infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), model.getUrl()));

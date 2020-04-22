@@ -258,4 +258,5 @@
     <color name="transparent_white_percent_85">#D9ffffff</color>
     <color name="transparent_white_percent_90">#E6ffffff</color>
     <color name="transparent_white_percent_95">#F2ffffff</color>
+    <color name="theme_dark_text">#031d22</color>
 </resources>

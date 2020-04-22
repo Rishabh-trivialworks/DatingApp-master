@@ -19,4 +19,7 @@ public class EventBroadcastHelper {
     public static  void  sendPaymentStatus(){
         GlobalBus.getBus().post(new Events.paymentUpdateRsa());
     }
+    public static void sendXMPPConnecting() {
+        GlobalBus.getBus().post(new Events.XMPP(Events.XMPP.Callback.CONNECTING));
+    }
 }

@@ -33,11 +33,41 @@
                     android:background="@color/backgroungColor"
                     android:orientation="vertical"
                     android:visibility="visible">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNumbers"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/textViewAddImages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/theme_rounded_corner_button_filled"
+                        android:clickable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:letterSpacing="@dimen/button_letter_spacing"
+                        android:text="@string/add_images"
+                        android:paddingTop="@dimen/margin_10"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_small"
+                        android:layout_weight="1.1"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:focusable="true"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:visibility="gone"
 
                         android:weightSum="10">
 
@@ -179,7 +209,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="3">
+                        android:weightSum="3"
+                        android:visibility="gone"
+                        >
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -594,7 +626,52 @@
                             app:track="@null" />
 
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:id="@+id/logout"
 
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Logout"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_forward"
+                            >
+
+
+                        </ImageView>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:button="@drawable/custom_switch"
+                            android:checked="false"
+                            android:thumb="@null"
+                            app:track="@null"
+                            android:visibility="gone"
+                            />
+
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

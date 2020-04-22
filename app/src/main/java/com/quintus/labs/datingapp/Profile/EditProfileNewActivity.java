@@ -61,18 +61,18 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
             nice_spinner_smoking,nice_spinner_drinking,nice_spinner_exercise,nice_spinner_education;
     private String zodiac="",religion="",politicalLeanings="",kids="",pets="",
             lookingFor="",smoking="",drinking="",exercise="",education="";
-    private EditText input_height;
+    private EditText input_height,edit_text_bio,edit_text_email,edit_text_phone;
 
-    List<String> datasetRelogion = new LinkedList<>(Arrays.asList("Agnostic", "Atheist", "Buddhist", "Christian", "Hindu", "Jewish", "Zoroastrian", "Sikh", "Spiritual", "Other"));
-    List<String> datasetZodiac = new LinkedList<>(Arrays.asList("Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo"));
-    List<String> datasetPoliticalLeanings = new LinkedList<>(Arrays.asList("Apolitical", "Moderate", "Left", "Right"));
-    List<String> datasetKids = new LinkedList<>(Arrays.asList("Want Someday", "Don’t want", "Have and want more", "Have and don’t want more"));
-    List<String> datasetPets = new LinkedList<>(Arrays.asList("Dog(s)", "Cat(s)", "None", "Don’t Want", "Lots"));
-    List<String> datasetLookingFor = new LinkedList<>(Arrays.asList("Relationship", "Something Casual", "Don’t Know yet", "Marriage"));
-    List<String> datasetsmoking = new LinkedList<>(Arrays.asList("Socially", "Regularly", "Never"));
-    List<String> datasetDrinking = new LinkedList<>(Arrays.asList("Socially", "Frequently", "Never"));
-    List<String>  datasetEducation = new LinkedList<>(Arrays.asList("High School", "Vocational School", "In College", "Undergraduate Degree", "In Grad School", "Graduate Degree"));
-    List<String> datasetExercise = new LinkedList<>(Arrays.asList("Active", "Sometimes", "Almost Never"));
+    List<String> datasetRelogion = new LinkedList<>(Arrays.asList("Select","Agnostic", "Atheist", "Buddhist", "Christian", "Hindu", "Jewish", "Zoroastrian", "Sikh", "Spiritual", "Other"));
+    List<String> datasetZodiac = new LinkedList<>(Arrays.asList("Select","Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo"));
+    List<String> datasetPoliticalLeanings = new LinkedList<>(Arrays.asList("Select","Apolitical", "Moderate", "Left", "Right"));
+    List<String> datasetKids = new LinkedList<>(Arrays.asList("Select","Want Someday", "Don’t want", "Have and want more", "Have and don’t want more"));
+    List<String> datasetPets = new LinkedList<>(Arrays.asList("Select","Dog(s)", "Cat(s)", "None", "Don’t Want", "Lots"));
+    List<String> datasetLookingFor = new LinkedList<>(Arrays.asList("Select","Relationship", "Something Casual", "Don’t Know yet", "Marriage"));
+    List<String> datasetsmoking = new LinkedList<>(Arrays.asList("Select","Socially", "Regularly", "Never"));
+    List<String> datasetDrinking = new LinkedList<>(Arrays.asList("Select","Socially", "Frequently", "Never"));
+    List<String>  datasetEducation = new LinkedList<>(Arrays.asList("Select","High School", "Vocational School", "In College", "Undergraduate Degree", "In Grad School", "Graduate Degree"));
+    List<String> datasetExercise = new LinkedList<>(Arrays.asList("Select","Active", "Sometimes", "Almost Never"));
 
 
 
@@ -102,6 +102,9 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
         textViewAgeMax =(TextView) findViewById(R.id.textViewAgeMax);
         textViewAgeMin =(TextView) findViewById(R.id.textViewAgeMin);
         input_height = findViewById(R.id.input_height);
+        edit_text_bio = findViewById(R.id.edit_text_bio);
+        edit_text_email = findViewById(R.id.edit_text_email);
+        edit_text_phone = findViewById(R.id.edit_text_phone);
 
 
         textViewMax.setText(TempStorage.getUser().getMaxRange()+"");
@@ -109,6 +112,13 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
 
         textViewAgeMax.setText(TempStorage.getUser().getMaxRange()+"");
         textViewAgeMin.setText(TempStorage.getUser().getMinRange()+"");
+
+        if(TempStorage.getUser().getEmail()!=null){
+            edit_text_email.setText(TempStorage.getUser().getEmail());
+        }
+        if(TempStorage.getUser().getMobile()!=null){
+            edit_text_phone.setText(TempStorage.getUser().getMobile());
+        }
 
 
         toolbar=(Toolbar)findViewById(R.id.toolbar);
@@ -191,7 +201,9 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
                 textViewMin.setText(String.valueOf(value));
             }
         });
-
+           if(userInfo.getAbout()!=null&&userInfo.getAbout().length()>0){
+               edit_text_bio.setText(userInfo.getAbout());
+           }
         logoutLayout.setOnClickListener(v -> {
             TempStorage.logoutUser();
             Intent in = new Intent(EditProfileNewActivity.this, Login.class);
@@ -245,10 +257,13 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
     }
   private void updateProfile(){
         String intrestedIn = menSwitch.isChecked()?"Male":"Female";
-        double height = input_height.getText().toString().length()>0?Double.parseDouble(input_height.getText().toString()):0;
-        EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(userInfo.getEmail(), userInfo.getFullName(),"USER",userInfo.getGender(),userInfo.getDob(),intrestedIn,
+        String email = edit_text_email.getText().toString().isEmpty()?userInfo.getEmail():edit_text_email.getText().toString();
+      String phone = edit_text_phone.getText().toString().isEmpty()?userInfo.getMobile():edit_text_phone.getText().toString();
+
+      double height = input_height.getText().toString().length()>0?Double.parseDouble(input_height.getText().toString()):0;
+        EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(email, userInfo.getFullName(),"USER",userInfo.getGender(),userInfo.getDob(),intrestedIn,
              Integer.valueOf(textViewAgeMin.getText().toString()), Integer.valueOf(textViewAgeMax.getText().toString()), Integer.valueOf(textViewMin.getText().toString()),
-              exercise,education,drinking,smoking,lookingFor,pets,kids,politicalLeanings,religion,zodiac,height);
+              exercise,education,drinking,smoking,lookingFor,pets,kids,politicalLeanings,religion,zodiac,height,edit_text_bio.getText().toString(),phone);
       Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().updateUser(updateRequest);
       responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
           @Override
@@ -367,46 +382,49 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
 
     @Override
     public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
-        switch (parent.getId()){
-            case R.id.nice_spinner_zodiac:
-                zodiac = (String) parent.getItemAtPosition(position);
-                break;
-            case R.id.nice_spinner_religion:
-                religion = (String) parent.getItemAtPosition(position);
+        if(position>0){
+            switch (parent.getId()){
+                case R.id.nice_spinner_zodiac:
+                    zodiac = (String) parent.getItemAtPosition(position);
+                    break;
+                case R.id.nice_spinner_religion:
+                    religion = (String) parent.getItemAtPosition(position);
 
-                break;
+                    break;
                 case R.id.nice_spinner_exercise:
                     exercise = (String) parent.getItemAtPosition(position);
 
                     break;
-            case R.id.nice_spinner_education:
-                education = (String) parent.getItemAtPosition(position);
+                case R.id.nice_spinner_education:
+                    education = (String) parent.getItemAtPosition(position);
 
-                break;
-            case R.id.nice_spinner_drinking:
-                drinking = (String) parent.getItemAtPosition(position);
+                    break;
+                case R.id.nice_spinner_drinking:
+                    drinking = (String) parent.getItemAtPosition(position);
 
-                break;
+                    break;
                 case R.id.nice_spinner_smoking:
                     smoking = (String) parent.getItemAtPosition(position);
 
                     break;
-            case R.id.nice_spinner_lookingFor:
-                lookingFor = (String) parent.getItemAtPosition(position);
+                case R.id.nice_spinner_lookingFor:
+                    lookingFor = (String) parent.getItemAtPosition(position);
 
-                break;
-            case R.id.nice_spinner_pets:
-                pets = (String) parent.getItemAtPosition(position);
+                    break;
+                case R.id.nice_spinner_pets:
+                    pets = (String) parent.getItemAtPosition(position);
 
-                break;
-            case R.id.nice_spinner_kids:
-                kids = (String) parent.getItemAtPosition(position);
+                    break;
+                case R.id.nice_spinner_kids:
+                    kids = (String) parent.getItemAtPosition(position);
 
-                break;
-            case R.id.nice_spinner_politicalLeanings:
-                politicalLeanings = (String) parent.getItemAtPosition(position);
+                    break;
+                case R.id.nice_spinner_politicalLeanings:
+                    politicalLeanings = (String) parent.getItemAtPosition(position);
 
-                break;
+                    break;
+            }
         }
+
     }
 }

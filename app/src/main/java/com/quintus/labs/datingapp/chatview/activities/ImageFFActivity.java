@@ -1,5 +1,6 @@
 package com.quintus.labs.datingapp.chatview.activities;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
@@ -12,11 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.quintus.labs.datingapp.R;
-import com.squareup.picasso.Picasso;
+import com.quintus.labs.datingapp.Utils.ImageUtils;
 
 public class ImageFFActivity extends AppCompatActivity {
 
     PhotoView photoView;
+    Context context;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +27,13 @@ public class ImageFFActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null) {
             getSupportActionBar().hide();
         }
+        context =this;
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_image_ff);
 
         photoView = findViewById(R.id.photoView);
-        Picasso.get().load(getIntent().getStringExtra("photoURI")).into(photoView);
+        ImageUtils.setImage(context,getIntent().getStringExtra("photoURI"),photoView);
         getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.image_transition));
         photoView.setTransitionName("photoTransition");
     }

@@ -128,7 +128,9 @@
                             android:minHeight="40dp"
                             android:id="@+id/audioMRL"
                             android:minWidth="40dp"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            >
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

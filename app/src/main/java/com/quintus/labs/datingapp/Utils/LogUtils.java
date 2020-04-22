@@ -26,10 +26,25 @@ public class LogUtils {
         log("VarunDebug", msg);
     }
 
+
+
+
+
+    public static void newMessagesXMPP(String msg) {
+        log("newMessagesXMPP", "Varun XMPP : " + msg);
+    }
+
+    public static void newCheckerXMPP(String msg) {
+        log("newCheckerXMPP", msg);
+    }
+
+
+
     private static void log(String tag, String msg) {
         if (MyApplication.SHOW_LOG) {
             Log.d(tag, msg);
         }
     }
+
 
 }

@@ -35,7 +35,7 @@ public class Message {
     protected String body;
     protected String time;
     protected String status;
-    protected List<Uri> imageList;
+    protected List<String> imageList;
     protected String userName;
     protected String userIcon;
     protected Uri videoUri;
@@ -124,11 +124,11 @@ public class Message {
         this.status = status;
     }
 
-    public List<Uri> getImageList() {
+    public List<String> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<Uri> imageList) {
+    public void setImageList(List<String> imageList) {
         this.imageList = imageList;
     }
 

@@ -31,6 +31,7 @@ import com.quintus.labs.datingapp.Utils.TransparentProgressDialog;
 import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
+import com.quintus.labs.datingapp.rest.Response.Interest;
 import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.RestCallBack;
@@ -128,9 +129,27 @@ public class MainActivity extends Activity {
                             String year = segments[0];
                             String month = segments[1];
                             String day = segments[2];
+                            String intrest = "";
 
                             String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
-                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "http://"+response.data.get(i).getMedia().get(0).getUrl(), response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance());
+                            if(response.data.get(i).getInterests()!=null&&response.data.get(i).getInterests().size()>0){
+                                for (Interest intr:response.data.get(i).getInterests()
+                                     ) {
+                                    intrest.concat(intr.getInterest());
+
+                                }
+                            }
+                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age),response.data.get(i).getMedia().get(0).getUrl() , response.data.get(i).getAbout(), intrest, response.data.get(i).getDistance(),response.data.get(i).getGender());
+                            rowItems.add(cards);
+                        }
+                        else{
+                            String segments[] = response.data.get(i).getDob().split("-");
+                            String year = segments[0];
+                            String month = segments[1];
+                            String day = segments[2];
+
+                            String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
+                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance(),response.data.get(i).getGender());
                             rowItems.add(cards);
                         }
 
@@ -264,7 +283,19 @@ public class MainActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
+                Cards card= (Cards) dataObject;
+                Intent i = new Intent(context,ProfileCheckinMain.class);
+                i.putExtra("name",card.getName());
+                i.putExtra("bio",card.getBio());
+                i.putExtra("interest",card.getInterest());
+                i.putExtra("distance",card.getDistance());
+                i.putExtra("photo",card.getProfileImageUrl());
+                i.putExtra("id",Integer.parseInt(card.getUserId()));
+                i.putExtra("gender",card.getGender());
+
+                startActivity(i);
+
+             //   Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
             }
         });
     }

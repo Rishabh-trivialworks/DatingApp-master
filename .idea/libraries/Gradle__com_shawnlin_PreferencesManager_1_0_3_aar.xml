@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.shawnlin:PreferencesManager:1.0.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bfdb4b362d94ea4a427d0cf716c72ad2/PreferencesManager-1.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bfdb4b362d94ea4a427d0cf716c72ad2/PreferencesManager-1.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01c86de92b26afb5a06f5a4f9568be53/PreferencesManager-1.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01c86de92b26afb5a06f5a4f9568be53/PreferencesManager-1.0.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shawnlin/PreferencesManager/1.0.3/1ba1246a07769127c4a06f579db1e6f330a2bcd8/PreferencesManager-1.0.3-javadoc.jar!/" />

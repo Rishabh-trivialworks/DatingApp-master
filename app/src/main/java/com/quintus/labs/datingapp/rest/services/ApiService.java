@@ -62,6 +62,11 @@ public interface ApiService {
     @PUT(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> updateUser(@Body EditProfileUpdateRequest editProfileUpdateRequest);
 
+
+    @Multipart
+    @POST(AppConstants.Url.CHATUPLOAD)
+    Call<ResponseModel<ImageModel>> chatUpload(@Part MultipartBody.Part fileType,@Part MultipartBody.Part file);
+
     @Multipart
     @PUT(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> fileUpload(@Part("fullName") RequestBody bodyfullName, @Part("gender") RequestBody bodygender,

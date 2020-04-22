@@ -1,9 +1,12 @@
 package com.quintus.labs.datingapp;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +23,8 @@ import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
+import com.quintus.labs.datingapp.xmpp.LocalBinder;
+import com.quintus.labs.datingapp.xmpp.MyService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +34,28 @@ import retrofit2.Response;
 public class SplashActivity extends AppCompatActivity {
 
     private Context mContext;
+    private MyService mService;
+    private boolean mBounded;
+    private static final String TAG = "Splash_Activity";
 
+
+    private final ServiceConnection mConnection = new ServiceConnection() {
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onServiceConnected(final ComponentName name,
+                                       final IBinder service) {
+            mService = ((LocalBinder<MyService>) service).getService();
+            mBounded = true;
+            Log.d(TAG, "onServiceConnected");
+        }
+
+        @Override
+        public void onServiceDisconnected(final ComponentName name) {
+            mService = null;
+            mBounded = false;
+            Log.d(TAG, "onServiceDisconnected");
+        }
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -40,6 +66,8 @@ public class SplashActivity extends AppCompatActivity {
         mContext=this;
         if(TempStorage.getUser()!=null){
             getUser();
+          //  doBindService();
+
 
         }
         new Handler().postDelayed(new Runnable() {
@@ -83,4 +111,25 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //doUnbindService();
+    }
+
+    void doBindService() {
+        bindService(new Intent(this, MyService.class), mConnection,
+                Context.BIND_AUTO_CREATE);
+    }
+
+    void doUnbindService() {
+        if (mConnection != null) {
+            unbindService(mConnection);
+        }
+    }
+
+    public MyService getmService() {
+        return mService;
+    }
+
 }

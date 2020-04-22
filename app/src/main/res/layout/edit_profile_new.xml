@@ -237,7 +237,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAgeMin">
+        app:layout_constraintTop_toBottomOf="@+id/textViewAgeMin"
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -256,6 +258,87 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/logoutLayout"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="Email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMin" />
+            <EditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="@dimen/_10dp"
+                android:inputType="text"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="Phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMin" />
+            <EditText
+                android:id="@+id/edit_text_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="@dimen/_10dp"
+                android:inputType="text"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="Bio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMin" />
+            <EditText
+                android:id="@+id/edit_text_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="@dimen/_10dp"
+                android:inputType="textMultiLine"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

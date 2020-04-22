@@ -11,11 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.quintus.labs.datingapp.Login.Login;
+import com.quintus.labs.datingapp.Main.Cards;
 import com.quintus.labs.datingapp.R;
-import com.quintus.labs.datingapp.SplashActivity;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
+import com.quintus.labs.datingapp.Utils.ImageUtils;
 import com.quintus.labs.datingapp.chat.ChatActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,10 +51,14 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MatchUserAdapter.MyViewHolder holder, int position) {
         Users users = usersList.get(position);
+        Cards cards = new Cards(String.valueOf(users.getUserId()), users.getName(), Integer.valueOf(users.getAge()),users.getProfileImageUrl() , users.getBio(), users.getInterest(), users.getDistance(),users.getGender());
+
         holder.name.setText(users.getName());
         holder.profession.setText(users.getBio());
+
         if (users.getProfileImageUrl() != null) {
-            Picasso.get().load(users.getProfileImageUrl()).into(holder.imageView);
+            //ImageUtils.setImage(context,users.getProfileImageUrl(),holder.imageView);
+            GlideUtils.loadImage(context,users.getProfileImageUrl(),holder.imageView,R.drawable.default_man);
         }
         holder.layoutMatchedUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +66,8 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
                 Intent in = new Intent(context, ChatActivity.class);
                 in.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 in.putExtra("user",users);
+                in.putExtra("card",cards);
+
                 context.startActivity(in);
             }
         });

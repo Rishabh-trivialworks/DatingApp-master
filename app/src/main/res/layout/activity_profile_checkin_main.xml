@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/close"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -51,7 +52,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/ic_down_arrow" />
+                    android:background="@drawable/ic_down_arrow"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
 
             <TextView
@@ -75,27 +78,62 @@
                 android:text="5 miles away"
                 android:textSize="18sp" />
 
-
-            <TextView
-                android:id="@+id/bio_beforematch"
+            <LinearLayout
+                android:id="@+id/layoutBio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Something about Victoria"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="Bio"></TextView>
+                <TextView
+                    android:id="@+id/bio_beforematch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Something about Victoria"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/interests_beforematch"
+            <LinearLayout
+                android:id="@+id/layoutIntrest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Dancing, Traveling, Love"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/intrest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="Intrests"></TextView>
+                <TextView
+                    android:id="@+id/interests_beforematch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Dancing, Traveling, Love"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
 
 
             <LinearLayout

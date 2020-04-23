@@ -13,7 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.ItsAMatchDialog;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
+import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
+import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.RestCallBack;
+import com.quintus.labs.datingapp.rest.RestServiceFactory;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -39,6 +49,25 @@ public class BtnLikeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String profileUrl = intent.getStringExtra("url");
+        int id = intent.getIntExtra("id",-1);
+        if(id>0){
+            requestFriend(AppConstants.ACCEPTED,id);
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent mainIntent = new Intent(BtnLikeActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                }
+            }).start();
+        }
 
         switch (profileUrl) {
             case "defaultFemale":
@@ -52,21 +81,7 @@ public class BtnLikeActivity extends AppCompatActivity {
                 break;
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
-                Intent mainIntent = new Intent(BtnLikeActivity.this, MainActivity.class);
-                startActivity(mainIntent);
-            }
-        }).start();
     }
 
     private void setupTopNavigationView() {
@@ -77,5 +92,45 @@ public class BtnLikeActivity extends AppCompatActivity {
         Menu menu = tvEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+    }
+
+    private void requestFriend(String status,int id){
+        // pd.show();
+        Call<ResponseModel<MatchedFriend>> responseModelCall = RestServiceFactory.createService().requestFriend( new AcceptRejectModel(id,status));
+
+
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<MatchedFriend>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<MatchedFriend>> call, String message) {
+                Intent mainIntent = new Intent(BtnLikeActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<MatchedFriend>> call, Response<ResponseModel<MatchedFriend>> restResponse, ResponseModel<MatchedFriend> response) {
+                if(isSuccessFull(response)){
+
+                    if(response.data.getReceiverStatus().equalsIgnoreCase(AppConstants.ACCEPTED)&&response.data.getSenderStatus().equalsIgnoreCase(AppConstants.ACCEPTED)){
+
+                        ItsAMatchDialog itsAMatchDialog = new ItsAMatchDialog(mContext, response.data, AppConstants.Navigation.HOME_PAGE);
+                        try {
+                            itsAMatchDialog.show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }else {
+                        Intent mainIntent = new Intent(BtnLikeActivity.this, MainActivity.class);
+                        startActivity(mainIntent);
+                    }
+
+                }
+
+            }
+        });
+
+
+
     }
 }

@@ -2,6 +2,7 @@ package com.quintus.labs.datingapp.rest.services;
 
 
 import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
 import com.quintus.labs.datingapp.rest.RequestModel.AddAddressRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.ChangepasswordRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.EditProfileUpdateRequest;
@@ -15,6 +16,7 @@ import com.quintus.labs.datingapp.rest.Response.AddressList;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.CatagoryList;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
+import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
 import com.quintus.labs.datingapp.rest.Response.MyBooking;
 import com.quintus.labs.datingapp.rest.Response.RSAList;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -44,6 +46,8 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
+
+
     @Headers("Content-type: application/json")
     @POST(AppConstants.Url.LOGIN)
     Call<ResponseModel<UserData>> login(@Body LoginRequest loginRequest);
@@ -57,6 +61,11 @@ public interface ApiService {
     @Headers("Content-type: application/json")
     @PUT(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> updateUser(@Body EditProfileUpdateRequest editProfileUpdateRequest);
+
+
+    @Multipart
+    @POST(AppConstants.Url.CHATUPLOAD)
+    Call<ResponseModel<ImageModel>> chatUpload(@Part MultipartBody.Part fileType,@Part MultipartBody.Part file);
 
     @Multipart
     @PUT(AppConstants.Url.GETUSER)
@@ -105,8 +114,17 @@ public interface ApiService {
     Call<ResponseModel<List<CardList>>> myFeeds();
 
     @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.REQUEST_FRIEND)
+    Call<ResponseModel<MatchedFriend>> requestFriend(@Body AcceptRejectModel acceptRejectModel);
+
+    @Headers("Content-type: application/json")
     @GET(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> getUserDetails();
+
+    @Headers("Content-type: application/json")
+    @GET(AppConstants.Url.FRIEND_LIST)
+    Call<ResponseModel<List<MatchedFriend>>> getFriendsList();
+
 
 
 

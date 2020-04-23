@@ -56,5 +56,22 @@
     <string name="mobile">Mobile</string>
 
     <string name="info_screen_desc_4">"I don't know where to start" Is no longer an excuse.</string>
+    <string name="updating_conversations">Loading conversations...</string>
+    <string name="search_messages">Search messages</string>
+    <string name="no_user_data">We faced an issue while loading your chat. Please restart the app to try again.</string>
+    <string name="you_are_marked_present">You were marked as present.</string>
+    <string name="empty_chat_message">Send a message.</string>
+    <string name="thank_you">Thank you</string>
+    <string name="its_a_match">You can now say hi to %s</string>
+    <string name="got_it">Got it</string>
+    <string name="i_l_do_it_later">I will Do it Later</string>
+    <string name="its_a_match_title">Its A Match</string>
+    <string name="say_hi">Say hi</string>
+    <string name="see_profile">See profile</string>
+    <string name="delete_history">Delete history</string>
+    <string name="cancel_this_crush">Cancel this crush</string>
+    <string name="block_report">Block and report</string>
+    <string name="add_images">Add Images</string>
+    <string name="sending_message">Sending message please wait(%d Completed)</string>
 
 </resources>

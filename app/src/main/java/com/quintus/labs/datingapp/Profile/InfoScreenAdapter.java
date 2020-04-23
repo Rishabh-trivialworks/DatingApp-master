@@ -13,6 +13,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.InfoScreenData;
 
 import java.util.List;
@@ -40,7 +41,8 @@ public class InfoScreenAdapter extends PagerAdapter {
         ImageView image = view.findViewById(R.id.image);
         TextView text = view.findViewById(R.id.text);
         InfoScreenData infoScreenData = infoScreenDataList.get(position);
-        Glide.with(context).load("http://"+infoScreenData.url).into(image);
+        GlideUtils.loadImage(context,infoScreenData.url,image,R.drawable.info_screen_1);
+
         text.setText(infoScreenData.text);
 
         return view;

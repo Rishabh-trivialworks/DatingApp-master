@@ -66,4 +66,7 @@ public class TempStorage {
     }
 
 
+    public static void logoutUser() {
+        setUserData(null);
+    }
 }

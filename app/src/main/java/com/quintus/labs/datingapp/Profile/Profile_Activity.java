@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.InfoScreenData;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
@@ -107,16 +108,16 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
         ImageButton settings = findViewById(R.id.settings);
         settings.setOnClickListener(v -> {
-//                Intent intent = new Intent(Profile_Activity.this, SettingsActivity.class);
-//                startActivity(intent);
-            ToastUtils.show(Profile_Activity.this,"Work in Progress");
+                Intent intent = new Intent(Profile_Activity.this, EditProfileNewActivity.class);
+                startActivity(intent);
         });
         viewPager.addOnPageChangeListener(this);
     }
 
     private void setUserInfo(){
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
-            Glide.with(context).load(userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+
+            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
 
         }
         setViewPagerAdapter();
@@ -161,7 +162,8 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     private void setViewPagerAdapter() {
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>1){
-            Glide.with(context).load("http://"+userInfo.getMedia().get(0).getUrl()).into(imagePerson);
+            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
+
             List<InfoScreenData> infoScreenDataList = new ArrayList<>(userInfo.getMedia().size());
             for (ImageModel model:userInfo.getMedia()) {
                 infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), model.getUrl()));
@@ -237,7 +239,7 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
             @Override
             public void onResponse(@NonNull Call<ResponseModel<ImageModel>> call, @NonNull Response<ResponseModel<ImageModel>> response) {
                 Log.d("Response: " , response.message());
-                getUser();
+                getUserAfterUpload();
 
 
             }
@@ -275,6 +277,37 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
         });
     }
 
+    private void getUserAfterUpload(){
 
+        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().getUserDetails();
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
+                ToastUtils.show(mContext, message);
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
+                if (RestCallBack.isSuccessFull(response)) {
+                    TempStorage.setUserData(response.data);
+                    TempStorage.userData = response.data;
+                    userInfo = TempStorage.getUser();
+                    setUserInfoAfterUpload();
+
+                } else {
+                    ToastUtils.show(mContext, response.errorMessage);
+                }
+            }
+        });
+    }
+
+
+    private void setUserInfoAfterUpload(){
+
+        setViewPagerAdapter();
+        name.setText(userInfo.getFullName());
+
+    }
 
 }

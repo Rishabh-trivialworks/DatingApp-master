@@ -32,7 +32,7 @@ public class MyTextView_Roboto_Black extends TextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Black.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/Roboto-Black.ttf");
             setTypeface(tf);
         }
     }

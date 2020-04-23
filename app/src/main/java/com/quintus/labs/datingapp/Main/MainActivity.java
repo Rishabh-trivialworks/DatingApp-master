@@ -22,11 +22,17 @@ import androidx.core.content.ContextCompat;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.ItsAMatchDialog;
 import com.quintus.labs.datingapp.Utils.PulsatorLayout;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.TransparentProgressDialog;
+import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
 import com.quintus.labs.datingapp.rest.Response.CardList;
+import com.quintus.labs.datingapp.rest.Response.ImageModel;
+import com.quintus.labs.datingapp.rest.Response.Interest;
+import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
@@ -118,14 +124,35 @@ public class MainActivity extends Activity {
             public void onResponse(Call<ResponseModel<List<CardList>>> call, Response<ResponseModel<List<CardList>>> restResponse, ResponseModel<List<CardList>> response) {
                 if (RestCallBack.isSuccessFull(response)) {
                     for (int i = 0; i < response.data.size(); i++) {
-                        String segments[] = response.data.get(i).getDob().split("-");
-                        String year = segments[0];
-                        String month = segments[1];
-                        String day = segments[2];
+                        if(response.data.get(i).getMedia()!=null&&response.data.get(i).getMedia().size()>0){
+                            String segments[] = response.data.get(i).getDob().split("-");
+                            String year = segments[0];
+                            String month = segments[1];
+                            String day = segments[2];
+                            String intrest = "";
 
-                        String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
-                        Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance());
-                        rowItems.add(cards);
+                            String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
+                            if(response.data.get(i).getInterests()!=null&&response.data.get(i).getInterests().size()>0){
+                                for (Interest intr:response.data.get(i).getInterests()
+                                     ) {
+                                    intrest.concat(intr.getInterest());
+
+                                }
+                            }
+                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age),response.data.get(i).getMedia().get(0).getUrl() , response.data.get(i).getAbout(), intrest, response.data.get(i).getDistance(),response.data.get(i).getGender());
+                            rowItems.add(cards);
+                        }
+                        else{
+                            String segments[] = response.data.get(i).getDob().split("-");
+                            String year = segments[0];
+                            String month = segments[1];
+                            String day = segments[2];
+
+                            String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
+                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance(),response.data.get(i).getGender());
+                            rowItems.add(cards);
+                        }
+
                     }
 
                     arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
@@ -223,14 +250,17 @@ public class MainActivity extends Activity {
             public void onLeftCardExit(Object dataObject) {
                 Cards obj = (Cards) dataObject;
                 checkRowItem();
+                requestFriend(AppConstants.REJECTED,Integer.parseInt(obj.getUserId()));
+
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 Cards obj = (Cards) dataObject;
-
-                //check matches
                 checkRowItem();
+
+                requestFriend(AppConstants.ACCEPTED,Integer.parseInt(obj.getUserId()));
+
 
             }
 
@@ -253,7 +283,19 @@ public class MainActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
+                Cards card= (Cards) dataObject;
+                Intent i = new Intent(context,ProfileCheckinMain.class);
+                i.putExtra("name",card.getName());
+                i.putExtra("bio",card.getBio());
+                i.putExtra("interest",card.getInterest());
+                i.putExtra("distance",card.getDistance());
+                i.putExtra("photo",card.getProfileImageUrl());
+                i.putExtra("id",Integer.parseInt(card.getUserId()));
+                i.putExtra("gender",card.getGender());
+
+                startActivity(i);
+
+             //   Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -278,6 +320,8 @@ public class MainActivity extends Activity {
             Intent btnClick = new Intent(mContext, BtnDislikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
             startActivity(btnClick);
+            requestFriend(AppConstants.REJECTED,Integer.parseInt(card_item.getUserId()));
+
         }
     }
 
@@ -295,6 +339,8 @@ public class MainActivity extends Activity {
             Intent btnClick = new Intent(mContext, BtnLikeActivity.class);
             btnClick.putExtra("url", card_item.getProfileImageUrl());
             startActivity(btnClick);
+            requestFriend(AppConstants.ACCEPTED,Integer.parseInt(card_item.getUserId()));
+
         }
     }
 
@@ -322,6 +368,41 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         dismissProgress();
         super.onDestroy();
+    }
+
+    private void requestFriend(String status,int id){
+       // pd.show();
+        Call<ResponseModel<MatchedFriend>> responseModelCall = RestServiceFactory.createService().requestFriend( new AcceptRejectModel(id,status));
+
+
+          responseModelCall.enqueue(new RestCallBack<ResponseModel<MatchedFriend>>() {
+              @Override
+              public void onFailure(Call<ResponseModel<MatchedFriend>> call, String message) {
+
+              }
+
+              @Override
+              public void onResponse(Call<ResponseModel<MatchedFriend>> call, Response<ResponseModel<MatchedFriend>> restResponse, ResponseModel<MatchedFriend> response) {
+                  if(isSuccessFull(response)){
+
+                      if(response.data.getReceiverStatus().equalsIgnoreCase(AppConstants.ACCEPTED)&&response.data.getSenderStatus().equalsIgnoreCase(AppConstants.ACCEPTED)){
+
+                          ItsAMatchDialog itsAMatchDialog = new ItsAMatchDialog(mContext, response.data, AppConstants.Navigation.HOME_PAGE);
+                          try {
+                              itsAMatchDialog.show();
+                          } catch (Exception e) {
+                              e.printStackTrace();
+                          }
+
+                      }
+
+                  }
+
+              }
+          });
+
+
+
     }
 
 }

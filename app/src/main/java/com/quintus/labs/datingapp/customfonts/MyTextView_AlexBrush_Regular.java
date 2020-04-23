@@ -32,7 +32,7 @@ public class MyTextView_AlexBrush_Regular extends TextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/AlexBrush-Regular.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/AlexBrush-Regular.ttf");
             setTypeface(tf);
         }
     }

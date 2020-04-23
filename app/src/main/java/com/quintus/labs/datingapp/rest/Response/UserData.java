@@ -32,7 +32,7 @@ public class UserData implements Serializable {
     private String status;
     @SerializedName("coordinates")
     @Expose
-    private Object coordinates;
+    private Coordinates coordinates;
     @SerializedName("userToken")
     @Expose
     private String userToken;
@@ -93,6 +93,51 @@ public class UserData implements Serializable {
     @Expose
     private ArrayList<ImageModel> media;
 
+    @SerializedName("height")
+    @Expose
+    private Double height;
+
+    @SerializedName("kids")
+    @Expose
+    private String kids;
+
+    @SerializedName("pets")
+    @Expose
+    private String pets;
+
+    @SerializedName("lookingFor")
+    @Expose
+    private String lookingFor;
+
+    @SerializedName("smoking")
+    @Expose
+    private String smoking;
+
+    @SerializedName("drinking")
+    @Expose
+    private String drinking;
+
+    @SerializedName("education")
+    @Expose
+    private String education;
+
+    @SerializedName("exercise")
+    @Expose
+    private String exercise;
+
+    @SerializedName("zodiac")
+    @Expose
+    private String zodiac;
+
+    @SerializedName("religion")
+    @Expose
+    private String religion;
+
+    @SerializedName("bio")
+    @Expose
+    private String bio;
+
+
     public int getId() {
         return id;
     }
@@ -149,11 +194,11 @@ public class UserData implements Serializable {
         this.status = status;
     }
 
-    public Object getCoordinates() {
+    public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Object coordinates) {
+    public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -283,5 +328,93 @@ public class UserData implements Serializable {
 
     public void setMedia(ArrayList<ImageModel> media) {
         this.media = media;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public String getKids() {
+        return kids;
+    }
+
+    public void setKids(String kids) {
+        this.kids = kids;
+    }
+
+    public String getPets() {
+        return pets;
+    }
+
+    public void setPets(String pets) {
+        this.pets = pets;
+    }
+
+    public String getLookingFor() {
+        return lookingFor;
+    }
+
+    public void setLookingFor(String lookingFor) {
+        this.lookingFor = lookingFor;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
+
+    public String getDrinking() {
+        return drinking;
+    }
+
+    public void setDrinking(String drinking) {
+        this.drinking = drinking;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
+    }
+
+    public String getZodiac() {
+        return zodiac;
+    }
+
+    public void setZodiac(String zodiac) {
+        this.zodiac = zodiac;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

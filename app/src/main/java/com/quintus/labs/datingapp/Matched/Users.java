@@ -1,4 +1,7 @@
 package com.quintus.labs.datingapp.Matched;
+
+import java.io.Serializable;
+
 /**
  * DatingApp
  * https://github.com/quintuslabs/DatingApp
@@ -6,13 +9,15 @@ package com.quintus.labs.datingapp.Matched;
  * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
  */
 
-public class Users {
+public class Users implements Serializable {
     private String userId;
     private String name, profileImageUrl, bio, interest;
     private int age;
     private int distance;
+    private String gender;
 
-    public Users(String userId, String name, int age, String profileImageUrl, String bio, String interest, int distance) {
+
+    public Users(String userId, String name, int age, String profileImageUrl, String bio, String interest, int distance,String gender) {
         this.userId = userId;
         this.name = name;
         this.age = age;
@@ -20,8 +25,8 @@ public class Users {
         this.bio = bio;
         this.interest = interest;
         this.distance = distance;
+        this.gender = gender;
     }
-
     public Users(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
@@ -68,5 +73,25 @@ public class Users {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

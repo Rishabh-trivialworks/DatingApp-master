@@ -76,7 +76,79 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+    <style name="CardViewTheme" parent="CardView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="contentPadding">0dp</item>
+    </style>
+    <style name="ButtonIcon">
+        <item name="android:padding">12dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@drawable/menu_selector</item>
+    </style>
 
+    <style name="ButtonIconForward">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="ButtonIconSmall">
+        <item name="android:padding">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@drawable/menu_selector</item>
+    </style>
+    <style name="EditText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/underlinebg</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingTop">@dimen/eight</item>
+        <item name="android:paddingBottom">@dimen/eight</item>
+        <item name="android:textSize">@dimen/sixteen</item>
+        <item name="android:textColor">@color/font_text</item>
+        <item name="android:textColorHint">@color/font_hint_color</item>
+    </style>
+
+    <style name="AdvanceDialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="md_positive_color">@color/colorAccent</item>
+        <item name="md_neutral_color">@color/colorAccent</item>
+        <item name="md_negative_color">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+    </style>
 
     <dimen name="tool_bar_height">56dp</dimen>
+    <dimen name="eight">8dp</dimen>
+    <dimen name="sixteen">16dp</dimen>
+    <color name="font_text">#768692</color>
+    <color name="font_hint_color">#cad4e2</color>
 </resources>

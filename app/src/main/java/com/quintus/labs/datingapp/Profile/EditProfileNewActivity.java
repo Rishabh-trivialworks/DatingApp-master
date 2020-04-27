@@ -1,11 +1,15 @@
 package com.quintus.labs.datingapp.Profile;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,10 +28,13 @@ import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
 import com.quintus.labs.datingapp.Login.Login;
+import com.quintus.labs.datingapp.Login.RegisterAge;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.SplashActivity;
+import com.quintus.labs.datingapp.Utils.Connectivity;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
+import com.quintus.labs.datingapp.rest.RequestModel.ChangePasswordModel;
 import com.quintus.labs.datingapp.rest.RequestModel.EditProfileUpdateRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -53,15 +60,17 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
     private CrystalSeekbar maximumRangeBar;
     private ImageView imageViewOptions;
     TextView textViewMin,textViewMax,textViewAgeMin,textViewAgeMax,textViewAction;
-    RelativeLayout logoutLayout;
+    RelativeLayout logoutLayout,updatepassWord,updateAge;
     private Toolbar toolbar;
     private UserData userInfo;
+    private TextView textViewAge;
+    private ProgressDialog progressDialog;
     private NiceSpinner nice_spinner_zodiac,nice_spinner_religion,nice_spinner_politicalLeanings,
             nice_spinner_kids,nice_spinner_pets,nice_spinner_lookingFor,
             nice_spinner_smoking,nice_spinner_drinking,nice_spinner_exercise,nice_spinner_education;
     private String zodiac="",religion="",politicalLeanings="",kids="",pets="",
             lookingFor="",smoking="",drinking="",exercise="",education="";
-    private EditText input_height,edit_text_bio,edit_text_email,edit_text_phone;
+    private EditText input_height,edit_text_bio,edit_text_email,edit_text_phone,edit_text_name;
 
     List<String> datasetRelogion = new LinkedList<>(Arrays.asList("Select","Agnostic", "Atheist", "Buddhist", "Christian", "Hindu", "Jewish", "Zoroastrian", "Sikh", "Spiritual", "Other"));
     List<String> datasetZodiac = new LinkedList<>(Arrays.asList("Select","Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo"));
@@ -73,9 +82,7 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
     List<String> datasetDrinking = new LinkedList<>(Arrays.asList("Select","Socially", "Frequently", "Never"));
     List<String>  datasetEducation = new LinkedList<>(Arrays.asList("Select","High School", "Vocational School", "In College", "Undergraduate Degree", "In Grad School", "Graduate Degree"));
     List<String> datasetExercise = new LinkedList<>(Arrays.asList("Select","Active", "Sometimes", "Almost Never"));
-
-
-
+    private Dialog dialog;
 
 
     @Override
@@ -87,6 +94,15 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
 
         initView();
         setToolBar();
+        progressDialog = createProgressDialog(mContext, mContext.getString(R.string.pleasewait));
+
+    }
+
+    public static ProgressDialog createProgressDialog(Context context, String message) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        return progressDialog;
     }
 
     private void initView() {
@@ -98,14 +114,16 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
         textViewMin =(TextView) findViewById(R.id.textViewMin);
         textViewMax =(TextView) findViewById(R.id.textViewMax);
         logoutLayout = findViewById(R.id.logoutLayout);
-
+        updatepassWord = findViewById(R.id.change_password);
+        updateAge = (RelativeLayout) findViewById(R.id.update_age);
+        textViewAge =(TextView)findViewById(R.id.textViewAge);
         textViewAgeMax =(TextView) findViewById(R.id.textViewAgeMax);
         textViewAgeMin =(TextView) findViewById(R.id.textViewAgeMin);
         input_height = findViewById(R.id.input_height);
         edit_text_bio = findViewById(R.id.edit_text_bio);
         edit_text_email = findViewById(R.id.edit_text_email);
         edit_text_phone = findViewById(R.id.edit_text_phone);
-
+        edit_text_name = findViewById(R.id.edit_text_name);
 
         textViewMax.setText(TempStorage.getUser().getMaxRange()+"");
         textViewMin.setText(TempStorage.getUser().getMinRange()+"");
@@ -119,6 +137,12 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
         if(TempStorage.getUser().getMobile()!=null){
             edit_text_phone.setText(TempStorage.getUser().getMobile());
         }
+        if(userInfo.getDob()!=null){
+            textViewAge.setText(userInfo.getDob());
+        }
+        if(userInfo.getFullName()!=null){
+            edit_text_name.setText(userInfo.getFullName());
+        }
 
 
         toolbar=(Toolbar)findViewById(R.id.toolbar);
@@ -128,6 +152,7 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
 
         ageSeekBar.setMaxValue(100);
         ageSeekBar.setMinValue(1);
+
 
 
 
@@ -195,6 +220,7 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
             }
         });
 
+
         maximumRangeBar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
             @Override
             public void valueChanged(Number value) {
@@ -211,6 +237,21 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
             finish();
 
         });
+
+           updateAge.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   Intent intent = new Intent(mContext, RegisterAge.class);
+                   intent.putExtra("userinfo", userInfo);
+                   startActivityForResult(intent,101);
+               }
+           });
+           updatepassWord.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   openChangePassword();
+               }
+           });
     }
 
     private void setToolBar() {
@@ -259,9 +300,10 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
         String intrestedIn = menSwitch.isChecked()?"Male":"Female";
         String email = edit_text_email.getText().toString().isEmpty()?userInfo.getEmail():edit_text_email.getText().toString();
       String phone = edit_text_phone.getText().toString().isEmpty()?userInfo.getMobile():edit_text_phone.getText().toString();
-
+      String name = edit_text_name.getText().toString().isEmpty() ? userInfo.getFullName():edit_text_name.getText().toString();
+      String dob = textViewAge.getText().toString();
       double height = input_height.getText().toString().length()>0?Double.parseDouble(input_height.getText().toString()):0;
-        EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(email, userInfo.getFullName(),"USER",userInfo.getGender(),userInfo.getDob(),intrestedIn,
+        EditProfileUpdateRequest updateRequest = new EditProfileUpdateRequest(email, name,"USER",userInfo.getGender(),dob,intrestedIn,
              Integer.valueOf(textViewAgeMin.getText().toString()), Integer.valueOf(textViewAgeMax.getText().toString()), Integer.valueOf(textViewMin.getText().toString()),
               exercise,education,drinking,smoking,lookingFor,pets,kids,politicalLeanings,religion,zodiac,height,edit_text_bio.getText().toString(),phone);
       Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().updateUser(updateRequest);
@@ -425,6 +467,108 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
                     break;
             }
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==RESULT_OK && requestCode==101){
+            if(data!=null){
+                userInfo = (UserData) data.getSerializableExtra("userInfo");
+                textViewAge.setText(userInfo.getDob());
+            }
+        }
+    }
+
+
+    private void openChangePassword() {
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.change_password_dialoge);
+
+        final View ok = dialog.findViewById(R.id.change_button_ok);
+        final View cancel = dialog.findViewById(R.id.change_button_cancel);
+        final EditText oldPassword = (EditText) dialog.findViewById(R.id.edt_old_password);
+        final EditText newPassword = (EditText) dialog.findViewById(R.id.edt_new_password);
+        final EditText confirmPassword = (EditText) dialog.findViewById(R.id.edt_confirm_password);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (oldPassword.getText() == null || oldPassword.getText().toString().isEmpty()) {
+                    ToastUtils.show(mContext,"Please enter old password.");
+                    oldPassword.requestFocus();
+                    return;
+                }
+                if (newPassword.getText() == null || newPassword.getText().toString().isEmpty()) {
+                    ToastUtils.show(mContext,"Please enter new password.");
+
+                    newPassword.requestFocus();
+                    return;
+                } else if (newPassword.getText().toString().trim().length() < 6) {
+                    newPassword.requestFocus();
+                    ToastUtils.show(mContext,"Please choose atleast 6 character password.");
+
+                    return;
+                }
+                if (confirmPassword.getText() == null || confirmPassword.getText().toString().isEmpty()) {
+                    ToastUtils.show(mContext,"Please enter confirm password.");
+
+                    confirmPassword.requestFocus();
+                    return;
+                } else if (!confirmPassword.getText().toString().trim().equalsIgnoreCase(newPassword.getText().toString())) {
+                    confirmPassword.requestFocus();
+                    ToastUtils.show(mContext,"Confirm password is not same with New password");
+
+                    return;
+                }
+                ChangePasswordModel objChangePassword = new ChangePasswordModel( oldPassword.getText().toString(), newPassword.getText().toString());
+                hitApiToChangePassword(objChangePassword);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        window.setAttributes(wlp);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        dialog.show();
+    }
+
+    private void hitApiToChangePassword(ChangePasswordModel objChangePasswords) {
+        progressDialog.show();
+        Call<ResponseModel> objChangePassword = RestServiceFactory.createService().changePassword(objChangePasswords);
+        objChangePassword.enqueue(new RestCallBack<ResponseModel>() {
+            @Override
+            public void onFailure(Call<ResponseModel> call, String message) {
+                progressDialog.hide();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                ToastUtils.show(mContext,message);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> restResponse, ResponseModel response) {
+                progressDialog.hide();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                dialog.dismiss();
+                ToastUtils.show(mContext,"Password Change successfully.");
+            }
+        });
 
     }
 }

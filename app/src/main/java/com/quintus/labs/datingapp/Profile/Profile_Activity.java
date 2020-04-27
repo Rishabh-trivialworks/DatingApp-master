@@ -20,6 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.aminography.choosephotohelper.ChoosePhotoHelper;
 import com.bumptech.glide.Glide;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.quintus.labs.datingapp.Main.ProfileCheckinMain;
+import com.quintus.labs.datingapp.Main.ViewOwnProfileActivty;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.GlideUtils;
@@ -112,6 +114,18 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
                 startActivity(intent);
         });
         viewPager.addOnPageChangeListener(this);
+        if(userInfo.getMedia()!=null && userInfo.getMedia().size()>0) {
+            GlideUtils.loadImage(mContext, userInfo.getMedia().get(0).getUrl(),imagePerson);
+        }
+
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ViewOwnProfileActivty.class);
+                intent.putExtra("userinfo",userInfo);
+                 mContext.startActivity(intent);
+            }
+        });
     }
 
     private void setUserInfo(){

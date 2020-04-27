@@ -51,6 +51,7 @@
         <activity android:name=".Profile.SettingsActivity" />
         <activity android:name=".Main.BtnLikeActivity" />
         <activity android:name=".Main.BtnDislikeActivity" />
+        <activity android:name=".Main.ViewOwnProfileActivty" />
         <service android:name=".xmpp.MyService"
             />
 

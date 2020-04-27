@@ -3,7 +3,9 @@ package com.quintus.labs.datingapp.rest.Response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ImageModel {
+import java.io.Serializable;
+
+public class ImageModel implements Serializable {
     @SerializedName("type")
     @Expose
     String type;

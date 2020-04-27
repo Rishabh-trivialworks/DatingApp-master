@@ -73,5 +73,6 @@
     <string name="block_report">Block and report</string>
     <string name="add_images">Add Images</string>
     <string name="sending_message">Sending message please wait(%d Completed)</string>
+    <string name="pleasewait">Please Wait</string>
 
 </resources>

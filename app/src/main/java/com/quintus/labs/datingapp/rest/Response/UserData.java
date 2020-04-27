@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserData implements Serializable {
 
@@ -136,6 +137,9 @@ public class UserData implements Serializable {
     @SerializedName("bio")
     @Expose
     private String bio;
+    @SerializedName("interests")
+    @Expose
+    private List<Interest> interests = null;
 
 
     public int getId() {
@@ -416,5 +420,13 @@ public class UserData implements Serializable {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
     }
 }

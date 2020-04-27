@@ -69,8 +69,8 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
     private static final int PERMISSION_CALLBACK_CONSTANT = 100;
     //firebase
     private static final int REQUEST_PERMISSION_SETTING = 101;
-    Button man, woman;
-    TextView man_text, women_text,toolbartag;
+    Button man, woman,everyone;
+    TextView man_text, women_text,everyone_text,toolbartag;
     ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6,imageViewOptions;
 
     TextView textViewAddImages;
@@ -116,8 +116,10 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
 
         man = findViewById(R.id.man_button);
         woman = findViewById(R.id.woman_button);
+        everyone = findViewById(R.id.everyone_button);
         man_text = findViewById(R.id.man_text);
         women_text = findViewById(R.id.woman_text);
+        everyone_text = findViewById(R.id.everyone_text);
         back = findViewById(R.id.imageViewBack);
         context = this;
         userInfo=TempStorage.getUser();
@@ -149,23 +151,32 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
 
         });
         if(userInfo.getInterested().equalsIgnoreCase("Male")){
-            setUpGeneder(man_text,man,women_text,woman);
+            setUpGeneder(man_text,man,women_text,woman,everyone_text,everyone);
+
+        }else if(userInfo.getInterested().equalsIgnoreCase("Female")){
+            setUpGeneder(women_text,woman,man_text,man,everyone_text,everyone);
 
         }else{
-            setUpGeneder(women_text,woman,man_text,man);
-
+            setUpGeneder(everyone_text,everyone,women_text,woman,man_text,man);
         }
 
         woman.setOnClickListener(v -> {
             userInfo.setInterested("Female");
-            setUpGeneder(women_text,woman,man_text,man);
+            setUpGeneder(women_text,woman,man_text,man,everyone_text,everyone);
             updateProfile();
 
         });
 
         man.setOnClickListener(v -> {
             userInfo.setInterested("Male");
-            setUpGeneder(man_text,man,women_text,woman);
+            setUpGeneder(man_text,man,women_text,woman,everyone_text,everyone);
+            updateProfile();
+
+
+        });
+        everyone.setOnClickListener(v -> {
+            userInfo.setInterested("Both");
+            setUpGeneder(everyone_text,everyone,women_text,woman,man_text,man);
             updateProfile();
 
 
@@ -231,12 +242,14 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
         setUpImages();
     }
 
-    private void setUpGeneder(TextView selectedText,Button selectedButton,TextView otherText,Button otherButton){
+    private void setUpGeneder(TextView selectedText,Button selectedButton,TextView otherText,Button otherButton,TextView EveryOneText,Button everyButton){
 
         selectedText.setTextColor(getResources().getColor(R.color.colorAccent));
         selectedButton.setBackgroundResource(R.drawable.ic_check_select);
         otherText.setTextColor(getResources().getColor(R.color.black));
         otherButton.setBackgroundResource(R.drawable.ic_check_unselect);
+        EveryOneText.setTextColor(getResources().getColor(R.color.black));
+        everyButton.setBackgroundResource(R.drawable.ic_check_unselect);
 
     }
 

@@ -21,7 +21,7 @@ public class GlideUtils {
 
     public static void loadImage(Context context, String url, ImageView view){
         Glide.with(context)
-                .load("http://"+url)
+                .load(url)
                 .apply(new RequestOptions().error(R.drawable.default_man).centerCrop().placeholder(R.drawable.default_man))
 
                 .listener(new RequestListener<Drawable>() {
@@ -43,7 +43,7 @@ public class GlideUtils {
     }
     public static void loadImage(Context context, String url, ImageView view,int drawable ){
         Glide.with(context)
-                .load("http://"+url)
+                .load(url)
                 .apply(new RequestOptions().error(drawable).centerCrop().placeholder(drawable))
                 .listener(new RequestListener<Drawable>() {
                     @Override

@@ -1,5 +1,6 @@
 package com.quintus.labs.datingapp.Main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,16 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 
-
-public class ProfileCheckinMain extends AppCompatActivity {
-
+public class ViewOwnProfileActivty extends Activity {
     private Context mContext;
     String profileImageUrl;
     UserData userInfo;
@@ -28,7 +24,7 @@ public class ProfileCheckinMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_checkin_main);
 
-        mContext = ProfileCheckinMain.this;
+        mContext = this;
 
        /* ImageButton back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +34,7 @@ public class ProfileCheckinMain extends AppCompatActivity {
             }
         });
 */
+
         TextView profileName = findViewById(R.id.name_main);
         ImageView profileImage = findViewById(R.id.profileImage);
         TextView profileBio = findViewById(R.id.bio_beforematch);
@@ -46,35 +43,41 @@ public class ProfileCheckinMain extends AppCompatActivity {
         LinearLayout layoutBio = findViewById(R.id.layoutBio);
         LinearLayout layoutIntrest = findViewById(R.id.layoutIntrest);
         Button close = findViewById(R.id.close);
+        findViewById(R.id.bottamLayout).setVisibility(View.GONE);
+
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String bio = intent.getStringExtra("bio");
-        String interest = intent.getStringExtra("interest");
-        int distance = intent.getIntExtra("distance", 1);
-        id = intent.getIntExtra("id", -1);
-        String gender = intent.getStringExtra("gender");
 
-        String append = (distance == 1) ? "mile away" : "miles away";
+        userInfo = (UserData)intent.getSerializableExtra("userinfo");
 
-        profileDistance.setText(distance + " " + append);
-        profileName.setText(name);
-        if(bio!=null&&bio.length()>0){
-            profileBio.setText(bio);
+        id = userInfo.getId();
+
+
+        String append = (userInfo.getDistance() == 1) ? "mile away" : "miles away";
+
+        profileDistance.setText(userInfo.getDistance() + " " + append);
+        profileName.setText(userInfo.getFullName());
+        if(userInfo.getBio()!=null&&userInfo.getBio().length()>0){
+            profileBio.setText(userInfo.getBio());
         }else{
             layoutBio.setVisibility(View.GONE);
         }
-        if(interest!=null&&interest.length()>0){
-            profileInterest.setText(interest);
+        if(userInfo.getInterests()!=null&&userInfo.getInterests().size()>0){
+            StringBuffer sb =new StringBuffer();
+            for( int i=0;i<userInfo.getInterests().size();i++) {
+                sb.append(userInfo.getInterests().get(i).getInterest());
+            }
+            profileInterest.setText(sb);
         }else{
             layoutIntrest.setVisibility(View.GONE);
         }
 
+        if(userInfo.getMedia()!=null && userInfo.getMedia().size()>0) {
+            profileImageUrl = userInfo.getMedia().get(0).getUrl();
+        }
 
-        profileImageUrl = intent.getStringExtra("photo");
-
-        switch (gender) {
+        switch (userInfo.getGender()) {
             case "Female":
-                GlideUtils.loadImage(mContext,profileImageUrl,profileImage,R.drawable.default_woman);
+                GlideUtils.loadImage(mContext,profileImageUrl,profileImage, R.drawable.default_woman);
                 break;
             case "Male":
                 GlideUtils.loadImage(mContext,profileImageUrl,profileImage,R.drawable.default_man);
@@ -88,24 +91,5 @@ public class ProfileCheckinMain extends AppCompatActivity {
         });
     }
 
-
-    public void DislikeBtn(View v) {
-
-            Intent btnClick = new Intent(mContext, BtnDislikeActivity.class);
-            btnClick.putExtra("url", profileImageUrl);
-        btnClick.putExtra("id", id);
-
-        startActivity(btnClick);
-
-    }
-
-    public void LikeBtn(View v) {
-            Intent btnClick = new Intent(mContext, BtnLikeActivity.class);
-            btnClick.putExtra("url", profileImageUrl);
-        btnClick.putExtra("id", id);
-
-        startActivity(btnClick);
-
-    }
 
 }

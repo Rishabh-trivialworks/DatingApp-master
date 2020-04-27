@@ -5,13 +5,12 @@ import android.content.Intent;
 import com.google.gson.Gson;
 import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.R;
-import com.quintus.labs.datingapp.SplashActivity;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.AppContext;
-import com.quintus.labs.datingapp.Utils.NetworkUtil;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.xmpp.utils.NetworkUtil;
 
 import java.io.IOException;
 

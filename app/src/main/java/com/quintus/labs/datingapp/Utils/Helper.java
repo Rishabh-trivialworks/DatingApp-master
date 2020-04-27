@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.rest.Response.Interest;
 
 
 import java.io.InputStream;
@@ -56,5 +57,13 @@ public class Helper {
         popup.show();
     }
 
+public static String getIntrestString(List<Interest> list){
+        StringBuilder intrestString=new StringBuilder();
+    for (Interest intrest:list) {
+        intrestString.append(intrest+",");
+    }
+    String result = intrestString.toString();
+    return result.substring(0,result.length()-1);
+    }
 
 }

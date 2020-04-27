@@ -4,6 +4,7 @@ package com.quintus.labs.datingapp.Utils;
 import com.quintus.labs.datingapp.rest.Response.LoginData;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 
+import com.quintus.labs.datingapp.xmpp.XMPPHelper;
 import com.shawnlin.preferencesmanager.PreferencesManager;
 
 /**
@@ -20,6 +21,7 @@ public class TempStorage {
 
     public static LoginData loginData;
     public  static UserData userData;
+    private static XMPPHelper xmppHelper;
 
 
     public static LoginData getLoginData() {
@@ -56,6 +58,17 @@ public class TempStorage {
         PreferencesManager.putString(AppConstants.Pref.AUTH_TOKEN,authToken);
         TempStorage.authToken = authToken;
     }
+    public static XMPPHelper getXMPPHelper() {
+        if (xmppHelper == null) {
+            xmppHelper = XMPPHelper.getInstance(AppContext.getInstance().getContext());
+        }
+        return xmppHelper;
+    }
+
+    public static void setXMPPHelper(XMPPHelper xmppHelper) {
+        TempStorage.xmppHelper = xmppHelper;
+    }
+
 
     public static int getUserId() {
         return userId;

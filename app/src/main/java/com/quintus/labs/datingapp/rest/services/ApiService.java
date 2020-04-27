@@ -1,6 +1,7 @@
 package com.quintus.labs.datingapp.rest.services;
 
 
+import com.quintus.labs.datingapp.BoostPaidPlans.PlanModel;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
 import com.quintus.labs.datingapp.rest.RequestModel.AddAddressRequest;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -41,6 +43,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 
 public interface ApiService {
@@ -77,6 +80,9 @@ public interface ApiService {
     @Multipart
     @POST(AppConstants.Url.UPLOADIMAGE)
     Call<ResponseModel<ImageModel>> uploadImage(@Part MultipartBody.Part file);
+
+    @GET
+    Call<ResponseBody> downloadFile(@Url String fileUrl);
 
     @Headers("Content-type: application/json")
     @DELETE(AppConstants.Url.DELETEIMAGE)
@@ -125,7 +131,9 @@ public interface ApiService {
     @GET(AppConstants.Url.FRIEND_LIST)
     Call<ResponseModel<List<MatchedFriend>>> getFriendsList();
 
-
+    @Headers("Content-type: application/json")
+    @GET(AppConstants.Url.PLAN_LIST)
+    Call<ResponseModel<List<PlanModel>>> getPlanList();
 
 
 

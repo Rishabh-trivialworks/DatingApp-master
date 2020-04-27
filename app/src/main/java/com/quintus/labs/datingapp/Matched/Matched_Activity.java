@@ -104,7 +104,7 @@ public class Matched_Activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
        // prepareActiveData();
 
-        mAdapter = new MatchUserAdapter(matchList, getApplicationContext());
+        mAdapter = new MatchUserAdapter(matchList, getApplicationContext(),this);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager1);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -113,7 +113,7 @@ public class Matched_Activity extends AppCompatActivity {
 
         //prepareMatchData();
         getFriendList();
-        new connectXmpp().execute();
+        //new connectXmpp().execute();
 
 
     }

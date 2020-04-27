@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.GpsUtils;
@@ -331,6 +332,7 @@ public class RegisterHobby extends AppCompatActivity {
                     TempStorage.setUserData(response.data);
                     TempStorage.userData = response.data;
                     ToastUtils.show(mContext, response.data.getFullName());
+                    MyApplication.startXMPP(mContext);
                     Intent in=new Intent(mContext, MainActivity.class);
                     startActivity(in);
                     finish();

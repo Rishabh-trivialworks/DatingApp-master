@@ -1,11 +1,16 @@
-package com.quintus.labs.datingapp.Utils;
+package com.quintus.labs.datingapp.xmpp.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.ToastUtils;
 
+
+/**
+ * Created by MyU10 on 1/9/2017.
+ */
 
 public class NetworkUtil {
 

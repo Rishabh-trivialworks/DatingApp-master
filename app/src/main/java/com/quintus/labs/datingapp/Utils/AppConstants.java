@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -98,6 +99,8 @@ public class AppConstants {
         public static final String FRIEND_LIST = "api/v1/friends";
         public static final String REQUEST_FRIEND = "api/v1/friend-user";
         public static final String CHATUPLOAD = "api/v1/chat-upload";
+        public static final String PLAN_LIST = "api/v1/package";
+
 
 
 
@@ -258,4 +261,6 @@ public class AppConstants {
             return diff / DAY_MILLIS + " days ago";
         }
     }
+
+
 }

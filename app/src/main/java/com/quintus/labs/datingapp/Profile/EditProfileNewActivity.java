@@ -336,7 +336,7 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
 
       if(userInfo!=null){
           if(userInfo.getZodiac()!=null&&userInfo.getZodiac().length()>0){
-              nice_spinner_drinking.setSelectedIndex(datasetDrinking.indexOf(userInfo.getZodiac()));
+              nice_spinner_drinking.setSelectedIndex(datasetDrinking.indexOf(userInfo.getDrinking()));
           }
 
           if(userInfo.getReligion()!=null&&userInfo.getReligion().length()>0){

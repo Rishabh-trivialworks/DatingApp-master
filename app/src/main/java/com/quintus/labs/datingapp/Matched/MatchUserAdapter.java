@@ -16,6 +16,8 @@ import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.ImageUtils;
 import com.quintus.labs.datingapp.chat.ChatActivity;
+import com.quintus.labs.datingapp.chat.ChattingActivity;
+import com.quintus.labs.datingapp.rest.Response.UserData;
 
 import java.util.List;
 
@@ -33,10 +35,12 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyViewHolder> {
     List<Users> usersList;
     Context context;
+    Matched_Activity activity;
 
-    public MatchUserAdapter(List<Users> usersList, Context context) {
+    public MatchUserAdapter(List<Users> usersList, Context context, Matched_Activity activity) {
         this.usersList = usersList;
         this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -63,12 +67,13 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
         holder.layoutMatchedUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(context, ChatActivity.class);
-                in.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                in.putExtra("user",users);
-                in.putExtra("card",cards);
-
-                context.startActivity(in);
+                ChattingActivity.openActivity(activity,new UserData(users));
+//                Intent in = new Intent(context, ChatActivity.class);
+//                in.setFlags(FLAG_ACTIVITY_NEW_TASK);
+//                in.putExtra("user",users);
+//                in.putExtra("card",cards);
+//
+//                context.startActivity(in);
             }
         });
 

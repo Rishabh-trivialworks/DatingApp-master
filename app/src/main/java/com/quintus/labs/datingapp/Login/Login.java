@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
@@ -114,6 +115,7 @@ public class Login extends AppCompatActivity {
                     ToastUtils.show(mContext,response.data.getFullName());
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     startActivity(intent);
+                    MyApplication.startXMPP(mContext);
                     finish();
                 }else{
                     ToastUtils.show(mContext,response.errorMessage);

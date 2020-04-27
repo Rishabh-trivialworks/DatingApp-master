@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutDateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/theme_gray"
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:id="@+id/textViewDateHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingTop="4dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="4dp"
+            android:text="klds klajf"
+            android:textColor="@color/theme_text_color_grey"
+            android:textSize="13sp" />
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/layoutHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/theme_bg_group_chat_headers"
+                app:cardCornerRadius="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/textViewHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:layoutDirection="ltr"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="4dp"
+                    android:text="klds klajf"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="28dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/chat_message_other"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewGroupChatUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="4dp"
+                        android:text="Varun John"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <FrameLayout
+                        android:id="@+id/layoutGroupChatUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="32dp">
+
+                        <FrameLayout
+                            android:id="@+id/layoutChatImage"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"
+                            android:visibility="gone">
+
+                            <com.joooonho.SelectableRoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imageChatImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                app:sriv_border_color="@color/white"
+                                app:sriv_border_width="3dip"
+                                app:sriv_left_bottom_corner_radius="0dip"
+                                app:sriv_left_top_corner_radius="8dip"
+                                app:sriv_right_bottom_corner_radius="8dip"
+                                app:sriv_right_top_corner_radius="8dip" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBarChatImage"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                android:layout_gravity="center"
+                                android:padding="12dp" />
+
+                            <ImageView
+                                android:id="@+id/imageChatImageOptions"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:padding="8dp"
+                                android:src="@drawable/download_chat_image" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutAudioPlayer"
+                            android:layout_width="280dp"
+                            android:layout_height="64dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:visibility="gone">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="64dp"
+                                    android:layout_gravity="bottom"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <FrameLayout
+                                        android:layout_width="64dp"
+                                        android:layout_height="64dp">
+
+                                        <ImageView
+                                            android:id="@+id/imageViewAudioPic"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_margin="8dp"
+                                            android:src="@drawable/user_default_profile_pic" />
+
+                                        <ImageView
+                                            android:layout_width="24dp"
+                                            android:layout_height="24dp"
+                                            android:layout_gravity="bottom|right"
+                                            android:layout_marginBottom="8dp"
+                                            android:background="@drawable/circle_white"
+                                            android:padding="1dp"
+                                            android:src="@drawable/audio_mic_small" />
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:layout_marginEnd="-12dp"
+                                        android:layout_marginRight="-12dp">
+
+                                        <ImageView
+                                            android:id="@+id/imageViewAudioPlay"
+                                            android:layout_width="48dp"
+                                            android:layout_height="48dp"
+                                            android:clickable="true"
+                                            android:focusable="true"
+                                            android:padding="14dp"
+                                            android:src="@drawable/record_play"
+                                            android:tint="@color/theme_text_color_grey_light_1"
+                                            android:visibility="visible" />
+
+                                        <ImageView
+                                            android:id="@+id/imageViewAudioOptions"
+                                            android:layout_width="48dp"
+                                            android:layout_height="48dp"
+                                            android:clickable="true"
+                                            android:focusable="true"
+                                            android:padding="14dp"
+                                            android:src="@drawable/audio_download"
+                                            android:tint="@color/theme_text_color_grey_light_1"
+                                            android:visibility="gone" />
+
+                                        <FrameLayout
+                                            android:layout_width="48dp"
+                                            android:layout_height="48dp">
+
+                                            <ImageView
+                                                android:layout_width="48dp"
+                                                android:layout_height="48dp"
+                                                android:padding="14dp"
+                                                android:src="@drawable/progress_bar_bg"
+                                                android:tint="@color/theme_text_color_grey_light_1"
+                                                android:visibility="gone" />
+
+                                            <ProgressBar
+                                                android:id="@+id/progressBarAudio"
+                                                android:layout_width="48dp"
+                                                android:layout_height="48dp"
+                                                android:layout_gravity="center"
+                                                android:indeterminate="true"
+                                                android:indeterminateTint="@color/theme_text_color_grey_light_1"
+                                                android:indeterminateTintMode="src_atop"
+                                                android:padding="12dp"
+                                                android:visibility="gone" />
+                                        </FrameLayout>
+
+                                    </FrameLayout>
+
+                                    <SeekBar
+                                        android:id="@+id/seekBarAudio"
+                                        style="@android:style/Widget.DeviceDefault.Light.SeekBar"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:progressDrawable="@drawable/blue_scrubber_progress"
+                                        android:thumb="@drawable/player_postion" />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/textViewPlayerTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginLeft="112dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:gravity="center"
+                                    android:paddingRight="12dp"
+                                    android:text="0:00"
+                                    android:textColor="@color/theme_text_color_grey_light_1"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+                            </FrameLayout>
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutUnknown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autoLink="all"
+                                android:ellipsize="end"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/update_app"
+                                android:textColor="@color/black"
+                                android:textColorLink="@color/colorPrimary"
+                                android:textIsSelectable="false"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autoLink="all"
+                                android:ellipsize="end"
+                                android:fontFamily="sans-serif"
+                                android:paddingTop="4dp"
+                                android:text="@string/update_your_app_to_see_this_message"
+                                android:textColor="@color/black"
+                                android:textColorLink="@color/colorPrimary"
+                                android:textIsSelectable="false"
+                                android:textSize="14sp"
+                                android:textStyle="italic"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:gravity="right">
+
+                            <com.quintus.labs.datingapp.xmpp.utils.ImFlexboxLayout
+                                android:id="@+id/msg_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|bottom"
+                                android:gravity="left|center_vertical"
+                                app:viewPartMain="@+id/textViewMessage"
+                                app:viewPartSlave="@+id/lytStatusContainer">
+
+                                <TextView
+                                    android:id="@+id/textViewMessage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right|bottom"
+                                    android:autoLink="all"
+                                    android:bufferType="spannable"
+                                    android:ellipsize="end"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:fontFamily="sans-serif"
+                                    android:freezesText="true"
+                                    android:gravity="left|top"
+                                    android:lineSpacingExtra="4dp"
+                                    android:linksClickable="true"
+                                    android:longClickable="true"
+                                    android:padding="8dp"
+                                    android:text="Hey"
+                                    android:textColor="@color/black"
+                                    android:textColorLink="@color/colorPrimary"
+                                    android:textIsSelectable="true"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+                                <LinearLayout
+                                    android:id="@+id/lytStatusContainer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:paddingRight="6dp"
+                                    android:paddingBottom="4dp">
+
+                                    <TextView
+                                        android:id="@+id/textViewAssignmentTime"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_gravity="right|bottom"
+                                        android:gravity="right"
+                                        android:maxLines="1"
+                                        android:paddingBottom="2dp"
+                                        android:text="12:02pm"
+                                        android:textColor="@color/theme_text_color_grey_light_1"
+                                        android:textSize="11dp" />
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="bottom"
+                                        android:layout_marginLeft="4dp"
+                                        android:layout_marginBottom="4dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/watch_icon_white"
+                                        android:visibility="gone" />
+
+                                </LinearLayout>
+                            </com.quintus.labs.datingapp.xmpp.utils.ImFlexboxLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/imageViewStatus"
+                    android:layout_width="@dimen/chat_status_icon_size"
+                    android:layout_height="@dimen/chat_status_icon_size"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_default_profile_pic" />
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

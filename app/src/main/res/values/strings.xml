@@ -1,10 +1,5 @@
 <resources>
-    <!--
-   * DatingApp
-    * https://github.com/quintuslabs/DatingApp
-    * Created on 25-sept-2018.
-    * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
-    -->
+
     <string name="app_name">Huddle App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -22,7 +17,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="match_notification">Match Notification</string>
-    <string name="ok">ok</string>
     <string name="permission_camera_rationale">Request for camera permission</string>
     <string name="permission_contacts_rationale">GALLERY PERMISSION</string>
     <string name="permision_available_camera">camera available</string>
@@ -35,8 +29,6 @@
         <item>@drawable/img4</item>
     </integer-array>
 
-    <string name="no_internet">Please make sure you are connected to the internet.</string>
-    <string name="please_try_later">Try Again</string>
     <string name="email_id">Email Id</string>
     <string name="password">Password</string>
     <string name="log_in">LOG IN</string>
@@ -48,7 +40,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="full_name">Full Name</string>
     <string name="cancel">Cancel</string>
-    <string name="submit">Submit</string>
     <string name="title_home">Home</string>
     <string name="title_search">My Booking</string>
     <string name="title_notification">RSA</string>
@@ -56,11 +47,7 @@
     <string name="mobile">Mobile</string>
 
     <string name="info_screen_desc_4">"I don't know where to start" Is no longer an excuse.</string>
-    <string name="updating_conversations">Loading conversations...</string>
-    <string name="search_messages">Search messages</string>
-    <string name="no_user_data">We faced an issue while loading your chat. Please restart the app to try again.</string>
-    <string name="you_are_marked_present">You were marked as present.</string>
-    <string name="empty_chat_message">Send a message.</string>
+
     <string name="thank_you">Thank you</string>
     <string name="its_a_match">You can now say hi to %s</string>
     <string name="got_it">Got it</string>
@@ -73,5 +60,1414 @@
     <string name="block_report">Block and report</string>
     <string name="add_images">Add Images</string>
     <string name="sending_message">Sending message please wait(%d Completed)</string>
+    <string name="sent">Sent</string>
+    <string name="delivered">Delivered</string>
+    <string name="seen">Seen</string>
+    <string name="failed">Failed</string>
+    <string name="twitter_login_cancelled">Login Cancelled!</string>
+    <string name="twitter_share_successfully">share successfully</string>
+    <string name="twitter_duplicate_tweet">Duplicate Tweet!</string>
+    <string name="twitter_connection_failed">TwitterConnector failed!</string>
+    <string name="twitter_authorization_failed">Authorization failed.</string>
+    <string name="twitterException">Please check your device time/date and try again!</string>
+
+    <!-- Translation not required-->
+    <string name="dots">...</string>
+    <string name="slash">/</string>
+    <string name="digits_username_restriction">"@abcdefghijklmnopqrstuvwxyz1234567890_.ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="ownunivercity">ownUniversity</string>
+    <string name="otherunivercity">otherUniversity</string>
+    <string name="newsidnotexist">News id does not exist</string>
+    <string name="s">s</string>
+    <item name="user_bio_max_length" type="integer">150</item>
+    <string name="gcm_senderid">910462476326</string>
+    <string name="FBID">219302921906399</string>
+
+    <string name="cleavertap_phone">Phone</string>
+    <string name="cleavertap_gender">Gender</string>
+    <string name="cleavertap_university">University</string>
+    <string name="cleavertap_department">Department</string>
+    <string name="cleavertap_tab">Tab</string>
+    <string name="cleavertap_follower">Follower</string>
+    <string name="cleavertap_following">Following</string>
+    <string name="text">text</string>
+    <string name="cleavertap_Usertype">UserType</string>
+    <string name="cleavertaphome">Home</string>
+    <string name="cleavertapchat">Chat</string>
+    <string name="cleavertapprofile">Profile</string>
+    <string name="cleavertapExplore">Explore</string>
+    <string name="cleavertapNewsDetail">NewsDetail</string>
+    <string name="cleavertapNotification">Notification</string>
+    <string name="cleavertabtapchange">Tab Change</string>
+    <string name="clavertapsearch">Search</string>
+    <string name="cleavertapqwery">query</string>
+    <string name="cleavertap_contenttype">contentType</string>
+    <string name="cleavertap_contentid">contentId</string>
+    <string name="cleavertap_charlength">textCharacterLength</string>
+    <string name="cleavertap_imagecount">imageCount</string>
+    <string name="cleavertap_hasVideo">hasVideo</string>
+    <string name="cleavertap_hasaudio">hasAudio</string>
+    <string name="cleavertap_hasdoc">hasDocument</string>
+    <string name="cleavertap_newspost">NewPost</string>
+    <string name="cleavertap_Comment">Comments</string>
+    <string name="cleavertap_Message">Message</string>
+    <string name="cleavertap_Following">Following</string>
+    <string name="cleavertap_Privatemessage">PrivateMessage</string>
+    <string name="cleavertap_AllowInPopular">AllowInPopular</string>
+    <string name="cleavertap_aboutus">AboutUs</string>
+    <string name="cleavertap_privacypolicy">PrivacyPolicy</string>
+    <string name="cleavartap_type">type</string>
+    <string name="cleavertap_legal">Legal</string>
+    <string name="cleavertap_editboard">Edit Board</string>
+    <string name="cleavertap_isprivate">isPrivate</string>
+    <string name="cleavertap_socialmedia">Social Media</string>
+    <string name="cleavertap_sharing">Sharing</string>
+    <string name="cleavertap_screenname">ScreenName</string>
+    <string name="cleavertap_createnewpost">Create New Post</string>
+    <string name="cleavertap_post">Post</string>
+    <string name="cleavertap_tag">Tag</string>
+    <string name="cleavertap_hashtag">hashtag</string>
+    <string name="cleavertap_mention">mention</string>
+    <string name="cleavertap_contentname">ContentName</string>
+    <string name="cleavertap_isWall">isWall</string>
+    <string name="cleavertap_selectedboardcount">selectedBoardCount</string>
+    <string name="cleavertap_totalBoardCount">totalBoardCount</string>
+    <string name="cleavertap_exploreSearch">ExploreSearch</string>
+    <string name="cleavertap_textlimit">TextLimit</string>
+    <string name="cleavertap_chatconversation">ChatConversation</string>
+    <string name="cleavertap_chat">Chat</string>
+    <string name="cleavertap_unarchive">Unarchive</string>
+    <string name="cleavertap_archive">Archive</string>
+    <string name="cleavertap_boardAction">Board Action</string>
+    <string name="cleavertap_logout">logout</string>
+    <string name="cleavertap_disableAccount">disable account</string>
+    <string name="cleavertap_sendmessage">send message</string>
+    <string name="cleavertap_ForgotPassword">Forgot Password</string>
+    <string name="cleavertap_Canceljoin">Cancel Join</string>
+    <string name="cleavertap_join">join</string>
+    <string name="cleavertap_unjoin">unjoin</string>
+    <string name="cleavertap_report">report</string>
+
+
+    <string name="cleavertap_registrationScreen">RegistrationScreen viewed</string>
+    <string name="cleavertap_loginScreen">LoginScreen viewed</string>
+    <string name="cleavertap_newpostscreen">NewPost Create viewed</string>
+    <string name="cleavertap_newpostBoardscreen">NewPost Board Selection viewed</string>
+    <string name="cleavertap_userProfilescreen">UserProfileScreen viewed</string>
+    <string name="cleavertap_settingscreen">SettingScreen  viewed</string>
+    <string name="cleavertap_selectSchoolscreen">SelectSchoolScreen  viewed</string>
+    <string name="cleavertap_registrationcompletescreen">RegistrationCompleteScreen  viewed</string>
+    <string name="cleavertap_Notificationscreen">NotificationScreen  viewed</string>
+    <string name="cleavertap_ChatSearchscreen">ChatSearchScreen  viewed</string>
+    <string name="cleavertap_NewsDetailscreen">NewsPostDetailScreen  viewed</string>
+    <string name="cleavertap_NewsFeedscreen">NewsFeedScreen  viewed</string>
+    <string name="cleavertap_chatscreen">ChatScreen  viewed</string>
+    <string name="cleavertap_Explorescreen">ExploreScreen  viewed</string>
+    <string name="cleavertap_Archivescreen">ArchiveBoardScreen  viewed</string>
+    <string name="cleavertap_Followerscreen">FollowerScreen  viewed</string>
+    <string name="cleavertap_Followingscreen">FollowingScreen  viewed</string>
+    <string name="cleavertap_JoinedBoardscreen">JoinedBoardScreen  viewed</string>
+    <string name="cleavertap_BoardRequestscreen">BoardRequestScreen  viewed</string>
+    <string name="cleavertap_BoardDetailscreen">BoardDetailScreen  viewed</string>
+    <string name="cleavertap_EditProfilescreen">EditProfileScreen  viewed</string>
+    <string name="cleavertap_ChatListscreen">ChatListScreen  viewed</string>
+    <string name="cleavertap_name">UserName</string>
+    <string name="cleavertap_id">Identity</string>
+    <string name="cleavertap_email">Email</string>
+    <string name="cleavertap_dob">DOB</string>
+    <string name="cleavertap_usertype_id">UsertypeId</string>
+    <string name="cleavertap_newsId">NewsID</string>
+    <string name="cleavertap_username">User_Name</string>
+    <string name="cleavertap_userid">Id</string>
+    <string name="cleavertap_applaunch">App Launched</string>
+    <string name="cleavertap_newsComment">News Comment</string>
+    <string name="cleavertap_newsLike">Like</string>
+    <string name="cleavertap_newsUnLike">Unlike</string>
+    <string name="cleavertap_followername">Follower Name</string>
+    <string name="cleavertap_followerid">Follower Id</string>
+    <string name="cleavertap_followingname">Following Name</string>
+    <string name="cleavertap_followingid">Following Id</string>
+    <string name="cleavertap_mediatype">media_type</string>
+    <string name="cleavertap_newscreated">Create New Post</string>
+    <string name="cleavertap_msgmail">MSG-email</string>
+    <string name="cleavertap_msgpush">MSG-push</string>
+    <string name="cleavertap_sms">MSG-sms</string>
+    <string name="cleavertap_usertypename">UserTypeName</string>
+    <string name="cleavertap_usertypeid">UserTypeId</string>
+    <string name="cleavertap_notoficatiosettings">Notification Settings</string>
+    <string name="cleavertap_likes">Likes</string>
+    <string name="cleavertap_Logout">Logout</string>
+    <string name="cleavertap_DisableAccount">Disable Account</string>
+    <string name="cleavertap_canceljoin">canceljoin</string>
+    <string name="cleavertap_Join">Join</string>
+    <!--///////////////////////END////////////////////////-->
+    <string name="mixpannal_token">37b6a59c97a09035ee68d99fe5eb3414</string>
+    <!-- id=1-->
+    <!-- id=2 not using now-->
+    <!-- id=2 not using now-->
+    <!-- Strings related to login -->
+    <!-- id=3-->
+    <string name="prompt_email">Email</string>
+    <!-- id=3-->
+    <string name="email_hint">Username or Email</string>
+    <!-- id=4-->
+    <string name="prompt_password">Password</string>
+    <!-- id=5-->
+    <string name="action_forgot_password">Forgot password ?</string>
+    <!-- id=6-->
+    <string name="login">Login</string>
+    <!-- id=7-->
+    <string name="text_or">Or</string>
+    <!-- id=8-->
+    <string name="no_yet_register_with_register">No account  yet ?  Register Now</string>
+
+    <!-- id=9-->
+    <string name="register_x">Register Now</string>
+    <!-- id=10-->
+    <string name="prompt_school">Find Your School</string>
+    <!-- id=11 android not using-->
+    <string name="prompt_school_2">Search Your School Name</string>
+    <!-- id=12-->
+    <string name="request_university">Enter a keyword...</string>
+    <!-- id=13 not using now-->
+    <!-- id=14-->
+    <!-- id=15 android not using-->
+    <string name="diaog_action_done">Done</string>
+    <!-- id=16-->
+    <string name="search">Search</string>
+    <!-- id=17-->
+    <string name="continue_as">Continue as</string>
+    <!-- id=18-->
+    <string name="remove">Remove</string>
+    <string name="remove_photo">Remove Photo</string>
+    <!-- id=19-->
+    <!-- id=20-->
+    <string name="text_iam">I am a...</string>
+    <!-- id=21-->
+    <string name="text_student">Student</string>
+    <!-- id=22-->
+    <string name="text_teacher">Teacher\n or Professor</string>
+    <!-- id=22-->
+    <string name="professertype">Professor</string>
+    <!-- id=23-->
+    <string name="text_department">Department\n or Club</string>
+    <!-- id=23-->
+    <string name="clubtype">Club</string>
+    <!-- id=24-->
+    <string name="text_parent">Parent</string>
+    <!-- id=25-->
+    <string name="already_has_accounyt">Already have an account?</string>
+    <string name="already_has_accounyt_with_login">Already have an account?  Login</string>
+    <!-- id=26-->
+    <string name="action_next">Next</string>
+
+    <!---when click on next with out selecting user type-->
+
+    <!-- id=27 android not using-->
+    <!-- id=28-->
+    <string name="prompt_name">Full Name</string>
+    <!-- id=29-->
+    <string name="prompt_username">Username</string>
+    <!-- id=30 not using now-->
+    <!-- id=31 not using now-->
+    <!-- id=31 not using now-->
+    <string name="verification_link">A verification link will be sent to you</string>
+
+    <!--New Login Screen Text-->
+
+    <!--id = 32-->
+    <string name="term_condition">By registering you agreeing to our terms of service and privacy policy.</string>
+    <!-- id=33  android not using-->
+    <!--id=34-->
+    <string name="incorrect_username">You may only use letters, numbers, and underscores.</string>
+    <!--id=35-->
+    <string name="request_email">Something seems to be wrong with your email address.</string>
+    <!-- id=36 android not using-->
+    <!-- id=37 -->
+    <string name="text_registration_completed">"You're Done!\nAn email was sent to you with a link. Please click on the link to have your account verified."</string>
+    <!-- id=38-->
+    <string name="action_start">Start</string>
+    <!--id=39-->
+    <string name="empty_news_feeds_list">No posts yet. Make your first one!</string>
+    <!--id=40-->
+    <!-- id=41-->
+    <string name="create_your_first_post">Create your first post.</string>
+    <!-- id=41-->
+    <string name="creating_your_post">Creating your post..</string>
+    <!-- id=42-->
+    <string name="just_now">Just now</string>
+    <!-- id=43-->
+    <string name="today">Today</string>
+    <!-- id=44-->
+    <string name="yesterday">Yesterday</string>
+    <!-- id=45-->
+    <string name="views">Views</string>
+    <!-- id=45-->
+    <string name="view">View</string>
+    <!-- id=46-->
+    <string name="like">Like</string>
+    <!-- id=47-->
+    <string name="comments">Comments</string>
+    <!-- id=47-->
+    <string name="comment">Comment</string>
+    <!-- id=48-->
+    <string name="new_post">New Post</string>
+    <!-- id=49 -->
+    <string name="permission_rational_record_audio">MyU would like to access the Microphone.</string>
+    <!--id=50-->
+    <!--id=50-->
+    <string name="write_something">Write something</string>
+
+    <!-- id=51 Choose up to 4 images or a video up to 30 seconds-->
+    <string name="dialog_media_picker" formatted="false">Choose up to %s  or a video up to %s</string>
+    <!--id=52-->
+    <string name="public_text">Public</string>
+    <!-- id=53-->
+    <!-- id=54  not using now -->
+    <string name="no_internet">Please make sure you are connected to the internet.</string>
+    <!-- id=55-->
+    <string name="publishing_your_post">Publishing your post</string>
+    <!-- id=56-->
+    <string name="retry">RETRY</string>
+    <!-- id=57 not using now-->
+    <!--id=58-->
+    <string name="suggested_faculty_members">Also in your school...</string>
+    <!--id=59-->
+    <string name="suggested_department_members">From other schools...</string>
+    <!--id=60-->
+    <string name="suggested_popular_members">Popular Posts</string>
+    <!-- id=61-->
+    <string name="no_hashtag">No results found</string>
+    <!-- id=62-->
+    <string name="txt_settings_notification">Push Notification</string>
+    <!-- id=63-->
+    <string name="no_post">You have no new notifications</string>
+
+    <!--Notification Screen text-->
+
+    <!--id = 64-->
+    <!--id = 64-->
+    <string name="following">Following</string>
+    <!--id = 64-->
+    <!--id = 65android not using-->
+    <string name="you_tab">You</string>
+    <!--id=66-->
+    <string name="boardjoinrequests">Join Request</string>
+    <!--id=67-->
+    <string name="approve_or_ignore_requests">Approve or ignore requests</string>
+    <!-- id=71-->
+    <string name="chat">Chat</string>
+    <!-- id=72-->
+    <string name="newchat">New Chat</string>
+    <!-- id=73-->
+    <string name="empty_chat_list">Chat empty. Start a conversation!</string>
+    <!-- id=74-->
+    <string name="empty_chat_message">Send a message.</string>
+    <!-- id=75-->
+    <string name="posts">Posts</string>
+    <!-- id=76-->
+    <string name="text_settings_followings">Following and Joining</string>
+    <!-- id=77-->
+    <string name="followers">Followers</string>
+    <!-- id=77-->
+    <!-- id=78-->
+    <string name="joined_boards">Joined Classes</string>
+    <!-- id=79 -->
+    <string name="text_board_add">Add Class</string>
+    <!-- id=80 -->
+    <string name="text_board_edit">Edit</string>
+    <!-- id=81 -->
+    <string name="board_dialog_message">Name your class</string>
+    <!-- id=82 -->
+    <string name="board_dialog_private_message">When your class is private, only people you approve can join.</string>
+    <!-- id=83 -->
+    <string name="board_dialog_is_private">Private</string>
+    <!-- id=84 -->
+    <string name="delete_board">Delete Class</string>
+    <!-- id=88 -->
+    <string name="board_limit_exceeds">Class limit reached!</string>
+    <!-- id=89 -->
+    <string name="member">member</string>
+    <!-- id=91-->
+    <string name="text_edit_profile">Edit profile</string>
+    <!-- id=92-->
+    <string name="edit_profile_pic">Set your profile picture</string>
+    <!-- id=93-->
+    <string name="edit_cover_pic">Choose a cover photo</string>
+    <!-- id=94-->
+    <string name="prompt_department">Department</string>
+    <!-- id=95-->
+    <string name="prompt_graduation_year">Graduation Year</string>
+    <!-- id=96-->
+    <string name="prompt_bio">Bio</string>
+    <!-- id=97 -->
+    <string name="text_profile_change_password">Change Password</string>
+    <!-- id=98 -->
+    <string name="text_profile_private_info">Personal Info</string>
+    <!-- id=99-->
+    <string name="prompt_mobile">Mobile</string>
+    <!-- id=100-->
+    <string name="prompt_gender">Gender</string>
+    <!-- id=101-->
+    <string name="prompt_dob">Date of Birth</string>
+    <!-- id=102-->
+    <string name="prompt_old_pswd">Current Password</string>
+    <!-- id=103-->
+    <string name="prompt_new_pswd">New Password</string>
+    <!-- id=104-->
+    <string name="prompt_confirm_pswd">Confirm Password</string>
+    <!-- id=105-->
+    <string name="incorrect_password">Password must be at least 6 characters</string>
+    <!-- id=106-->
+    <string name="txt_settings_viewarchive">View archived</string>
+    <!-- id=107-->
+    <string name="text_settings_other_notification">Other Notifications</string>
+    <!-- id=108-->
+    <string name="text_settings_receive_messages">Receive Private Messages</string>
+    <!-- id=109-->
+    <string name="text_settings_appear_on_explore">Appear on Explore Page</string>
+    <!-- id=110-->
+    <string name="text_settings_info">Info</string>
+    <!-- id=111-->
+    <string name="text_settings_support">Support</string>
+    <!-- id=112-->
+    <string name="text_settings_about_us">About Us</string>
+    <!-- id=113-->
+    <string name="text_settings_privacy">Privacy Policy</string>
+    <!-- id=114-->
+    <string name="text_settings_account"> Disable Account</string>
+    <!-- id=115-->
+    <string name="text_settings_feedback">Contact us</string>
+    <!-- id=116-->
+    <string name="text_settings_networkstatus">Network Status</string>
+    <!-- id=117-->
+    <string name="text_settings_version">Version</string>
+    <!-- id=118-->
+    <string name="text_settings_logout">Log Out</string>
+    <!-- id=119-->
+    <string name="report">Report</string>
+    <!-- id=120-->
+    <string name="submit">Submit</string>
+    <!-- id=121-->
+    <string name="reply">Reply</string>
+    <!-- id=122 not using now-->
+    <!-- id=123-->
+    <string name="send_message">Send Message</string>
+    <!-- id=124 andoird not using-->
+    <!-- id=125 -->
+    <string name="joined">Joined</string>
+    <!-- id=126-->
+    <string name="requested">Requested</string>
+    <!-- id=127-->
+    <string name="disconnected">Not Connected</string>
+    <!-- id=128-->
+    <string name="connected">Connected</string>
+    <!-- id=129-->
+    <string name="incorrect_mobile">Please enter your phone number</string>
+    <!-- id=130-->
+    <!-- id=131-->
+    <string name="request_fill_all_fields">Please fill in required fields.</string>
+    <!-- id=133-->
+    <string name="teacher">Teacher</string>
+    <!-- id=134-->
+    <string name="department">Department</string>
+    <!-- id=135-->
+    <string name="parent">Parent</string>
+    <!-- id=136-->
+    <string name="image">image</string>
+    <!-- id=136-->
+    <string name="chat_image">Image</string>
+    <!-- id=137-->
+    <string name="video">Video</string>
+    <!-- id=138-->
+    <string name="cancle_post">Are you sure you want to exit this post? All content will be lost.</string>
+    <!-- id=139-->
+    <string name="ok">Ok</string>
+    <!-- id=140-->
+    <string name="year">Year</string>
+    <!-- id=141-->
+    <string name="month">Month</string>
+    <!-- id=142-->
+    <string name="day">Day</string>
+    <!-- id=143-->
+    <string name="week">Week</string>
+    <!-- id=144-->
+    <string name="min">Min</string>
+    <!-- id=144-->
+    <string name="mins">Mins.</string>
+    <!-- id=145-->
+    <string name="hr">Hr</string>
+    <!-- id=145-->
+    <string name="hrs">Hrs.</string>
+    <!-- id=146-->
+    <string name="minutes_ago">minutes ago</string>
+    <!-- id=147-->
+    <string name="a_minute_ago">A minute ago</string>
+    <!-- id=148-->
+    <!-- id=148-->
+    <string name="second">second</string>
+    <!-- id=149-->
+    <string name="an_hour_ago">An hour ago</string>
+    <string name="hours_ago">hours ago</string>
+    <!-- id=159-->
+    <!-- id=160 -->
+    <string name="delete_comment">Do you want to delete this comment?</string>
+    <!-- id=161-->
+    <string name="delete">Delete</string>
+    <!-- id=162 -->
+    <string name="dont_like">"Don't like what you see?"</string>
+    <!-- id=163 android not using-->
+    <!-- id=164 android not using-->
+    <!-- id=165 android not using-->
+    <!-- id=166-->
+    <string name="stop_recording_first">Audio is still recording. Tap again to stop.</string>
+    <!-- id=167 android not using-->
+    <!-- id=168-->
+    <string name="board_not_joined">You are not a member on this class.</string>
+    <!-- id=169-->
+    <!-- id=171-->
+    <!-- id=172-->
+    <string name="thanku">Thank You</string>
+    <!-- id=173-->
+    <!-- id=174-->
+    <!-- id=177-->
+    <string name="request_username">Please enter a username or email address.</string>
+    <!--id=179-->
+    <string name="report_reason_1">"It\'s spam"</string>
+    <!--id=180-->
+    <string name="report_reason_2">"It's inappropriate"</string>
+    <!--id=181-->
+    <string name="report_reason_3">"It\'s disrespectful or harmful"</string>
+    <!--id=182-->
+    <string name="report_reason_other">Other reason</string>
+    <!--id=183-->
+    <string name="explore">Explore</string>
+    <!--id=184-->
+    <string name="your_archive_is_empty">Your archive is empty.</string>
+    <!--id=185-->
+    <!--id=187 android not using-->
+    <string name="move_profile">Move To Profile</string>
+    <!--id=188-->
+    <string name="disbledialoguemessage">Are you sure you want to disable your account? No one will be able to find you on myU.</string>
+    <!--id=189-->
+    <string name="disbledialoguetitle">Disable Account?</string>
+    <!--id=190-->
+    <string name="dialogueplustext">Yes, Disable.</string>
+    <!--id=191-->
+    <string name="dialoguenegativetext">No, I changed my mind.</string>
+    <!--id=192-->
+    <string name="feedback_email_subject">Feedback</string>
+    <!-- id=193-->
+    <string name="join">Join</string>
+    <!-- id=194-->
+    <string name="clear">Clear</string>
+    <!-- id=195-->
+    <string name="follow">Follow</string>
+    <!-- id=196-->
+    <string name="unjoin">Leave</string>
+    <!-- id=197-->
+    <string name="buffering">Buffering...</string>
+    <!-- id=198-->
+    <!-- id=199-->
+    <string name="dialog_error_title">Sorry</string>
+    <!-- id=200 not using-->
+    <!-- id=201 not using-->
+    <string-array name="board_detail_tabs_titles">
+        <item>Posts</item>
+        <item>Members</item>
+        <item>Name List</item>
+        <!-- id=203 -->
+
+        <!-- id=204 -->
+        <item>Attendance</item>
+        <item>Grades</item>
+        <item>Documents</item>
+    </string-array>
+
+    <string-array name="board_detail_tabs_titles_student">
+        <item>Posts</item>
+        <item>Members</item>
+        <item>Documents</item>
+    </string-array>
+    <!-- id=205 -->
+    <string name="email_verification_hint">Official Email</string>
+    <!-- id=206 -->
+    <string name="connecting">Connecting...</string>
+    <!-- id=207 -->
+    <string name="updating_conversations">Loading conversations...</string>
+    <string name="from_date">from %s</string>
+    <!-- id=209 -->
+    <!-- id=210 -->
+    <string name="success">Success</string>
+    <!-- id=211 -->
+    <!-- id=212 -->
+    <string name="confirm">Confirm</string>
+    <!-- id=213 -->
+    <string name="incorrect_email">Incorrect Email. Please enter another one.</string>
+    <!-- id=214 -->
+    <string name="copy_text">Copy text</string>
+    <!-- id=215 -->
+    <string name="copy_text_format_label" formatted="false">%s posted on %s</string>
+    <!-- id=216 -->
+    <string name="uploading_attachment">Adding attachments... </string>
+    <!-- id=217 -->
+    <string name="new_post_error">Something went wrong. Click to try again.</string>
+    <!-- id=218 -->
+    <string name="new_post_error_detail">Something went wrong.\nTry posting again.</string>
+    <!-- id=219 -->
+    <string name="new_post_error_no_internet">No internet connection available. Please connect to the internet and try again.</string>
+    <!-- id=220 -->
+    <string name="posting_complete">Posted.</string>
+    <!-- id=221 -->
+    <string name="posting">Posting...</string>
+    <!-- id=222 -->
+    <string name="post">post</string>
+    <!-- id=223 -->
+    <string name="uploading_complete">Upload Complete</string>
+    <!-- id=224 -->
+    <!-- id=225 -->
+    <string name="please_try_later">Try Again</string>
+    <!-- id=226 -->
+    <string name="please_wait">Please wait..</string>
+    <!-- id=227 -->
+    <string name="text_setting">Settings</string>
+    <!-- id=228 -->
+    <string name="text_settings_launguage">App Language</string>
+    <!-- id=229 -->
+    <string name="move_archive">Archive Class</string>
+    <!-- id=230 -->
+    <string name="txt_sent_to">Sent To</string>
+    <!-- id=231 -->
+    <string name="alert_connectivity_check">No network connection.</string>
+    <string name="delete_board_message">Are you sure you want to delete this class?This action can\'t be undone.</string>
+    <!-- id=232 -->
+    <string name="exit_screen">Are you sure you want to leave this page?</string>
+    <!-- id=233 -->
+    <!-- id=234 -->
+    <string name="yes_exit">Yes, exit</string>
+    <string name="yes">Yes</string>
+    <!-- id=235 -->
+    <string name="enter_board_name">e.g. English 1–2</string>
+    <!-- id=235 -->
+    <!-- id=236 -->
+    <string name="people">follower</string>
+    <!-- id=237 -->
+    <string name="cancel_request">Cancel Request</string>
+
+    <!--short for day, hours, minutes, week for notification like instagram-->
+    <string name="d">d</string>
+    <string name="h">h</string>
+    <string name="m">m</string>
+    <string name="w">w</string>
+
+    <!--Forgot Password-->
+
+    <string name="text_settings_twitter">Twitter Account</string>
+    <string name="posting_1">"(1 Posting)"</string>
+
+    <string name="other_post_queue" formatted="false">%s in queue</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- id=238 -->
+    <string name="in">In</string>
+    <!-- id=239 -->
+    <string name="accept">Accept</string>
+    <!-- id=240 -->
+    <string name="reject">Reject</string>
+    <!-- id=241 -->
+    <string name="gallery">Gallery</string>
+    <!-- id=242 -->
+    <string name="board_joined_request">Pending Join Requests</string>
+    <!-- id=243 -->
+    <string name="load_more_comments">Load Previous Comments</string>
+    <!-- id=244 -->
+    <!-- id=245 -->
+    <string name="no_more_post">No more Posts</string>
+    <!-- id=246 -->
+    <string name="no_comments">No Comments</string>
+    <!-- id=247 -->
+    <!-- id=248 -->
+    <string name="who_viewed">Viewed By</string>
+    <!-- id=249 -->
+    <!-- id=250 -->
+    <string name="unfollow">Unfollow</string>
+    <!-- id=251 -->
+    <string name="dialog_unfollow">Unfollow %s?</string>
+    <!-- id=252 -->
+    <string name="dialog_cancel_news_upload">Are you sure you want to cancel this post?</string>
+    <!-- id=253 -->
+    <string name="dialog_remove_board_follower" formatted="false">Remove %s from this class?</string>
+    <!-- id=254 -->
+    <!-- id=255 -->
+    <!--<string name="dialog_news_delete">Delete this post?</string>-->
+    <string name="dialog_news_delete">Do you want to delete this post?</string>
+    <!-- id=256 -->
+    <string name="dialog_unjoin">Leave this class?</string>
+    <!-- id=257 -->
+    <string name="dialog_unjoin_cancel_request">Do you want to cancel your join request?</string>
+    <!-- id=258 -->
+    <string name="select_a_reason">Please select a reason.</string>
+    <!-- id=259 -->
+    <string name="no_data_clear">Nothing to clear.</string>
+    <!-- id=260 -->
+    <string name="report_feedback">Thank you! We will look into it as soon as possible.</string>
+    <!-- id=261 -->
+    <string name="delete_chat_dialog">Delete conversation with %s?</string>
+    <!-- id=262 -->
+    <string name="close">Close</string>
+    <!-- id=263 -->
+    <string name="search_for_department">Search for department</string>
+    <!-- id=264 -->
+    <string name="search_for_school">Search for school</string>
+    <!-- id=265 -->
+    <string name="class_of">Class of</string>
+
+    <string-array name="register_type">
+        <item>Student</item>
+        <item>Department or Club</item>
+        <item>Faculty Member</item>
+    </string-array>
+
+    <string-array name="gender">
+        <!-- id=266 -->
+        <item>Male</item>
+        <!-- id=267 -->
+        <item>Female</item>
+    </string-array>
+    <!-- id=268 -->
+    <string name="typing">Typing...</string>
+
+    <!--UserCategorySelect-->
+    <!-- id=269 -->
+    <string name="name">Name</string>
+    <!-- id=270 -->
+    <string name="camera">Camera</string>
+    <!-- id=271 -->
+    <string name="Chats">Chats</string>
+    <!-- id=272 -->
+    <string name="file_corrupted">Corrupt file. Please select another.</string>
+    <!-- id=273 -->
+    <string name="text_copied_to_clipboard">Copied to Clipboard</string>
+    <!-- id=274 -->
+    <string name="new_header">New</string>
+    <!-- id=275 -->
+    <string name="no_profile_image">No Profile Picture</string>
+    <!-- id=276 -->
+    <string name="no_cover_image">No Cover Photo</string>
+
+    <!--/////////////New Strings///////////////-->
+    <!-- id=277 -->
+    <string name="add">Add</string>
+    <!-- id=278 -->
+    <string name="sent_request_to_join_board">requested to join %s</string>
+    <!-- id=279 -->
+    <string name="terms">Terms</string>
+
+    <string name="at_the_rate">"@"</string>
+    <string name="plus_99">99+</string>
+
+    <!-- id=39 and 40-->
+    <string name="empty_home_news_feed" formatted="false">"Visit the Explore page to find people."</string>
+    <!-- id=280 -->
+
+    <string name="request_full_name">Please add your first and middle name.</string>
+
+    <!-- id=281 -->
+    <string name="request_password">Enter Password</string>
+    <!-- id=282 -->
+    <string name="no_search_results">No suggestions available. Try following other users first.</string>
+    <!-- id=283 -->
+    <string name="newsfeed">Newsfeed</string>
+    <!-- id=266 -->
+    <string name="male">Male</string>
+    <!-- id=267 -->
+    <string name="female">Female</string>
+    <string name="notspecified">Not Specified</string>
+    <!-- id=284 -->
+    <string name="incorrect_cedentials">The username or email address you entered is incorrect.</string>
+    <!-- id=285 -->
+    <string name="new_messages">New Messages</string>
+    <!-- id=286 -->
+    <string name="more_message">+%d More Messages</string>
+    <!-- id=288-->
+    <string name="enter_your_reason">Enter a reason.</string>
+    <!-- id=289-->
+    <string name="dialog_media_picker_image">You may not post more than %s at a time.</string>
+    <!-- id=290-->
+    <string name="adding_audio_have_video">You cannot post a voicenote and video at the same time.</string>
+    <!-- id=291-->
+    <string name="no_people_board">No one joined yet.</string>
+    <!-- id=292-->
+    <string name="more">More</string>
+    <!-- id=293-->
+    <string name="no_follower">When members join your class they will show here. Add members now!</string>
+    <!-- id=294-->
+    <string name="text_settings_messages">Messages</string>
+    <string name="deletingyourclass">Deleting your class...</string>
+    <!--///////////////////Translation Required/////////////////-->
+
+    <string name="explore_hint_search">Search</string>
+    <string name="send">Send</string>
+    <string name="action_register">Register</string>
+    <string name="i_am">I am a...</string>
+    <string name="request_board_name">Please enter the class name.</string>
+    <string name="move_to_profile">"Move to profile"</string>
+    <string name="update">Update</string>
+    <string name="ignore">Ignore</string>
+    <string name="newversionavailable">New Version Available</string>
+
+    <string name="ago">ago</string>
+    <string name="now">now</string>
+    <string name="select">Choose a New Photo</string>
+    <string name="pleaseenterconfirmpassword">Please re-enter your new password</string>
+    <string name="text_password_change">Password changed successfully</string>
+    <string name="verify_email_title">Verify your email address</string>
+    <string name="verify_email_desc">Follow the link in the email we sent %s to confirm your email address and help secure your account</string>
+    <string name="pleasecheckyourmail">Please check your email.</string>
+    <string name="chats">Chats</string>
+    <string name="press_again_to_exit">Press back again to exit</string>
+    <string name="text_notification">Notifications</string>
+    <string name="who_liked">Liked</string>
+    <string name="pleaseenteroldpassword">Enter old password</string>
+
+    <string name="dialog_confirm_move_archive">Are you sure you want to archive this class?</string>
+    <string name="dialog_confirm_move_profile">Are you sure you want to move this class to your profile?</string>
+    <string name="addyourunivercity">Can\'t find your school? Click here</string>
+    <string name="official_name_of_institution">Official Name of Institution</string>
+    <string name="abbreviation">Abbreviation (optional)</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="website_optional">Website (optional)</string>
+
+    <string name="place_details">
+    <![CDATA[
+        <b>%1$s</b>
+        <br/>
+        <i>Place Id: %2$s</i>
+        <br/>
+        Address: %3$s
+        <br/>
+        Phone: %4$s
+        <br/>
+        Website: %5$s
+    ]]>
+    </string>
+    <string name="addSchoolName_error">You must enter your official school name.</string>
+    <string name="city_error">Please enter your city.</string>
+    <string name="country_error">Please select your country. </string>
+    <string name="add_your_school">Add Your School</string>
+    <string name="use_google">Search via Google</string>
+    <string name="add_manual">Add Manually</string>
+    <string name="privacypolicy">privacy policy</string>
+    <string name="termofservice">terms of service</string>
+    <string name="termofservicecaps">Terms of Service</string>
+
+
+    <string name="introscreenfourtext">Get instant feedback from your school community through private messaging.</string>
+    <string name="introscreenthree">Stay up to date with what\'s popular within your school, and beyond.</string>
+    <string name="introscreentwo">Share important updates to your classes or to all your followers.</string>
+    <string name="introscreenone">Organize your communication into different classes.</string>
+
+
+    <string name="optionalname">Alternative Name (optional)</string>
+    <string name="state_error">You must enter a state.</string>
+    <string name="how_would_you_add_school">How would you like to add your school?</string>
+
+    <string name="privacypolicyurl">http://myu.co/en/privacypolicy.html</string>
+    <string name="termofserviceurl">http://myu.co/en/temsofservice.html</string>
+    <string name="aboutusurl">http://myu.co/en/aboutus.html</string>
+
+    <string name="promoted">Promoted</string>
+    <string name="no_record_found">Nothing here.</string>
+
+    <string name="blocked_users">Blocked Users</string>
+
+    <string name="dialog_User_Block">They won\'t be able to find your profile or posts on myU. myU won\'t let them know that you\'ve blocked them</string>
+    <string name="dialog_User_UnBlock">Are you sure want to Unblock this user.</string>
+
+    <string name="unblock">Unblock</string>
+    <string name="block">Block</string>
+    <string name="blocked">Blocked</string>
+    <string name="dialog_unblock_first_follow">Unblock %s first, to start following.</string>
+    <string name="dialog_unblock_first_message">Unblock %s first, to start messaging.</string>
+    <string name="question_mark">"?"</string>
+    <string name="post_send">post</string>
+
+    <!--new features-->
+    <string name="search_messages">Search messages</string>
+    <string name="add_attachment">Add Attachment</string>
+    <string name="existing_file_myu">Existing on myU</string>
+    <string name="browse_documents">Browse Documents</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="kb">KB</string>
+    <string name="attach_file_myu">Documents on myU</string>
+    <string name="document">Document</string>
+    <string name="document_not_supported">We can\'t use this file type!</string>
+    <string name="see_more">See more...</string>
+    <string name="total_document">(%d Documents)</string>
+    <string name="all">ALL</string>
+    <string name="no_files">When you post a document to this class, it will show here.</string>
+    <string name="size_unavailable">0</string>
+    <string name="usage">Usage</string>
+    <string name="hold_for_video_click_for_photo">Press for photo or hold for video.</string>
+    <string name="scan_documents">Scan Document</string>
+    <string name="file_capacity">Document Space (PDF, Word, Excel, PPT)</string>
+    <string name="you_ran_out_of_space_in_the_app">You\’re almost out of space! Upgrade your account for additional storage.</string>
+    <string name="upgrade_your_account">UPGRADE YOUR ACCOUNT</string>
+    <string name="upgrade_now">Upgrade Now</string>
+    <string name="photo_from_gallery">Photos from Gallery</string>
+    <string name="document_not_open">No application found that could open this document. Please find a suitable App on Play Store.</string>
+    <string name="go_to_play_store">Go to Play Store</string>
+    <string name="download">Download</string>
+    <string name="downloading_completed">Download complete</string>
+    <string name="open">open</string>
+    <string name="document_not_open_web_view">Google viewer can\'t open this document. Kindly open in other App.</string>
+    <string name="document_not_download_open_web_view">Google viewer can\'t open this document. Kindly download and open in other App.</string>
+    <string name="downloading_document">Downloading document</string>
+    <string name="doc_download_separator">" | "</string>
+    <string name="downloading">Downloading</string>
+    <string name="tap_to_view">Tap to View</string>
+    <string name="tap_to_download">Tap to Download</string>
+    <string name="go_to_store_desc">No application found that could open this document. Please install a suitable app from Play Store.</string>
+    <string name="months">month</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="you_have_used">You\'ve used %s of your available storage."</string>
+    <string name="not_enough_space">Not enough space</string>
+    <string name="post_capacity_popup" formatted="false">The document you are trying to upload is %s. You only have %s of storage left. Please upgrade for additional space.</string>
+    <string name="your_subscription_will_end">Your subscription will end on</string>
+    <string name="you_have_an_extra">You now have a myU Prime account!</string>
+    <string name="our_congratulation">Congratulations!</string>
+    <string name="video_from_gallery">Video from Gallery</string>
+    <string name="has_following">Following</string>
+    <string name="creating_your_board">Creating your class...</string>
+    <string name="reason_for_change">Change your School</string>
+    <string name="reason_for_change_of_school">Type your reason here... </string>
+    <string name="doc_deleted">You cannot open this file because %s has been deleted.</string>
+    <!--<string name="renew_account">Renew Account</string>-->
+    <string name="renew_account">Upgrade</string>
+    <string name="get_more_space">Get more space!</string>
+    <string name="upload_longer_video">Longer videos!</string>
+    <string name="add_more_photos">Add more photos to your posts!</string>
+    <string name="create_more_boards">Create more classes!</string>
+    <string name="extra_hundread_gb_text">Enjoy an extra 100 GB of space and share more documents</string>
+    <string name="video_voice_notes_added">Upload up-to 10 minute video on every post</string>
+    <string name="uploading_multiple_photos_from">Attach up to 8 photos from your gallery at a time.</string>
+    <string name="get_even_more_organized">Add up to 4 additional classes to your profile.</string>
+    <string name="image_post_limit">you can post %d images at a time</string>
+    <string name="edit">Edit</string>
+    <string name="edit_doc_name">Edit File Name</string>
+    <string name="change_the_school">Request Received</string>
+    <string name="request_reviewed">Your request has been received and will be processed shortly.</string>
+    <string name="forgot_verification_hint">Official Email/Username</string>
+    <string name="delete_file_dialog">Are you sure want to delete %s file ?</string>
+    <string name="delete_file_info">This file will also be deleted from other posts if it is shared in more than one place.</string>
+    <string name="file_name_illegal">A file name can\'t contain any of the following characters</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="edit_post_info">Since this post is shared on multiple classes, any edits you make will be reflected in the associated posts.</string>
+    <string name="term_condition_premium">By upgrading you agree to our privacy policy and terms of service.</string>
+    <string name="text_myuprime">MyU Prime</string>
+    <string name="waiting">Waiting&#8230;</string>
+    <string name="board_limit">Class limit reached!</string>
+    <string name="board_limit_upgrade">You may only have up to %s classes on your profile at a time. Upgrade to Prime to be able to add more classes.</string>
+    <string name="photo_limit">Photo Limit Reached</string>
+    <string name="photo_limit_upgrade">You can only select up to %s images. To upload more images at a time upgrade to Prime.</string>
+    <string name="video_limit">Video is too long</string>
+    <string name="video_limit_upgrade">Please trim to %s seconds or upgrade to upload longer videos.</string>
+    <string name="video_trim">Trim</string>
+    <string name="your_package_expired">Your subscription is Expired.</string>
+    <string name="your_package_expired_title">Package Expired</string>
+    <string name="file_not_found">File not found</string>
+    <string name="peoples">People</string>
+    <string name="intro_register_fulltext">Create your myU account!</string>
+    <string name="captive_portal_message">Something went wrong. Check your connection and try again.</string>
+    <string name="student_prime_text">Invisible Reader</string>
+    <string name="student_primetext_description">Read chat messages without the other person knowing you saw</string>
+    <string name="new_school_checking_by_the_administrator">School change request under review.</string>
+    <string name="please_indicate_the_reason_for_the_change_of_the_school">Please indicate the reason behind changing your school.</string>
+    <string name="cancle_univercity_request">Are you sure you want to cancel your school change request?</string>
+    <string name="prompt_board_hint">Class Name</string>
+    <string name="create_your_classes_from_hear">Create your classes from here</string>
+    <string name="create_board_first">To share to classes, add them first from profile page</string>
+    <string name="other_contacts">Other Users</string>
+    <string name="recent_chat">Recent Conversations</string>
+    <string name="forwarding_message">Forwarding your message</string>
+    <!--mixpannal-->
+    <string name="mixpannal_hashtagpage">HashTag Page</string>
+    <string name="mixpannal_newsfeedpage">NewsFeed Page</string>
+    <string name="mixpannal_explorepage">Explore Page</string>
+    <string name="mixpannal_notificationpage">Notification Page</string>
+    <string name="mixpannal_userprofilepage">UserProfile Page</string>
+    <string name="mixpannal_boardpage">BoardDetail Page</string>
+    <string name="mixpannal_chatpage">Chat Conversation Page</string>
+    <string name="mixpannal_commentpage">Comment Page</string>
+    <string name="mixpannal_postpage">Post Page</string>
+    <string name="mixpannal_createnewchatpage">Create New Chat</string>
+    <string name="mixpannal_Folowerpage">Follower Page</string>
+    <string name="mixpannal_Followingpage">Following Page</string>
+    <string name="mixpannal_Usertype">UserType</string>
+    <string name="mixpannal_relogin">is relogin</string>
+    <string name="mixpannal_login">Login</string>
+    <string name="mixpannal_posttype">PostType</string>
+    <string name="mixpannal_newsownertype">NewsOwnerType</string>
+    <string name="mixpannal_attachmenttype">AttachmentType</string>
+    <string name="mixpannal_newsorigin">NewsOrigin</string>
+    <string name="mixpannal_timediff">TimeDifference</string>
+    <string name="mixpannal_hastext">HasText</string>
+    <string name="mixpannal_newscommentorigin">NewsCommentOrigin</string>
+    <string name="mixpannal_commenttype">CommentType</string>
+    <string name="mixpannal_creatpost">Create Post</string>
+    <string name="mixpannal_boardtype">BoardType</string>
+    <string name="mixpannal_membercount">Member Count</string>
+    <string name="mixpannal_totalpostcount">Total Post Count</string>
+    <string name="mixpannal_newstype">News Type</string>
+    <string name="mixpannal_origin">Origin</string>
+    <string name="mixpannal_reportpost">Report Post</string>
+    <string name="mixpannal_video">Video</string>
+    <string name="mixpannal_audio">Audio</string>
+    <string name="mixpannal_image">Image</string>
+    <string name="mixpannal_docs">DOCS</string>
+    <string name="mixpannal_createboard">Create Board</string>
+    <string name="mixpannal_existingchatconversation">Existing Chat Conversation</string>
+    <string name="mixpannal_visitchatscreen">Visit ChatScreen</string>
+    <string name="mixpannal_chatsearch">Chat Search</string>
+    <string name="mixpannal_deleteboard">Delete Board</string>
+    <string name="miapannal_archiveboard">Archive Board</string>
+    <string name="mixpannal_unarchiveboard">Unarchive Board</string>
+    <string name="mixpannal_comment">Comment</string>
+    <string name="mixpannal_like">Like</string>
+    <string name="mixpannal_unlike">Unlike</string>
+    <string name="mixpannal_joiningboard">Joining Board</string>
+    <string name="mixpannal_followingusertype">Following UserType</string>
+    <string name="mixpannal_followerusertype">Follower UserType</string>
+    <string name="mixpannal_exploresearch">Search</string>
+    <string name="mixpannal_folloerpageown">FollowerPageOwn</string>
+    <string name="mixpannal_followerpageother">FollowerPageOther</string>
+    <string name="mixpannal_followingpageown">FollowingPageOwn</string>
+    <string name="mixpannal_followingpageother">FollowingPageOther</string>
+    <string name="mixpannal_usermention">User Mention</string>
+    <string name="mixpannal_settingpage">Setting Page</string>
+    <string name="mixpannal_visitprimepage">Visit Prime Page</string>
+    <string name="mixpannal_deletenews">Delete News</string>
+    <string name="mixpannal_browsedocs">Browse Document</string>
+    <string name="mixpannal_camera">Camera</string>
+    <string name="mixpannal_gallery">Gallery</string>
+    <string name="mixpannal_scandocs">Scan Document</string>
+    <string name="mixpannal_existingfrommyu">Existing from Myu</string>
+    <string name="mixpannal_mediaorigin">Media Origin</string>
+    <string name="mixpannal_mediaselection">Media Selection</string>
+    <string name="mixpannal_deletedocument">Delete Document</string>
+    <string name="mixpannal_blockedusertype">Blocked UserType</string>
+    <string name="mixpannal_blockerusertype">Blocker UserType</string>
+    <string name="mixpannal_blocking">Blocking</string>
+    <string name="mixpannal_unblocking">Unblocking</string>
+    <string name="mixpanal_cancelschoolrequest">Cancel School Request</string>
+    <string name="mixpannal_editprofile">Edit Profile</string>
+    <string name="mixpannal_password">Password</string>
+    <string name="mixpanal_department">Department</string>
+    <string name="mixpannal_school">School</string>
+    <string name="mixpannal_email">Email</string>
+    <string name="mixpannal_username">UserName</string>
+    <string name="mixpannal_settingpushnotification">Setting Push Notification</string>
+    <string name="mixpannal_textlength">Text Length</string>
+    <string name="mixpannal_imagecount">ImageCount</string>
+    <string name="mixpannal_sendertype">Sender Type</string>
+    <string name="mixpannal_recievertype">Reciever Type</string>
+    <string name="mixpannal_sendchatmessage">Send ChatMessage</string>
+    <string name="mixpannal_visitedusertype">Visited UserType</string>
+    <string name="mixpannal_visitingusertype">Visiting UserType</string>
+    <string name="mixpannal_otheruserprofile">Other UserProfile</string>
+    <string name="mixpannel_editnews">Edit News</string>
+    <string name="mixpanel_viewcount">ViewCount</string>
+    <string name="mixpanel_membershiptype">MembershipType</string>
+    <string name="mixpannal_name">Name</string>
+    <string name="mixpannal_follow">Follow</string>
+    <string name="mixpannal_unfollow">Unfollow</string>
+    <string name="mixpannal_visitpostdetail">Visit PostDetail</string>
+    <string name="mixpannal_inboard">In Board</string>
+    <string name="mixpannal_viewmedia">View Media</string>
+    <string name="mixpannal_mediatype">MediaType</string>
+    <string name="mixpannal_issuccessful">Is Successful</string>
+    <string name="mixpannal_resulttype">Result Type</string>
+    <string name="mixpannal_searchmessage">Search Messages</string>
+    <string name="mixpannal_searchusers">Search Users</string>
+    <string name="mixpannal_successfullregistration">Successful Registration</string>
+    <string name="mixpannal_isexistingschool">IsExistingSchool</string>
+    <string name="mixpannal_isfromgoogle">IsFromGoogle</string>
+    <string name="mixpannal_primepagetracking">PrimePage Tracking</string>
+    <string name="mixpannal_packagetype">Package Type</string>
+    <string name="mixpannal_stage">Stage</string>
+    <string name="mixpannal_deletecomment">Delete Comment</string>
+
+    <string name="update_app">Upgrade Required</string>
+    <string name="update_your_app_to_see_this_message">Update your app to see this message</string>
+    <string name="chat_online">Online</string>
+    <string name="userblocked_unblockfirst">User blocked. Unblock first to select.</string>
+    <string name="user_selectionlimit">You can only share with up to 5 chats</string>
+    <string name="mark_unread">Mark Unread</string>
+    <string name="forward">Forward</string>
+    <string name="cant_post_image_video">Can\'t post video and image together.</string>
+    <string name="sharing_image_from_gallery_limit" formatted="false">You can only select upto %s images.</string>
+
+    <string name="chat_forward_msg_older_version">"%s is on an old version of myU that doesn't support voice notes."</string>
+    <string name="chat_forward_msg_off">"This user doesn't want to receive private messages at the moment"</string>
+    <string name="audio">Audio</string>
+    <string name="slide_to_cancel">Slide to cancel</string>
+    <string name="need_audio_upgrade" formatted="false">%s is on an old version of myU. Ask them to update the app to receive your voice notes.</string>
+
+    <string name="classes">Classes</string>
+    <string name="request_to_became_admin">sent you an invitation to become an admin for %s</string>
+    <string name="remove_admin">Remove admin</string>
+    <string name="make_admin">Make admin</string>
+    <string name="remove_user">Remove from class</string>
+    <string name="invite">Add</string>
+
+
+    <string name="share">Share</string>
+    <string name="add_class">Add class</string>
+    <string name="share_class">Share class</string>
+    <string name="copy_code">Copy class code</string>
+    <string name="share_class_link">Share class link</string>
+    <string name="share_profile_link">Share profile link</string>
+    <string name="your_class_can_be_found_in_following_ways">Other users can find your class in the following ways:</string>
+    <string name="by_visiting_your_profile">By visiting your profile (%s)</string>
+    <string name="by_searching_class_code">By searching class code (%s) or visiting class link:</string>
+    <string name="class_is_private">Class is private?</string>
+    <string name="in_a_private_class_you_need_to_approve_join_requests">In a private class you need to approve join requests</string>
+    <string name="notify_your_followers">Notify your followers?</string>
+    <string name="notify_the_new_class">Yours followers will receive a push notification about the new class</string>
+    <string name="edit_class">Edit class</string>
+    <string name="share_profile_link_text" formatted="false">In the following link you will find my profile on myU app, where you can join my classes and follow my updates: \n\n %s</string>
+    <string name="share_class_link_text" formatted="false">I have created a new class on myU app: %s  \n\nClick on the following link to join it: %s</string>
+    <string name="create">Create</string>
+    <string name="dialog_request_board_private_owner">Since the owner of this class is %s, your join request will be sent to them.</string>
+    <string name="dialog_request_board_owner">Since the owner of this class is %s, your join request will be sent to them.</string>
+    <string name="dialog_board_request_title">Send a request to %s ?</string>
+    <string name="admin">Admin</string>
+    <string name="pending">Pending...</string>
+    <string name="invite_members">Add members</string>
+    <string name="people_can_go_to_this_page_to_join_class">This link takes users to your profile and promotes them to join your class</string>
+    <string name="class_code_copied">Class code copied!</string>
+    <string name="becameadmin">Become Admin</string>
+    <string name="decline">Decline</string>
+    <string name="please_make_your_search_people">Type to search</string>
+    <string name="please_make_your_search_class">Enter the class code</string>
+    <string name="please_make_your_search_people_result">No matching accounts</string>
+    <string name="please_make_your_search_class_result">No matching classes. Ask the class owner for the correct code.</string>
+    <string name="invitemember_blankscree">When users follow your account, you will find them here!</string>
+    <string name="continue_board">Continue</string>
+    <string name="best_value">Best Value</string>
+
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://qa.myu.co\",\n  }\n}]</string>
+
+    <string name="country_error_list">Please select your country from list. </string>
+    <string name="no_user_data">We faced an issue while loading your chat. Please restart the app to try again.</string>
+    <string name="some_error_occured">Some error occured in database</string>
+    <string name="renew_now">Renew now</string>
+    <string name="maybe_later">Maybe later</string>
+    <string name="free_trial_title">Free trial expired!</string>
+
+    <string-array name="school_level_value">
+        <item>Pre-K</item>
+        <item>KG</item>
+        <item>Primary</item>
+        <item>Middle</item>
+        <item>Secondary</item>
+        <item>College</item>
+        <item>University</item>
+    </string-array>
+    <integer-array name="school_level_key">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </integer-array>
+    <string name="school_language_error">Please select your school language.</string>
+    <string name="school_level_error">Please select your school level.</string>
+    <string name="school_gender_error">Please select the student type.</string>
+    <string name="school_level">School Level</string>
+    <string name="school_gender">Students</string>
+    <string name="school_language">Language</string>
+    <string name="school_coed">Co-Ed</string>
+    <string name="application_form">Form</string>
+
+    <string name="text_settings_troubleshooting">Troubleshoot </string>
+    <string name="text_settings_issue_with_chat">Issue in chat</string>
+    <string name="text_settings_issue_with_notification">Issue in push notifications</string>
+    <string name="reset_my_data">Reset my Data</string>
+    <string name="text_settings_issue_with_chat_info">
+        "1. First make sure you are connected to a working internet.\n
+2. Check in setting that "Receive Private Message" is ON.\n
+3. Restart the app. (Close the app from your recent tabs and launch it again)\n
+4. If you are still facing the issue then select "Reset my data" in troubleshooting options. This will automatically delete and restore your data."</string>
+    <string name="text_settings_issue_with_notification_info">
+        "1. First make sure you are connected to a working internet.\n
+2. Check in settings that push notifications are turned ON.\n
+3. Restart the app. (Close the app from your recent tabs and launch it again)
+    </string>
+    <string name="reset_my_data_info">"Are you sure want to reset your data?\n
+This option will automatically delete and restore your data. This could take few minutes."</string>
+    <string name="starting_chat_backup">Starting your chat backup</string>
+    <string name="share_document">Share document</string>
+    <string name="doc_deleted_text">Document deleted</string>
+    <string name="no_more_result">No More Result</string>
+
+    <string-array name="attedance_tab_detail">
+        <item>All</item>
+        <item>Present</item>
+        <!-- id=203 -->
+        <item>Absent</item>
+        <item>Unmarked</item>
+        <!-- id=204 -->
+    </string-array>
+
+    <string name="all_attendace">All</string>
+    <string name="present_attendance">Present</string>
+    <string name="absent_attendance">Absent</string>
+    <string name="attendace_was_accepted">Attendance was accepted</string>
+    <string name="ask_class_members_to_visit_the_class_and_enter_following_code_or_scan_qr">Ask class members to visit the class and enter following code or Scan QR:</string>
+    <string name="accepting_auto_attendance">Accepting auto-attendance...</string>
+    <string name="for_this_option_class_members_must_have_their_phones">For this option,class members must have their phones</string>
+    <string name="you_are_marked_present">You were marked as present.</string>
+    <string name="you_were_marked_absent">You were marked as absent.</string>
+    <string name="do_you_want_to_exit_attendance">Do you want to save the changes made?</string>
+    <string name="accept_attendance">Accept attendance</string>
+    <string name="take_attendance">Take attendance</string>
+    <string name="Save_Changes">Save Changes</string>
+    <string name="no_thanks">No, Thanks</string>
+    <string name="student_atttendance_blank_text">When your teacher takes attendance you will see your status here</string>
+    <string name="error_title">Error</string>
+
+    <string name="board_owner_public_join">Would you like to join %s ?</string>
+    <string name="class_join">Class Join</string>
+    <string name="auto_attendance_off_title">Do you wish to turn off auto attendance?</string>
+    <string name="auto_attendance_keepiton">Keep it on</string>
+    <string name="auto_attendance_turnoff">Turn it off</string>
+    <string name="auto_attendance">Auto Attendance</string>
+    <string name="send_email_report_text">Email report</string>
+    <string name="email_send_title">Would you like to receive the attendance report on your email address %s?</string>
+    <string name="delete_attendance_title">Do you want to delete this attendance session?</string>
+    <string name="present_attendance_button">Present</string>
+    <string name="absent_attendance_button">Absent</string>
+    <string name="prompt_lastname">Last Name</string>
+    <string name="your_profile_is_50_complete">Your profile is %s complete</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="first_name">First name and Middle name</string>
+    <string name="student_id_number">Student Id number</string>
+    <string name="request_last_name">Please add your lastname.</string>
+    <string name="request_child_name">Please enter the student name.</string>
+    <string name="children">Children</string>
+    <string name="childrenname">Student Name</string>
+    <string name="complete_your_profile">Complete your profile</string>
+
+    <string name="save">Save</string>
+    <string name="auto_manager_permission_msg">To receive push notifications, MyU needs the permission to run in the background. Please find MyU from the list and grant it access. Ignore this message if you have already done so.</string>
+    <string name="new_group">New group</string>
+    <string name="selected_from" translatable="false">%s selected from %s</string>
+    <string name="enter_your_group_name">Add the group name</string>
+    <string name="please_add_group_photo">Please add the group name and photo</string>
+    <string name="participants">Participants : %d</string>
+    <string name="add_participants">Add participants</string>
+    <string name="added">added</string>
+    <string name="removed">removed</string>
+    <string name="you">you</string>
+    <string name="message_info">Message info</string>
+    <string name="read_by">Read by : </string>
+    <string name="error_creating_group">Unable to create new group. Please try again later.</string>
+    <string name="creating_group_issue">Not all users have been added to this group. Please check the group info for details.</string>
+    <string name="group_chat_old_user">This user is on an old version of MyU. Ask them to update the app, so you can add them to the group.</string>
+    <string name="group_chat_participant_limit">You can add a maximum of %s users to the group.</string>
+    <string name="group_not_member">You are not a member of this group</string>
+    <string name="exit_group">Exit Group</string>
+    <string name="dialog_group_exit">Are you sure you want to exit the group?</string>
+    <string name="dialog_group_exit_owner">"Since you are the owner of this group, by leaving the group other members won't be able to chat"</string>
+    <string name="message_group_deleted">deleted this group</string>
+    <string name="this_username_is_already_taken">This username is already taken. Pick another one.</string>
+    <string name="group_deleted_success">deleted successfully</string>
+    <string name="cannot_reply">"You can't send to this conversation anymore"</string>
+    <string name="group_left">left</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="share_profile">Share profile</string>
+    <string name="Scan">Scan</string>
+    <string name="mycode">My Code</string>
+    <string name="user_msg_reciever_off">"This user doesn't want to receive private messages at the moment"</string>
+    <string name="leave_group">Exit group</string>
+    <string name="edit_group">Edit group info</string>
+    <string name="remove_group_user">Are you sure you want to remove %s ?</string>
+    <string name="group_info_exit">"Are you sure you don't want to save the changes you made?"</string>
+    <string name="relation_default">"You haven't chatted with this user before"</string>
+    <string name="tap_here_group">Tap here for more info</string>
+    <string name="owner">Owner</string>
+    <string name="dont_save">"Don't save"</string>
+    <string name="support_group_chat">This user is on an old version of MyU. Ask them to update the app, so you can add them to the group.</string>
+    <string name="share_profile_flyer">Share profile flyer</string>
+    <string name="share_profile_flyer_text">Steps:\n\n1. Download MyU from the Store, and register\n\n2. Find my profile as shown above\n\n3. Follow me, and join my classes!</string>
+    <string name="contact_me_via_myu">Contact me via Myu App:</string>
+    <string name="no_myu_code">"Hmm... we don't think this code belongs to MyU"</string>
+    <string name="late_attendance">Late</string>
+    <string name="you_were_marked_late">You were marked as late.</string>
+    <string name="please_choose_your_option">Mark all as:</string>
+    <string name="add_note">Add note...</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="add_note_up_to_36_character">Add a note (max 36 characters)</string>
+    <string name="add_note_header">Note</string>
+    <string name="push_notification_setting">Push Notification Settings</string>
+    <string name="troubleshooting">Troubleshooting</string>
+    <string name="control_the_push_notification_you_wish_to_recieve">Control the push notifications you wish to receive.</string>
+    <string name="facing_any_isssue_in_myu_here_are_some_steps_that_might_help">Facing any issue in MyU? here are some steps that might help:</string>
+    <string name="here_is_some_general_imformation_and_settings">Here is some general information and settings.</string>
+    <string name="general_settings">General Settings</string>
+    <string name="general">General Settings</string>
+    <string name="privacy_visibility_settings"><![CDATA[Privacy & Visibility Settings]]></string>
+    <string name="account_is_private">Account is private</string>
+    <string name="account_private_text_setting">If the account is private, you need to approve follow request.</string>
+    <string name="show_on_explore_page_text">Enabling this option will show your profile on explore page.  Your rank on explore page is based on engagement level with your account.</string>
+    <string name="show_on_explore_page">Show on explore page</string>
+    <string name="control_your_account_privacy_text">Control your account\'s privacy and level exposure</string>
+    <string name="recieve_comments">Receive comments</string>
+    <string name="recive_comment_text">This option lets you decide if you want to receive or block comments to your all your posts by default. You can always change this for individual posts after posting.</string>
+    <string name="no_one">No one</string>
+    <string name="privacy_visibility"><![CDATA[Privacy & Visibility]]></string>
+    <string name="share_doc">Share Doc</string>
+    <string name="disable_comment">Disable Comments</string>
+    <string name="enable_comment">Enable Comments</string>
+    <string name="sent_request_to_follow_user">requested to follow you.</string>
+    <string name="user_Comment_reciever_off">Comments are disabled by the post owner.</string>
+    <string name="follow_their_account">Follow this account to view their posts.</string>
+    <string name="this_account_is_private">Private Account</string>
+    <string name="receive_private_message_from">Receive private message from:</string>
+    <string name="anyone_on_myu">Anyone on MyU</string>
+    <string name="within_my_school_and_from_accounts_i_follow_or_sharing_a_common_class">Within my school, and from accounts I follow or share a common class with</string>
+    <string name="only_accounts_i_follow_or_sharing_a_common_class">Only accounts I follow or share a common class with</string>
+    <string name="pending_follow_request">Follow Requests</string>
+    <string name="cancel_follow_request">Do you wish to cancel the follow request?</string>
+    <string name="unmarked_attendance">Unmarked</string>
+    <string name="popup_window_sort">Sort</string>
+    <string name="add_name_to_list">Add to Name List</string>
+    <string name="add_from_member_list">Add from members</string>
+    <string name="student_name">Student\'s full name</string>
+    <string name="add_your_student_name_to_take_their_attendance_and_assign_grades_you_can_connect_members_with_their_names_here_to_allow_them_to_view_their_grades_and_attendance_or_accept_auto_attendance">Add student names here and connect members with their names to allow them to view their attendance, grades and accept auto-attendance.</string>
+    <string name="remove_student">Remove student name</string>
+    <string name="edit_student">Edit student name</string>
+    <string name="unlink_member">Unlink member</string>
+    <string name="link_to">Link To : </string>
+    <string name="linked_member_to_view">Linked members will be able to view their attendance and accept auto-attendance.</string>
+    <string name="link_member">Link Member</string>
+    <string name="edit_studentname">Edit Student name</string>
+    <string name="allow_member_connecting">Allow members to connect</string>
+    <string name="disallow_member_connecting">Stop members from connecting</string>
+    <string name="auto_attendance_switch_dilog" translatable="false">Out of the %s members in this class, only the %s members linked with names will be able to accept auto-attendance</string>
+    <string name="proceed">Proceed</string>
+    <string name="select_all">Select all</string>
+    <string name="deselect_all">Deselect all</string>
+    <string name="no_linked_member">No linked member</string>
+    <string name="link">Link</string>
+
+    <string name="add_member_now" translatable="false">Add members now!</string>
+    <string name="remove_student_popup">Are you sure you want to remove this name? All previous records will be removed</string>
+    <string name="add_user_directly">Add users directly</string>
+    <string name="action_popup">What would you like to do?</string>
+    <string name="student_have_been_added">Student name has been added</string>
+    <string name="student_blank_memberscreen">When members join your class they will show here. Share your class now!</string>
+    <string name="share_class_now">Share your class now!</string>
+    <string name="visit_profile">Visit profile</string>
+    <string name="add_a_member_to_this_conversation">Add a member to this conversation</string>
+    <string name="dialog_unblock_Open_chat_message">Unblock this user first to be able to message them</string>
+    <string name="choose_member">Choose member</string>
+    <string name="sort_list">Sort list</string>
+    <string name="sort_atoz">Sort from A-Z</string>
+    <string name="sort_zta">Sort from Z-A</string>
+    <string name="manualsort">Manual Sorting</string>
+    <string name="chooseyouroption">Please choose an option</string>
+    <string name="attenadance_placeholdertextwhen_userunlinked">To view your attendance, grades, and accept auto-attendance, ask the class owner to link your account with your name on the name list</string>
+    <string name="namelist_topheader_text1">Your account is not yet linked to any name here. Ask the class owner to connect you</string>
+    <string name="namelist_topheadertext2">Find your name on the list and link your account. If your name doesn\'t show, then ask the class owner to add it</string>
+
+
+    <string name="delete_grade">Are you sure you want to delete (%s)?</string>
+    <string name="new_grade">New grades: %s</string>
+    <string name="edit_grade">Edit grades: %s</string>
+    <string name="add_new_grades">Add new grades</string>
+    <string name="grading_something">Grading something?</string>
+    <string name="enter_grade_title">e.g. Quiz 2</string>
+    <string name="grade_title">Grade title</string>
+    <string name="grade_point_default">100</string>
+    <string name="points">Points</string>
+    <string name="ungrade_popup">Some students are not graded yet. Do you want to save anyway?</string>
+    <string name="full_grade">Full mark (%s)</string>
+    <string name="graded_students">Graded students (%s)</string>
+    <string name="average_grade">Average grade (%s)</string>
+    <string name="enter_grading_points">Enter total points</string>
+    <string name="grading_points_not_clear">Keep grades</string>
+    <string name="grading_points_clear">Reset all grades</string>
+    <string name="grading_points_change">You are about to change the total points. What would you like to do with the current grades?</string>
+    <string name="grades_invalid">Some grades seem invalid. Please fix them to be able to save.</string>
+    <string name="average">Average</string>
+    <string name="back_grade">You made some changes in these grades. Do you want to save them?</string>
+    <string name="discard">Discard</string>
+    <string name="report_grade">Would you like to receive the grades report on your email address %s?</string>
+    <string name="no_grades_student">When your grade is posted, you will see it here.</string>
+    <string name="grades_student_first">Please enter student grades first!</string>
+    <string name="please_enter_grade_title">Please enter the grade title</string>
+    <string name="namelist_empty_grade">Please create your class name list first to be able to add grades</string>
+
+    <string name="most_engaging_school">Most engaging schools</string>
+    <string name="my_school">My school</string>
+    <string name="schools">Top schools</string>
+    <string name="most_engaginguser">Most engaging members</string>
+    <string name="_48_hour_engagement">48-hour engagement</string>
+    <string name="pick_school_level">Pick school level</string>
+
+    <string name="assignments">Question</string>
+    <string name="new_assignments">New question</string>
+
+    <string name="assigment_date"><font fgcolor="#40000000">Due date</font><font fgcolor="#ff0000">*</font></string>
+    <string name="assignment_time"><font fgcolor="#40000000">Time</font><font fgcolor="#ff0000">*</font></string>
+    <string name="due_on">Due on:</string>
+    <string name="view_responses">View Responses</string>
+    <string name="response_submitted">Response submitted</string>
+    <string name="submit_responses">Submit Response</string>
+    <string name="title">Title</string>
+    <string name="instruction">Instructions</string>
+    <string name="grade_response">Grade response</string>
+    <string name="graded_questions_can_only_be_shared_to_classes_and_only_students_linked_on_the_name_list_can_submit_responses">Graded questions can only be shared to classes, and only the students linked on the name list can submit responses</string>
+    <string name="total_grade">Total grade</string>
+    <string name="allow_editing_of_response">Allow editing of responses</string>
+    <string name="due_date_passed">Due date passed</string>
+    <string name="submit_response">Response submitted</string>
+    <string name="grade">Grade</string>
+    <string name="edit_responses">Edit response</string>
+    <string name="rejected_responses">Response rejected. Submit again!</string>
+
+    <string name="enter_your_grade">Enter grade</string>
+    <string name="creating_your_assignment">Creating your question...</string>
+    <string name="publishing_your_assignment">Posting your question...</string>
+    <string name="publishing_your_assignment_response">Submitting your response...</string>
+    <string name="please_enter_between">The total grade value must be less than 999</string>
+    <string name="please_enter_grade">Please enter the total grade</string>
+    <string name="please_enter_time">The chosen due date has already passed. Please select another one.</string>
+    <string name="no_more_response">No more responses</string>
+
+    <string name="dialog_assignment_delete" translatable="false">Are you sure you want to delete this question?</string>
+    <string name="assigment_response_title">Responses</string>
+    <string name="assignment_enough_space">You are running out of document space. Upgrade now!</string>
+    <string name="you_can_not_submit_document_teacher_does_t_have_enough_sapce" formatted="false">Documents can\'t be attached in this response currently, because the question owner is out of space</string>
+
+    <string name="explore_first_time">Start by searching \na user</string>
+    <string name="teacher_profile_first_time">Start by adding \nyour class</string>
+
+    <string name="user_msg_reciever_own_off">"Your current settings don't allow you to messge this user. Edit settings"</string>
+    <string name="user_msg_reciever_promoter_off">"This account dones't receive messages"</string>
+    <string name="user_msg_reciever_university_off">"This feature has been disabled by your institution"</string>
+    <string name="no_plans">No Plans</string>
+
+    <string name="plan_price">%s %s / %s</string>
+
+
 
 </resources>

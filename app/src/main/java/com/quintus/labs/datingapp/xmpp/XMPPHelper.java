@@ -434,7 +434,11 @@ public class XMPPHelper implements JidsBlockedListener, JidsUnblockedListener, S
                     chatNotification.setBody(context.getString(R.string.image).toUpperCase());
                 } else if (chatMessageModel.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
                     chatNotification.setBody(context.getString(R.string.audio).toUpperCase());
-                } else if (chatMessageModel.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_ADDED)) {
+                }
+                else if (chatMessageModel.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+                    chatNotification.setBody(context.getString(R.string.video).toUpperCase());
+                }
+                else if (chatMessageModel.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_ADDED)) {
                     return;
                 } else if (chatMessageModel.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_DELETED)) {
                     return;

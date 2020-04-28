@@ -56,10 +56,11 @@ public class UserData implements Serializable {
     }
     public UserData(UserData userModel) {
         this.name = userModel.getFullName();
-        //this.surName = userModel.getSurName();
-        this.email = "";
-        this.id = userModel.getId();
+        this.fullName = userModel.getFullName();
         this.username = userModel.getFullName();
+
+        this.email = userModel.getEmail();
+        this.id = userModel.getId();
         this.isPremiumUser = true;
         this.receivePrivateMsg = true;
         this.onWhoseSide = "OTHER";
@@ -68,6 +69,7 @@ public class UserData implements Serializable {
         this.deviceInfo = list;
         this.isBlocked = false;
         this.hideReadReceipt=false;
+
 
 
     }

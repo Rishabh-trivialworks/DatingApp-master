@@ -24,9 +24,11 @@ import com.quintus.labs.datingapp.chat.ChatActivity;
 import com.quintus.labs.datingapp.chat.ChattingActivity;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.room.models.ConversationData;
+import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
 import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 import com.quintus.labs.datingapp.xmpp.utils.ChatMedia;
 import com.quintus.labs.datingapp.xmpp.utils.TimeUtils;
+import com.quintus.labs.datingapp.xmpp.utils.UserModel;
 
 import java.util.List;
 
@@ -72,6 +74,9 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
         holder.name.setText(users.getFullName());
       ConversationData chatModelNotification = MyApplication.getChatDataBase().chatConversationDao().getChatConversationDialog(users.getId(), AppConstants.Chat.TYPE_SINGLE_CHAT);
        if(chatModelNotification!=null&&chatModelNotification.chatMessage!=null){
+           holder.textViewAssignmentTime.setVisibility(View.VISIBLE);
+           holder.textViewAssignmentTime.setText(TimeUtils.getChatListTimeFromMillis(context, chatModelNotification.chatMessage.getTimestamp()));
+
            if (chatModelNotification.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_TEXT)) {
                holder.profession.setText(chatModelNotification.chatMessage.getBody());
                holder.profession.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -80,7 +85,13 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
                holder.profession.setText(context.getString(R.string.chat_image));
                holder.profession.setCompoundDrawablesWithIntrinsicBounds(R.drawable.chat_image, 0, 0, 0);
 
-           } else if (chatModelNotification.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
+           }
+           else if (chatModelNotification.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+               holder.profession.setText(context.getString(R.string.video));
+               holder.profession.setCompoundDrawablesWithIntrinsicBounds(R.drawable.chat_image, 0, 0, 0);
+
+           }
+           else if (chatModelNotification.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
                final ChatMedia chatMedia = gson.fromJson(chatModelNotification.chatMessage.getBody(), ChatMedia.class);
                holder.profession.setText(TimeUtils.getTimeFromMillis(chatMedia.getDuration() * 1000));
                holder.profession.setCompoundDrawablesWithIntrinsicBounds(R.drawable.chat_audio, 0, 0, 0);
@@ -100,18 +111,21 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
            }
            chatModelNotification.chatConversation.getUnreadCount();
 
-           if(users.isUserPresenceStatus()){
-               holder.imageViewStatus.setVisibility(View.VISIBLE);
-               holder.imageViewStatus.setImageResource(R.drawable.ic_lens_black_24dp);
-           }else{
-               holder.imageViewStatus.setVisibility(View.INVISIBLE);
 
-           }
 
        }else{
+           holder.textViewAssignmentTime.setVisibility(View.VISIBLE);
            holder.profession.setText(users.getAbout());
 
+
        }
+        if(users.isUserPresenceStatus()){
+            holder.imageViewStatus.setVisibility(View.VISIBLE);
+            holder.imageViewStatus.setImageResource(R.drawable.ic_lens_black_24dp);
+        }else{
+            holder.imageViewStatus.setVisibility(View.GONE);
+
+        }
 
 
 
@@ -120,7 +134,15 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
         holder.layoutMatchedUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChattingActivity.openActivity(activity,new UserData(users));
+                UserInfo userModel = MyApplication.getChatDataBase().userInfoDao().get(users.getId());
+                if (userModel != null) {
+                    ChattingActivity.openActivity(activity,new UserData(new UserModel(userModel)));
+
+                }else{
+                    ChattingActivity.openActivity(activity,new UserData(users));
+
+                }
+
 
             }
         });
@@ -137,19 +159,20 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView imageView;
-        TextView name, profession,textViewNewMessageCount;
+        ImageView imageView;
+        TextView name, profession,textViewNewMessageCount,textViewAssignmentTime;
         LinearLayout layoutMatchedUser;
         ImageView imageViewStatus;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.mui_image);
-            name = itemView.findViewById(R.id.mui_name);
-            profession = itemView.findViewById(R.id.mui_profession);
+            imageView = itemView.findViewById(R.id.imageViewUserImage);
+            name = itemView.findViewById(R.id.textViewUserName);
+            profession = itemView.findViewById(R.id.textViewMessage);
             layoutMatchedUser = itemView.findViewById(R.id.layoutMatchedUser);
             imageViewStatus = itemView.findViewById(R.id.imageViewStatus);
             textViewNewMessageCount = itemView.findViewById(R.id.textViewNewMessageCount);
+            textViewAssignmentTime = itemView.findViewById(R.id.textViewAssignmentTime);
 
         }
     }

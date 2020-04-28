@@ -137,6 +137,9 @@ public class ChatMediaUploaderHelper {
         } else if (chatMessageModel.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
             mediaType = AppConstants.ApiParamValue.MEDIA_TYPE_AUDIO.toLowerCase();
         }
+        else if (chatMessageModel.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+            mediaType = AppConstants.ApiParamValue.MEDIA_TYPE_VIDEO.toLowerCase();
+        }
 
         MultipartBody.Part mediaTypePart = MultipartBody.Part.createFormData(AppConstants.ApiParamKey.MEDIA_TYPE,mediaType);
         MultipartBody.Part filePart = MultipartBody.Part.createFormData(AppConstants.ApiParamKey.MEDIA, file.getName(), fileBody);

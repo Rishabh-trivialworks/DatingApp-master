@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_list_row"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/layoutMatchedUser"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

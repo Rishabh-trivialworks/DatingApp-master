@@ -69,6 +69,8 @@ import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.chat.adapter.ChatMessageAdapter;
+import com.quintus.labs.datingapp.chatview.activities.ImageFFActivity;
+import com.quintus.labs.datingapp.chatview.activities.VideoFFActivity;
 import com.quintus.labs.datingapp.eventbus.Events;
 import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.helper.AudioRecorder;
@@ -675,7 +677,13 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
     }
 
     private void hitApiForUserRelation() {
-          layoutRelation.setVisibility(View.VISIBLE);
+        if(AppSharedPreferences.getInstance().getChatInteraction(userId)){
+            layoutRelation.setVisibility(View.GONE);
+
+        }else{
+            layoutRelation.setVisibility(View.VISIBLE);
+
+        }
           textViewRelation.setText(context.getString(R.string.relation_default));
           textViewRelationBlock.setOnClickListener(this);
           textViewRelationAccept.setOnClickListener(this);
@@ -1199,6 +1207,26 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
                         dataBase.insertMessage(chatMessageModel);
                         addNewMessage(messageData);
                     }
+                    if(mediaItem.isVideo()){
+                        String image = mediaItem.getPathOrigin(context);
+
+                        if (AppConstants.checkIsFileValid(new File(image))) {
+                        } else {
+                            ToastUtils.show(context, context.getString(R.string.file_corrupted));
+                            return;
+                        }
+                        ChatMessage chatMessageModel = chattingHelper.createMediaMessage(image, 0, AppConstants.Chat.TYPE_CHAT_VIDEO);
+
+                        MessageData messageData = new MessageData(chatMessageModel);
+                        ChatMediaUploaderHelper chatMediaUploaderHelper = new ChatMediaUploaderHelper(context, messageData, this);
+
+                        mediaUploaderHelperHashMap.put(messageData, chatMediaUploaderHelper);
+                        chatMediaUploaderHelper.start();
+
+                        dataBase.insertMessage(chatMessageModel);
+                        addNewMessage(messageData);
+
+                    }
 
                 }
                 refreshListScrollBottom();
@@ -1523,7 +1551,15 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
                 chattingHelperForward.sendMediaMessage(chatMessageModel);
                 dataBase.insertMessage(chatMessageModel);
 
-            } else if (message.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
+            }
+            if (message.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+                chatMessageModel = chattingHelperForward.createMediaMessage("", 0, AppConstants.Chat.TYPE_CHAT_VIDEO);
+                chatMessageModel.setBody(message.getBody());
+                chattingHelperForward.sendMediaMessage(chatMessageModel);
+                dataBase.insertMessage(chatMessageModel);
+
+            }
+            else if (message.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
                 chatMessageModel = chattingHelperForward.createMediaMessage("", 0, AppConstants.Chat.TYPE_CHAT_AUDIO);
                 chatMessageModel.setBody(message.getBody());
                 chattingHelperForward.sendMediaMessage(chatMessageModel);
@@ -1875,7 +1911,31 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
     @Override
     public void chatMediaOptionsOpen(View viewRoot, View view, MessageData model,
                                      int position) {
-   ToastUtils.show(context," chatMediaOptionsOpen");
+                         if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+                             ChatMedia chatMedia = gson.fromJson(model.chatMessage.getBody(), ChatMedia.class);
+                             if (chatMedia.getStoragePath() != null && !chatMedia.getStoragePath().isEmpty() && new File(chatMedia.getStoragePath()).exists()) {
+                                 VideoFFActivity.open(context,chatMedia.getStoragePath());
+
+                             }else{
+                                 VideoFFActivity.open(context,chatMedia.getS3MediaUrl());
+                             }
+                         }
+                         if(model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_IMAGE)) {
+            ChatMedia chatMedia = gson.fromJson(model.chatMessage.getBody(), ChatMedia.class);
+            view.setTransitionName("photoTransition");
+            if (chatMedia.getStoragePath() != null && !chatMedia.getStoragePath().isEmpty() && new File(chatMedia.getStoragePath()).exists()) {
+                ImageFFActivity.open(context,chatMedia.getStoragePath(),(ImageView) view);
+
+            }else{
+                ImageFFActivity.open(context,chatMedia.getS3MediaUrl(),(ImageView) view);
+
+            }
+
+
+
+        }
+
+
     }
 
     private boolean checkPermissions() {
@@ -1959,9 +2019,12 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
             case R.id.imageViewImage:
                 MediaOptions options = new MediaOptions.Builder()
                         .selectPhoto()
+                        .selectVideo()
                         .setMaxImageSelectionLimit(AppConstants.Limits.POST_IMAGE_UPLOAD_CHAT_LIMIT)
+                        .setMaxVideoSelectionLimit(AppConstants.Limits.POST_VIDEO_UPLOAD_LIMIT)
                         .canSelectMultiPhoto(true)
                         .canCaptureMedia(true)
+                        .canSelectBothPhotoVideo()
                         .setMediaListSelected(null).build();
                 MediaPickerActivity.open(activity, MEDIA_PICKER_REQUEST, options);
                 break;

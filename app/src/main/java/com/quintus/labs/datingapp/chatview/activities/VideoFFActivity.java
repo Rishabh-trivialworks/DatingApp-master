@@ -1,6 +1,9 @@
 package com.quintus.labs.datingapp.chatview.activities;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
@@ -16,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.marcinmoskala.arcseekbar.ArcSeekBar;
 import com.marcinmoskala.arcseekbar.ProgressListener;
@@ -36,6 +40,12 @@ public class VideoFFActivity extends AppCompatActivity {
     boolean showSeekbarLL=false;
     boolean released=true;
     public static Handler handler;
+
+    public static void open(Context context,String url){
+        Intent intent = new Intent(context, VideoFFActivity.class);
+        intent.putExtra("videoURI",url);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(getSupportActionBar()!=null) {

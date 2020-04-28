@@ -33,6 +33,7 @@ import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.ViewPagerIndicator;
+import com.quintus.labs.datingapp.chatview.activities.ImageFFActivity;
 import com.quintus.labs.datingapp.rest.ProgressRequestBody;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -107,15 +108,25 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
             choosePhotoHelper.showChooser();
 
         });
+        imagePerson.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
+                    imagePerson.setTransitionName("profileImageTransion");
+                    ImageFFActivity.open(context,userInfo.getMedia().get(userInfo.getMedia().size()-1).getUrl(),imagePerson);
+
+                }
+
+                return false;
+            }
+        });
 
         ImageButton settings = findViewById(R.id.settings);
         settings.setOnClickListener(v -> {
                 Intent intent = new Intent(Profile_Activity.this, EditProfileNewActivity.class);
                 startActivity(intent);
         });
-        if(userInfo.getMedia()!=null && userInfo.getMedia().size()>0) {
-            GlideUtils.loadImage(mContext, userInfo.getMedia().get(0).getUrl(),imagePerson);
-        }
+
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override

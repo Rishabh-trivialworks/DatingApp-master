@@ -350,6 +350,10 @@ public class ChattingHelper {
             message.setSubject(AppConstants.Chat.TYPE_CHAT_IMAGE);
             chatMedia.setDuration(null);
         }
+        else if (chatMessageModel.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+            message.setSubject(AppConstants.Chat.TYPE_CHAT_VIDEO);
+            chatMedia.setDuration(null);
+        }
 
         String messageText = Base64Helper.encode(gson.toJson(chatMedia));
         message.setBody(messageText);

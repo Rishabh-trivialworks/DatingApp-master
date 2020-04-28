@@ -124,7 +124,12 @@ public class BitmapUtils {
                         if (model.getSubject().equals(com.quintus.labs.datingapp.Utils.AppConstants.Chat.TYPE_CHAT_IMAGE)) {
                             file = new File(AppConstants.APP_FOLDER_IMAGE, model.getMessageId() + "_" + model.getConversationId() + "_" + System.currentTimeMillis() + extension);
 
-                        } else if (model.getSubject().equals(com.quintus.labs.datingapp.Utils.AppConstants.Chat.TYPE_CHAT_AUDIO)) {
+                        }
+                        else if (model.getSubject().equals(com.quintus.labs.datingapp.Utils.AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+                            file = new File(AppConstants.APP_FOLDER_VIDEO, model.getMessageId() + "_" + model.getConversationId() + "_" + System.currentTimeMillis() + extension);
+
+                        }
+                        else if (model.getSubject().equals(com.quintus.labs.datingapp.Utils.AppConstants.Chat.TYPE_CHAT_AUDIO)) {
                             file = new File(AppConstants.APP_FOLDER_AUDIO, model.getMessageId() + "_" + model.getConversationId() + "_" + System.currentTimeMillis() + extension);
 
                         }
@@ -170,6 +175,9 @@ public class BitmapUtils {
         InputStream input = response.byteStream();
         OutputStream output = null;
         try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
             output = new FileOutputStream(file);
             byte[] buffer = new byte[8 * 1024]; // or other buffer size
             int read;

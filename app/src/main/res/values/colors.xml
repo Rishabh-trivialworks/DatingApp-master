@@ -279,8 +279,8 @@
     <!--<color name="theme_blue">#037aff</color>-->
     <color name="theme_blue">#72a8f3</color>
     <color name="theme_blue_add_board">#037aff</color>
-    <color name="theme_green">#20a28b</color>
-    <color name="theme_green_highlight">#22bca1</color>
+    <color name="theme_green" >#430c1f</color>
+    <color name="theme_green_highlight">#70430c1f</color>
     <color name="theme_google">#00A4C5</color>
     <color name="theme_green_hint">#91FAFA</color>
     <color name="player_button">#00a7c8</color>

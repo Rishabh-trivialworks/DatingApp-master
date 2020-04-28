@@ -14,6 +14,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,6 +35,7 @@ import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
+import com.quintus.labs.datingapp.chatview.data.VideoPlayer;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.DataBase;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatMessage;
@@ -434,6 +436,21 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.textViewDateHeader)
         public TextView textViewDateHeader;
 
+
+        @BindView(R.id.layoutChatVideo)
+        public FrameLayout layoutChatVideo;
+
+        @BindView(R.id.viewVideoChatImage)
+        public ImageView viewVideoChatImage;
+
+        @BindView(R.id.progressBarChatVideo)
+        public ProgressBar progressBarChatVideo;
+
+        @BindView(R.id.videoChatImageOptions)
+        public ImageView videoChatImageOptions;
+
+
+
         private float dp;
 
         public ChatMessageViewHolder(View view) {
@@ -516,16 +533,21 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     setMessage(model.chatMessage.getBody(), false);
                     layoutChatImage.setVisibility(View.GONE);
                     layoutAudioPlayer.setVisibility(View.GONE);
+                    layoutChatVideo.setVisibility(View.GONE);
+
 //                    textViewMessage.setVisibility(View.VISIBLE);
                     textViewTime.setShadowLayer(0, 0, 0, R.color.transparent);
                     textViewTime.setTextColor(ContextCompat.getColor(context, R.color.theme_text_color_grey_light_1));
 
-                } else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_IMAGE)) {
+                }
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_IMAGE)) {
                     textViewTime.setShadowLayer(2, 1, 1, R.color.text_shadow);
                     textViewTime.setTextColor(ContextCompat.getColor(context, R.color.white));
                     imageChatImage.setOnClickListener(null);
                     layoutChatImage.setVisibility(View.VISIBLE);
                     layoutAudioPlayer.setVisibility(View.GONE);
+                    layoutChatVideo.setVisibility(View.GONE);
+
 //                    textViewMessage.setVisibility(View.GONE);
                     textViewMessage.setText("");
 
@@ -609,7 +631,106 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             });
                         }
                     }
-                } else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
+                }
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+
+                    textViewTime.setShadowLayer(2, 1, 1, R.color.text_shadow);
+                    textViewTime.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    viewVideoChatImage.setOnClickListener(null);
+                    layoutChatVideo.setVisibility(View.VISIBLE);
+                    layoutChatImage.setVisibility(View.GONE);
+                    layoutAudioPlayer.setVisibility(View.GONE);
+//                    textViewMessage.setVisibility(View.GONE);
+                    textViewMessage.setText("");
+
+                    progressBarChatVideo.setVisibility(View.GONE);
+                    videoChatImageOptions.setVisibility(View.GONE);
+
+                    ChatMedia chatMedia = gson.fromJson(model.chatMessage.getBody(), ChatMedia.class);
+
+                    if (chatMedia != null) {
+                        if (chatMedia.getStoragePath() != null && !chatMedia.getStoragePath().isEmpty() && new File(chatMedia.getStoragePath()).exists()) {
+//                        imageChatImage.setAlpha(1f);
+
+                            Glide.with(context)
+                                    .asBitmap()
+                                    .load(chatMedia.getStoragePath())
+                                    .centerCrop()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewVideoChatImage);
+
+                            viewVideoChatImage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (getSelectedItemCount() > 0) {
+                                       onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    } else {
+                                        onItemClickMessageListener.chatMediaOptionsOpen(viewRoot, viewVideoChatImage, model, position);
+                                    }
+                                }
+                            });
+
+                            viewVideoChatImage.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                    if (imageChatImageOptions.getVisibility() == View.GONE)
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, imageChatImage, model, position);
+                                    return true;
+                                }
+                            });
+
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (getSelectedItemCount() > 0) {
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    } else {
+                                        onItemClickMessageListener.chatMediaOptionsOpen(viewRoot, viewVideoChatImage, model, position);
+                                    }
+                                }
+                            });
+
+                            back.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                    if (imageChatImageOptions.getVisibility() == View.GONE)
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    return true;
+                                }
+                            });
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.play_green);
+                        } else {
+                            Glide.with(context)
+                                    .load(chatMedia.getS3MediaThumbnailUrl())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .override(36, 36)
+                                    .centerCrop()
+                                    .into(viewVideoChatImage);
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.download_chat_image);
+
+                            if (chatMedia.isDownloading()) {
+                                videoChatImageOptions.setVisibility(View.GONE);
+                                progressBarChatImage.setVisibility(View.VISIBLE);
+                            } else {
+                                progressBarChatImage.setVisibility(View.GONE);
+                            }
+
+                            videoChatImageOptions.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    onItemClickMessageListener.chatMediaOptionsDownload(viewRoot, videoChatImageOptions, model, position);
+                                }
+                            });
+                        }
+                    }
+                }
+
+
+
+
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
 
                     chatAudio(model, this, position, true);
 
@@ -620,6 +741,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     layoutUnknown.setVisibility(View.VISIBLE);
                     layoutChatImage.setVisibility(View.GONE);
                     layoutAudioPlayer.setVisibility(View.GONE);
+                    layoutChatVideo.setVisibility(View.GONE);
                     textViewMessage.setText("");
                     textViewTime.setShadowLayer(0, 0, 0, R.color.transparent);
                     textViewTime.setText("");
@@ -716,13 +838,17 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     setMessage(model.chatMessage.getBody(), true);
                     layoutChatImage.setVisibility(View.GONE);
                     layoutAudioPlayer.setVisibility(View.GONE);
+                    layoutChatVideo.setVisibility(View.GONE);
+
 //                    textViewMessage.setVisibility(View.VISIBLE);
                     textViewTime.setShadowLayer(0, 0, 0, R.color.transparent);
 
-                } else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_IMAGE)) {
+                }
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_IMAGE)) {
                     textViewTime.setShadowLayer(2, 1, 1, R.color.text_shadow);
                     imageChatImage.setOnClickListener(null);
                     layoutChatImage.setVisibility(View.VISIBLE);
+                    layoutChatVideo.setVisibility(View.GONE);
                     layoutAudioPlayer.setVisibility(View.GONE);
 //                    textViewMessage.setVisibility(View.GONE);
                     textViewMessage.setText("");
@@ -837,11 +963,139 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         imageChatImageOptions.setVisibility(View.GONE);
                         progressBarChatImage.setVisibility(View.VISIBLE);
                     }
-                } else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
+                }
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_VIDEO)) {
+
+
+                    textViewTime.setShadowLayer(2, 1, 1, R.color.text_shadow);
+                    imageChatImage.setOnClickListener(null);
+                    videoChatImageOptions.setOnClickListener(null);
+                    layoutChatImage.setVisibility(View.GONE);
+                    layoutChatVideo.setVisibility(View.VISIBLE);
+                    layoutAudioPlayer.setVisibility(View.GONE);
+//                    textViewMessage.setVisibility(View.GONE);
+                    textViewMessage.setText("");
+
+                    progressBarChatVideo.setVisibility(View.GONE);
+                    videoChatImageOptions.setVisibility(View.GONE);
+
+                    ChatMedia chatMedia = gson.fromJson(model.chatMessage.getBody(), ChatMedia.class);
+
+                    if (chatMedia != null) {
+                        if (chatMedia.getStoragePath() == null || !new File(chatMedia.getStoragePath()).exists()) {
+                            progressBarChatVideo.setVisibility(View.GONE);
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.download_chat_image);
+                            Glide.with(context)
+                                    .load(chatMedia.getS3MediaThumbnailUrl())
+                                    .override(36, 36)
+                                    .centerCrop()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(imageChatImage);
+
+                            videoChatImageOptions.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    onItemClickMessageListener.chatMediaOptionsDownload(viewRoot, videoChatImageOptions, model, position);
+                                }
+                            });
+                        } else {
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.play_green);
+                            Glide.with(context)
+                                    .asBitmap()
+                                    .load(chatMedia.getStoragePath())
+                                    .centerCrop()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewVideoChatImage);
+                            viewVideoChatImage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (getSelectedItemCount() > 0) {
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    } else {
+                                        onItemClickMessageListener.chatMediaOptionsOpen(viewRoot, viewVideoChatImage, model, position);
+                                    }
+                                }
+                            });
+                            viewVideoChatImage.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    return true;
+                                }
+                            });
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (getSelectedItemCount() > 0) {
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    } else {
+                                        onItemClickMessageListener.chatMediaOptionsOpen(viewRoot, viewVideoChatImage, model, position);
+                                    }
+                                }
+                            });
+                            back.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                        onItemClickMessageListener.onItemLongClick(viewRoot, viewVideoChatImage, model, position);
+                                    return true;
+                                }
+                            });
+                        }
+                    }
+
+                    if (model.chatMessage.getStatus() == AppConstants.Chat.STATUS_PENDING) {
+                        if (chatMedia.isUploading()) {
+                            progressBarChatVideo.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.chat_image_cancel);
+
+                            videoChatImageOptions.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    onItemClickMessageListener.chatMediaOptionsCancel(viewRoot, videoChatImageOptions, model, position);
+                                }
+                            });
+                        } else {
+                            progressBarChatVideo.setVisibility(View.GONE);
+                            videoChatImageOptions.setVisibility(View.VISIBLE);
+                            videoChatImageOptions.setImageResource(R.drawable.chat_image_retry);
+
+                            videoChatImageOptions.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    onItemClickMessageListener.chatMediaOptionsSend(viewRoot, videoChatImageOptions, model, position);
+                                }
+                            });
+                        }
+                    } else if (model.chatMessage.getStatus() == AppConstants.Chat.STATUS_FAILED) {
+                        progressBarChatVideo.setVisibility(View.GONE);
+                        videoChatImageOptions.setVisibility(View.VISIBLE);
+                        videoChatImageOptions.setImageResource(R.drawable.chat_image_retry);
+
+                        videoChatImageOptions.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onItemClickMessageListener.chatMediaOptionsSend(viewRoot, videoChatImageOptions, model, position);
+                            }
+                        });
+                    }
+
+                    if (chatMedia != null && chatMedia.isDownloading()) {
+                        videoChatImageOptions.setVisibility(View.GONE);
+                        progressBarChatVideo.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
+
+                else if (model.chatMessage.getSubject().equals(AppConstants.Chat.TYPE_CHAT_AUDIO)) {
 
                     chatAudio(model, this, position, false);
 
-                } else if (model.chatMessage.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_ADDED) ||
+                }
+                else if (model.chatMessage.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_ADDED) ||
                         model.chatMessage.getType().equals(AppConstants.Chat.TYPE_GROUP_PARTICIPANT_DELETED)) {
                     //Handled Below
                 } else {
@@ -1053,6 +1307,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             textViewTime.setShadowLayer(0, 0, 0, R.color.transparent);
             layoutChatImage.setVisibility(View.GONE);
             layoutAudioPlayer.setVisibility(View.VISIBLE);
+            layoutChatVideo.setVisibility(View.GONE);
             textViewMessage.setText("");
 
             back.setOnClickListener(null);

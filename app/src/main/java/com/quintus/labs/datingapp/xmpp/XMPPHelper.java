@@ -673,6 +673,7 @@ public class XMPPHelper implements JidsBlockedListener, JidsUnblockedListener, S
         }.execute();
     }
 
+
     public void unblockUser(final int userId) {
 
         if (!NetworkUtil.isInternetAvailable) {
@@ -1176,4 +1177,14 @@ public class XMPPHelper implements JidsBlockedListener, JidsUnblockedListener, S
             LogUtils.newCheckerXMPP("***PRESENCE*** sent ERROR " + presence.getType() + " ERROR : " + e.getMessage());
         }
     }
+
+    public void clearChatHistory(int userId){
+        try{
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

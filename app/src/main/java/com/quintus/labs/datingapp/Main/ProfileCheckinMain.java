@@ -1,26 +1,36 @@
 package com.quintus.labs.datingapp.Main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.transition.TransitionManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayout;
 import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.Helper;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class ProfileCheckinMain extends AppCompatActivity {
@@ -29,6 +39,13 @@ public class ProfileCheckinMain extends AppCompatActivity {
     String profileImageUrl;
     int id;
     CardList card;
+    @BindView(R.id.flexBoxLayout)
+    public FlexboxLayout flexBoxLayout;
+    @BindView(R.id.scrollView)
+    public ScrollView scrollView;
+
+    public Activity activity;
+
 
     public static void open(Context context,CardList card){
         context.startActivity(new Intent(context, ProfileCheckinMain.class).putExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT, card));
@@ -38,14 +55,16 @@ public class ProfileCheckinMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_checkin_main);
+        activity = this;
 
+        ButterKnife.bind(activity);
+
+        flexBoxLayout.setFlexDirection(FlexDirection.ROW);
         mContext = ProfileCheckinMain.this;
         if (getIntent().hasExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT)) {
 
             card = (CardList) getIntent().getSerializableExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT);
 
-
-        }
 
         TextView profileName = findViewById(R.id.name_main);
         ImageView profileImage = findViewById(R.id.profileImage);
@@ -61,7 +80,7 @@ public class ProfileCheckinMain extends AppCompatActivity {
 
         String append = (card.getHowFar() == 1) ? "mile away" : "miles away";
 
-        profileDistance.setText(card.getHowFar() + " " + append);
+        profileDistance.setText(String.format("%.2f", card.getHowFar()) + " " + append);
         profileName.setText(card.getFullName());
         if(card.getAbout()!=null&&card.getAbout().length()>0){
             profileBio.setText(card.getAbout());
@@ -74,50 +93,94 @@ public class ProfileCheckinMain extends AppCompatActivity {
         }else{
             layoutIntrest.setVisibility(View.GONE);
         }
-        String url = "";
-        if(card.getMedia()!=null&&card.getMedia().size()>0){
-         url = card.getMedia().get(0).getUrl();
-        }
-        switch (card.getGender()) {
-            case "Female":
-                GlideUtils.loadImage(mContext,url,profileImage,R.drawable.default_woman);
-                break;
-            case "Male":
-                GlideUtils.loadImage(mContext,url,profileImage,R.drawable.default_man);
-                break;
-            default:
-                GlideUtils.loadImage(mContext,url,profileImage,R.drawable.default_man);
-                break;
-        }
+
+            Helper.loadImage(mContext,card.getMedia(),card.getGender(),profileImage);
+
 
         if(card.getInterested()!=null&&!card.getInterested().isEmpty()){
             layoutUserInfoOthers.setVisibility(View.VISIBLE);
             infoOthers.append(getSpanableString("Intrested In : "));
-            infoOthers.append(card.getInterested()+" ");
+            infoOthers.append(card.getInterested()+" \n");
+            addTag(getSpanableString("Intrested In : ")+card.getInterested());
         }
         if(card.getDob()!=null&&!card.getDob().isEmpty()){
             layoutUserInfoOthers.setVisibility(View.VISIBLE);
             infoOthers.append(getSpanableString("DOB : "));
-            infoOthers.append(card.getDob()+" ");
+            infoOthers.append(card.getDob()+" \n");
+            addTag(getSpanableString("DOB : ")+card.getDob());
+
         }
         if(card.getHeight()>0){
             layoutUserInfoOthers.setVisibility(View.VISIBLE);
             infoOthers.append(getSpanableString("Height : "));
-            infoOthers.append(card.getHeight()+"CM ");
+            infoOthers.append(card.getHeight()+" CM "+" \n");
+            addTag(getSpanableString("Height : ")+""+card.getHeight());
+
         }
-        if(card.getExercise()!=null&&!card.getExercise().isEmpty()){
-            layoutUserInfoOthers.setVisibility(View.VISIBLE);
-            infoOthers.append(getSpanableString("Exercise : "));
-            infoOthers.append(card.getExercise()+" ");
-        }
+
         if(card.getEducation()!=null&&!card.getEducation().isEmpty()){
             layoutUserInfoOthers.setVisibility(View.VISIBLE);
             infoOthers.append(getSpanableString("Education : "));
-            infoOthers.append(card.getEducation()+" ");
+            infoOthers.append(card.getEducation()+" \n");
+            addTag(getSpanableString("Education : ")+card.getEducation());
+
         }
-        close.setOnClickListener(v -> {
+
+            if(card.getExercise()!=null&&!card.getExercise().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Exercise : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Exercise : ")+card.getExercise());
+
+            }
+
+            if(card.getSmoking()!=null&&!card.getSmoking().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Smoking Habit : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Smoking Habit : ")+card.getSmoking());
+
+            }
+            if(card.getDrinking()!=null&&!card.getDrinking().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Drinking Habit : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Drinking Habit : ")+card.getDrinking());
+
+            }
+            if(card.getLookingFor()!=null&&!card.getLookingFor().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Looking For : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Looking For : ")+card.getLookingFor());
+
+            }
+            if(card.getPoliticalLeanings()!=null&&!card.getPoliticalLeanings().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Polotical Leanings : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Polotical Leanings : ")+card.getPoliticalLeanings());
+
+            }
+
+            if(card.getReligion()!=null&&!card.getReligion().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Religion : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Religion : ")+card.getReligion());
+
+            }
+            if(card.getZodiac()!=null&&!card.getZodiac().isEmpty()){
+                layoutUserInfoOthers.setVisibility(View.VISIBLE);
+                infoOthers.append(getSpanableString("Zodiac : "));
+                infoOthers.append(card.getEducation()+" \n");
+                addTag(getSpanableString("Zodiac : ")+card.getZodiac());
+
+            }
+            close.setOnClickListener(v -> {
            finish();
         });
+    }
     }
 
 
@@ -145,4 +208,43 @@ public class ProfileCheckinMain extends AppCompatActivity {
         return ss1;
     }
 
+    private void addTag(final String classesFilter) {
+        final View view = LayoutInflater.from(mContext).inflate(R.layout.view_about_tag, flexBoxLayout, false);
+        ImageView imageLeft = view.findViewById(R.id.imageLeft);
+        TextView textView = view.findViewById(R.id.textView);
+         textView.setText(classesFilter);
+
+
+
+        checkTags();
+
+
+
+        flexBoxLayout.addView(view);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+    }
+
+    public void checkTags() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TransitionManager.beginDelayedTransition(scrollView);
+        }
+
+//        if (filterAdapter.getClassesFiltersSelected().isEmpty()) {
+//            if (scrollView.getVisibility() != View.GONE) {
+//                scrollView.setVisibility(View.GONE);
+//            }
+//        } else {
+//            if (scrollView.getVisibility() != View.VISIBLE) {
+//                scrollView.setVisibility(View.VISIBLE);
+//            }
+//        }
+    }
+
 }
+

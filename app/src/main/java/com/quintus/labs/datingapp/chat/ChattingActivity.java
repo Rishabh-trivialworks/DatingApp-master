@@ -34,6 +34,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -57,10 +58,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.gson.Gson;
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.Main.ProfileCheckinMain;
+import com.quintus.labs.datingapp.Main.ViewOwnProfileActivty;
 import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.DialogUtils;
 import com.quintus.labs.datingapp.Utils.EventBroadcastHelper;
+import com.quintus.labs.datingapp.Utils.Helper;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
@@ -77,6 +81,8 @@ import com.quintus.labs.datingapp.receivers.NetworkChangeReceiver;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.ChattingHelper;
 import com.quintus.labs.datingapp.xmpp.DataBase;
+import com.quintus.labs.datingapp.xmpp.MyService;
+import com.quintus.labs.datingapp.xmpp.XMPPHelper;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatMessage;
 import com.quintus.labs.datingapp.xmpp.room.models.ConversationData;
 import com.quintus.labs.datingapp.xmpp.room.models.MessageData;
@@ -112,7 +118,7 @@ import static com.quintus.labs.datingapp.Utils.AppConstants.RequestCode.MEDIA_PI
 import static com.quintus.labs.datingapp.Utils.AppConstants.RequestCode.MY_PERMISSIONS_REQUEST;
 
 
-public class ChattingActivity extends AppCompatActivity implements NetworkChangeReceiver.OnNetworkChangeListener, ChatMessageAdapter.OnItemClickMessageListener, ChatMessageAdapter.OnShowLastItemListener, ChattingHelper.ChattingListener, ChatMessageAdapter.OnItemClickHeadingListener, ChatMediaUploaderHelper.Callbacks, View.OnClickListener, AudioRecorder.Callbacks {
+public class ChattingActivity extends AppCompatActivity implements NetworkChangeReceiver.OnNetworkChangeListener, ChatMessageAdapter.OnItemClickMessageListener, ChatMessageAdapter.OnShowLastItemListener, ChattingHelper.ChattingListener, ChatMessageAdapter.OnItemClickHeadingListener, ChatMediaUploaderHelper.Callbacks, View.OnClickListener, AudioRecorder.Callbacks, PopupMenu.OnMenuItemClickListener {
 
     private Activity activity;
     private Context context;
@@ -336,7 +342,7 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
                         textViewUserOnline.setText(activity.getResources().getString(R.string.chat_online));
                     } else {
                         textViewUserOnline.setVisibility(View.VISIBLE);
-                        textViewUserOnline.setText(activity.getResources().getString(R.string.tap_here_group));
+                        textViewUserOnline.setText(activity.getResources().getString(R.string.chat_ofline));
                     }
                 }
             });
@@ -719,6 +725,33 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
 
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.actionBlock:
+                AppSharedPreferences.getInstance(context).saveChatInteracted(userId);
+                layoutRelation.setVisibility(View.GONE);
+
+                try {
+                    TempStorage.getXMPPHelper().blockUser(userDetailModel.getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.actionSeeProfile:
+                ViewOwnProfileActivty.open(context,userDetailModel);
+                break;
+            case R.id.actionCancelCrush:
+
+                break;
+            case R.id.actionDeleteHistory:
+                MyApplication.getChatDataBase().chatMessageDao().deleteSingleMessages(userId);
+                break;
+
+        }
+        return false;
+    }
+
     private class ActionModeCallback implements ActionMode.Callback {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -1019,6 +1052,7 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
         imgageViewUserType.setOnClickListener(this);
         textViewUserOnline.setVisibility(View.VISIBLE);
         textViewUserOnline.setOnClickListener(this);
+        imageViewOptions.setVisibility(View.VISIBLE);
         //textViewUserOnline.setText(R.string.tap_here_group);
 
     }
@@ -1059,12 +1093,12 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
         int errorImageRes = 0;
 
         if (chatType == AppConstants.Chat.TYPE_SINGLE_CHAT) {
-            if (userDetailModel.getName() != null && !userDetailModel.getName().isEmpty()) {
-                textViewUserName.setText(userDetailModel.getName());
+            if (userDetailModel.getFullName() != null && !userDetailModel.getFullName().isEmpty()) {
+                textViewUserName.setText(userDetailModel.getFullName());
             }
 
-            if (userDetailModel.getProfileImage() != null) {
-                url = userDetailModel.getProfileImage().getThumbnailPath();
+            if (userDetailModel.getMedia() != null&&userDetailModel.getMedia().size()>0) {
+                url = userDetailModel.getMedia().get(0).getUrl();
             }
 
             errorImageRes = R.drawable.user_default_profile_pic;
@@ -1935,6 +1969,7 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
                 onBackPressed();
                 break;
             case R.id.imageViewOptions:
+                Helper.showPopMenu(context,view,ChattingActivity.this);
                 break;
             case R.id.textViewRelationAccept:
                 AppSharedPreferences.getInstance(context).saveChatInteracted(userId);

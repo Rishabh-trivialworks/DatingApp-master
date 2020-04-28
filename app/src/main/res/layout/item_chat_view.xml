@@ -85,8 +85,9 @@
                     android:layout_marginRight="4dp"
                     android:paddingRight="4dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/msg_sending"
-                    android:visibility="visible" />
+                    android:src="@drawable/ic_lens_black_24dp"
+                    android:visibility="visible"
+                    />
 
                 <TextView
                     android:id="@+id/textViewMessage"
@@ -119,7 +120,9 @@
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="10dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
         </LinearLayout>

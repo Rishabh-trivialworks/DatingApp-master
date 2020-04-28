@@ -25,11 +25,12 @@ public class RegisterGenderPrefection extends AppCompatActivity {
 
     String password;
     User user;
-    Boolean preferMale = null;
+    String preferMale;
     private Button preferenceContinueButton;
     private Button hobbiesContinueButton;
     private Button maleSelectionButton;
     private Button femaleSelectionButton;
+    private Button bothSelectionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class RegisterGenderPrefection extends AppCompatActivity {
         password = intent.getStringExtra("password");
         maleSelectionButton = findViewById(R.id.maleSelectionButton);
         femaleSelectionButton = findViewById(R.id.femaleSelectionButton);
+        bothSelectionButton = findViewById(R.id.bothSelectionButton);
         preferenceContinueButton = findViewById(R.id.genderContinueButton);
         maleSelectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +57,17 @@ public class RegisterGenderPrefection extends AppCompatActivity {
                 femaleButtonSelected();
             }
         });
+        bothSelectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bothButtonSelected();
+            }
+        });
 
         preferenceContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(preferMale!=null){
+                if(!preferMale.isEmpty()){
                     openAgeEntryPage();
 
                 }else{
@@ -72,31 +80,40 @@ public class RegisterGenderPrefection extends AppCompatActivity {
     }
 
     public void maleButtonSelected() {
-        preferMale = true;
-        toggleView(femaleSelectionButton,maleSelectionButton);
+        preferMale = "Male";
+        toggleView(maleSelectionButton,femaleSelectionButton,bothSelectionButton);
 
     }
 
     public void femaleButtonSelected() {
-        preferMale = false;
-        toggleView(maleSelectionButton,femaleSelectionButton);
+        preferMale = "Female";
+        toggleView(femaleSelectionButton,maleSelectionButton,bothSelectionButton);
 
     }
-    private void toggleView(Button view,Button view1){
-            view.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+    public void bothButtonSelected() {
+        preferMale = "Both";
+        toggleView(bothSelectionButton,maleSelectionButton,femaleSelectionButton);
+
+    }
+    private void toggleView(Button view,Button view1,Button view2){
+            view.setTextColor(getResources().getColor(R.color.white));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                view.setBackground(getResources().getDrawable(R.drawable.background_rounded_border));
+                view.setBackground(getResources().getDrawable(R.drawable.white_rounded_button));
             }
             else{
-                view.setBackgroundResource(R.drawable.background_rounded_border);
+                view.setBackgroundResource(R.drawable.white_rounded_button);
 
             }
-            view1.setTextColor(getResources().getColor(R.color.white));
+            view1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            view2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                view1.setBackground(getResources().getDrawable(R.drawable.white_rounded_button));
+                view1.setBackground(getResources().getDrawable(R.drawable.background_rounded_border));
+                view2.setBackground(getResources().getDrawable(R.drawable.background_rounded_border));
             }
             else{
-                view1.setBackgroundResource(R.drawable.white_rounded_button);
+                view1.setBackgroundResource(R.drawable.background_rounded_border);
+                view2.setBackgroundResource(R.drawable.background_rounded_border);
+
 
             }
 
@@ -105,8 +122,8 @@ public class RegisterGenderPrefection extends AppCompatActivity {
     }
 
     public void openAgeEntryPage() {
-        String preferSex = preferMale ? "Male" : "Female";
-        user.setPreferSex(preferSex);
+
+        user.setPreferSex(preferMale);
         Intent intent = new Intent(this, RegisterAge.class);
         intent.putExtra("password", password);
         intent.putExtra("classUser", user);

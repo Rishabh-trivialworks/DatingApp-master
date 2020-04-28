@@ -54,6 +54,23 @@ public class UserData implements Serializable {
         mediaModel.setMediaType(AppConstants.ApiParamValue.MEDIA_TYPE_IMAGE);
         this.profileImage = mediaModel;
     }
+    public UserData(UserData userModel) {
+        this.name = userModel.getFullName();
+        //this.surName = userModel.getSurName();
+        this.email = "";
+        this.id = userModel.getId();
+        this.username = userModel.getFullName();
+        this.isPremiumUser = true;
+        this.receivePrivateMsg = true;
+        this.onWhoseSide = "OTHER";
+        List<UserDeviceInfoModel> list = new ArrayList<>();
+        list.add(new UserDeviceInfoModel("android","1.0.0"));
+        this.deviceInfo = list;
+        this.isBlocked = false;
+        this.hideReadReceipt=false;
+
+
+    }
 
     private  String username;
     private  boolean isPremiumUser;
@@ -191,9 +208,18 @@ public class UserData implements Serializable {
     @SerializedName("bio")
     @Expose
     private String bio;
+    @SerializedName("interests")
+    @Expose
+    private List<Interest> interests = null;
+
+    @SerializedName("politicalLeanings")
+    @Expose
+    private String politicalLeanings;
 
     private boolean receivePrivateMsg;
     private boolean receivePrivateMsgNotification;
+
+    private boolean userPresenceStatus;
 
 
 
@@ -555,5 +581,28 @@ public class UserData implements Serializable {
 
     public void setSubscription(Object subscription) {
         this.subscription = subscription;
+    }
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
+    }
+
+    public String getPoliticalLeanings() {
+        return politicalLeanings;
+    }
+
+    public void setPoliticalLeanings(String politicalLeanings) {
+        this.politicalLeanings = politicalLeanings;
+    }
+
+    public boolean isUserPresenceStatus() {
+        return userPresenceStatus;
+    }
+
+    public void setUserPresenceStatus(boolean userPresenceStatus) {
+        this.userPresenceStatus = userPresenceStatus;
     }
 }

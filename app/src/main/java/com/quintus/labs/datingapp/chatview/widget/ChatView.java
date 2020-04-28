@@ -332,7 +332,7 @@ public class ChatView extends RelativeLayout {
     }
 
 
-    //For hiding or showing sender layout which contains an edittext ,send button and many others features
+    //For hiding or showing sender layout_activate_boost which contains an edittext ,send button and many others features
     public void showSenderLayout(boolean b){
         this.showSenderLL=b;
         if(b){
@@ -359,12 +359,12 @@ public class ChatView extends RelativeLayout {
     }
 
 
-    //For changing left bubble layout color
+    //For changing left bubble layout_activate_boost color
     public void setLeftBubbleLayoutColor(int color){
         messageAdapter.setLeftBubbleLayoutColor(color);
     }
 
-    //for changing right bubble layout color
+    //for changing right bubble layout_activate_boost color
     public void setRightBubbleLayoutColor(int color){
         messageAdapter.setRightBubbleLayoutColor(color);
     }

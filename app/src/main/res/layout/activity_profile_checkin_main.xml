@@ -3,6 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:fillViewport="true"
     android:fitsSystemWindows="true">
@@ -150,15 +151,36 @@
                     android:paddingLeft="16dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="Dancing, Traveling, Love"
-                    android:textSize="16sp" />
+                    android:text=""
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    />
+
+                <ScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    android:visibility="visible">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexBoxLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        app:alignContent="flex_start"
+                        app:alignItems="flex_start"
+                        app:flexWrap="wrap" />
+                </ScrollView>
             </LinearLayout>
 
 
 
             <LinearLayout
+                android:id="@+id/bottamLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp">
 
                 <LinearLayout

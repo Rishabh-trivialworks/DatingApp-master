@@ -5,6 +5,7 @@ import com.quintus.labs.datingapp.BoostPaidPlans.PlanModel;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
 import com.quintus.labs.datingapp.rest.RequestModel.AddAddressRequest;
+import com.quintus.labs.datingapp.rest.RequestModel.ChangePasswordModel;
 import com.quintus.labs.datingapp.rest.RequestModel.ChangepasswordRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.EditProfileUpdateRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.HelpCenterRequestModel;
@@ -173,5 +174,9 @@ public interface ApiService {
     @POST(AppConstants.Url.RSAPayment)
     Call<ResponseModel<UserData>> paymentToRsaServer(@Body PaymentRSARequest paymentRequest);
 
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.CHANGEPASSWORD)
+    Call<ResponseModel> changePassword(@Body ChangePasswordModel changePasswordModel);
 
 }

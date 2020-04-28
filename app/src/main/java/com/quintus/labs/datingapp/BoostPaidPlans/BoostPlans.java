@@ -74,11 +74,16 @@ public class BoostPlans extends AppCompatActivity implements PlanListAdapter.Ite
 
     ArrayList<PlanModel> planList;
     CardList card;
+    UserData userData;
     private Handler handler;
 
 
     public static void open(Context context, CardList card){
         context.startActivity(new Intent(context, BoostPlans.class).putExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT, card));
+
+    }
+    public static void open(Context context, UserData card){
+        context.startActivity(new Intent(context, BoostPlans.class).putExtra(AppConstants.DataKey.USER_DETAIL_MODEL_OBJECT, card));
 
     }
 
@@ -96,6 +101,12 @@ public class BoostPlans extends AppCompatActivity implements PlanListAdapter.Ite
         if (getIntent().hasExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT)) {
 
             card = (CardList) getIntent().getSerializableExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT);
+
+
+        }
+        if (getIntent().hasExtra(AppConstants.DataKey.USER_DETAIL_MODEL_OBJECT)) {
+
+            userData = (UserData) getIntent().getSerializableExtra(AppConstants.DataKey.USER_DETAIL_MODEL_OBJECT);
 
 
         }

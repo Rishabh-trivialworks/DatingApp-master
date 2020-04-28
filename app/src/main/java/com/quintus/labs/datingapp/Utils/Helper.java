@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.Interest;
+import com.quintus.labs.datingapp.xmpp.utils.MediaModel;
 
 
 import java.io.InputStream;
@@ -58,12 +60,31 @@ public class Helper {
     }
 
 public static String getIntrestString(List<Interest> list){
+        String result ="";
         StringBuilder intrestString=new StringBuilder();
     for (Interest intrest:list) {
-        intrestString.append(intrest+",");
+        intrestString.append(intrest.getInterest()+",");
+        result = intrestString.toString();
     }
-    String result = intrestString.toString();
     return result.substring(0,result.length()-1);
     }
+
+public static void loadImage(Context context, List<ImageModel> media, String gender,ImageView profileImage){
+    String url = "";
+    if(media!=null&&media.size()>0){
+        url = media.get(0).getUrl();
+    }
+    switch (gender) {
+        case "Female":
+            GlideUtils.loadImage(context,url,profileImage,R.drawable.default_woman);
+            break;
+        case "Male":
+            GlideUtils.loadImage(context,url,profileImage,R.drawable.default_man);
+            break;
+        default:
+            GlideUtils.loadImage(context,url,profileImage,R.drawable.default_man);
+            break;
+    }
+}
 
 }

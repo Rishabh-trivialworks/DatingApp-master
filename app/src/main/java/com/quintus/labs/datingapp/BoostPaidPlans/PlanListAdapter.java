@@ -31,7 +31,7 @@ public class PlanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mContext=context;
     }
 
-    // inflates the cell layout from xml when needed
+    // inflates the cell layout_activate_boost from xml when needed
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

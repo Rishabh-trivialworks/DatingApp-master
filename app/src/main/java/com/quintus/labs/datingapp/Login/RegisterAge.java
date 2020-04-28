@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.User;
+import com.quintus.labs.datingapp.rest.Response.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class RegisterAge extends AppCompatActivity {
     private Button ageContinueButton;
     // age limit attribute
     private int ageLimit = 13;
+    UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,10 @@ public class RegisterAge extends AppCompatActivity {
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("classUser");
         password = intent.getStringExtra("password");
+
+        if(intent.hasExtra("userinfo")){
+            userData = (UserData) getIntent().getSerializableExtra("userinfo");
+        }
 
         ageSelectionPicker = findViewById(R.id.ageSelectionPicker);
 
@@ -71,12 +77,21 @@ public class RegisterAge extends AppCompatActivity {
             String strDateOfBirth = dateFormatter.format(dateOfBirth);
 
             // code to set the dateOfBirthAttribute.
-            user.setDateOfBirth(strDateOfBirth);
+            if(userData!=null){
+                userData.setDob(strDateOfBirth);
+                Intent intent = new Intent();
+                intent.putExtra("userInfo",userData);
+                setResult(RESULT_OK,intent);
+                finish();
+            }else {
+                user.setDateOfBirth(strDateOfBirth);
+                Intent intent = new Intent(this, RegisterHobby.class);
+                intent.putExtra("password", password);
+                intent.putExtra("classUser", user);
+                startActivity(intent);
+            }
 
-            Intent intent = new Intent(this, RegisterHobby.class);
-            intent.putExtra("password", password);
-            intent.putExtra("classUser", user);
-            startActivity(intent);
+
         } else {
             Toast.makeText(getApplicationContext(), "Age of the user should be greater than " + ageLimit + " !!!", Toast.LENGTH_SHORT).show();
         }

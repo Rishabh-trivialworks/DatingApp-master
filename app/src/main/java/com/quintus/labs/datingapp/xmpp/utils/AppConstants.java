@@ -380,6 +380,9 @@ public class AppConstants {
         public static final String PAGER_CHAT_ACTIVITY = "chat_activity_page";
         public static final String USER_DETAIL_MODEL_OBJECT = "user_detail_model_object";
         public static final String CARD_DETAIL_MODEL_OBJECT = "card_detail_model_object";
+        public static final String DETAIL_MODEL_OBJECT = "userinfo";
+
+
 
         public static final String CHAT_MODEL_OBJECT = "chat_model_object";
         public static final String CONVERSATION_ID = "conversation_id";

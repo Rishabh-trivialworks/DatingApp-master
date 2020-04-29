@@ -114,7 +114,8 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
 
 
        }else{
-           holder.textViewAssignmentTime.setVisibility(View.VISIBLE);
+           holder.profession.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+           holder.textViewAssignmentTime.setVisibility(View.GONE);
            holder.profession.setText(users.getAbout());
 
 

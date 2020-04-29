@@ -754,6 +754,9 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
                 break;
             case R.id.actionDeleteHistory:
                 MyApplication.getChatDataBase().chatMessageDao().deleteSingleMessages(userId);
+                chatMessageAdapter = null;
+                getChatMessages(System.currentTimeMillis(), 50, 0);
+
                 break;
 
         }
@@ -1640,7 +1643,7 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
             case R.id.msg_layout:
             case R.id.imageChatImage:
                 //showPopUpWindowCopy(view, model);
-                enableActionMode(position);
+                //enableActionMode(position);
                 break;
         }
     }

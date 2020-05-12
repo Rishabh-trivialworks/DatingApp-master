@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DatingApp-master.iml" filepath="$PROJECT_DIR$/DatingApp-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidRecording/androidRecording.iml" filepath="$PROJECT_DIR$/androidRecording/androidRecording.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

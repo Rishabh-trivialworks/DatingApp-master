@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item android:id="@+id/action_edit_profile"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="always"
+        android:title="@string/text_edit_profile"></item>
+
+    <item android:id="@+id/action_setting"
+        android:icon="@drawable/settings_icon"
+        app:showAsAction="always"
+        android:title="@string/text_setting"></item>
+    <item android:id="@+id/action_shareprofile"
+        android:icon="@drawable/shareiconprofile"
+        app:showAsAction="always"
+        android:title="@string/share_profile"></item>
+</menu>

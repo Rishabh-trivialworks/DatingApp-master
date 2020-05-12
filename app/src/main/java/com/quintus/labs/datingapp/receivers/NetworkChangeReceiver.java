@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 
 import com.quintus.labs.datingapp.Utils.AppContext;
 import com.quintus.labs.datingapp.Utils.LogUtils;
-import com.quintus.labs.datingapp.Utils.NetworkUtil;
+import com.quintus.labs.datingapp.xmpp.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;

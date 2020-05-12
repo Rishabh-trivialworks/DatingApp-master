@@ -23,7 +23,9 @@
         android:icon="@drawable/ic_cancel"
         android:iconTint="@color/theme_dark_text"
         android:title="@string/cancel_this_crush"
-        app:showAsAction="ifRoom">
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        >
 
     </item>
     <item

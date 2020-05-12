@@ -34,5 +34,9 @@
         <attr name="showSenderName" format="boolean" />
         <attr name="senderNameTextColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="ImFlexboxLayout">
+        <attr name="viewPartMain" format="reference"></attr>
+        <attr name="viewPartSlave" format="reference"></attr>
+    </declare-styleable>
 
 </resources>

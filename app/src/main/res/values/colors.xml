@@ -161,23 +161,15 @@
      5% — 0D
      0% — 00-->
 
-    <color name="transparent">#00000000</color>
-    <color name="transparent_25">#40000000</color>
-    <color name="transparent_10">#1A000000</color>
-    <color name="transparent_11">#0D000000</color>
-    <color name="black">#000000</color>
-    <color name="blue_color">#012640</color>
+
     <color name="line_color">#494949</color>
-    <color name="white">#FFFFFF</color>
-    <color name="late_dark">#EC9E02</color>
-    <color name="late_light">#FFCA5F</color>
+
     <color name="tint_color">#797979</color>
     <color name="yellow">#ffff00</color>
     <color name="grey">#bfbfbf</color>
     <color name="light_grey">#eeeeee</color>
     <color name="background">#F3F7F8</color>
-    <color name="theme_text_color_grey_light_1">#9baac6</color>
-    <color name="underlinebg">#cad4e2</color>
+
 
 
 
@@ -259,4 +251,114 @@
     <color name="transparent_white_percent_90">#E6ffffff</color>
     <color name="transparent_white_percent_95">#F2ffffff</color>
     <color name="theme_dark_text">#031d22</color>
+
+    <color name="theme_profile_background">#575F6F</color>
+    <color name="theme_text_color_dark_2">#343841</color>
+    <color name="theme_text_color_blue">#a1aec8</color>
+    <color name="theme_bg_group_chat_headers">#d3f6ff</color>
+    <color name="theme_text_color_grey_light_1">#9baac6</color>
+    <color name="prime_below">#393939</color>
+    <color name="chat_background">#e8edf3</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_25">#40000000</color>
+    <color name="transparent_10">#1A000000</color>
+    <color name="transparent_11">#0D000000</color>
+    <color name="explore_search_box">#DADEE1</color>
+    <color name="white">#ffffff</color>
+    <color name="dark_gray">#4e4e4e</color>
+    <color name="theme_text_color_grey">#768692</color>
+    <color name="like_view_comment">#ABB7CE</color>
+    <color name="color_image_bg">#dce5f2</color>
+    <color name="text_shadow">#000000</color>
+    <color name="dark_slate_gray">#2F4F4F</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="gray_1">#C0C0C0</color>
+    <color name="explore_search_color">#FAFAFA</color>
+    <color name="underlinebg">#cad4e2</color>
+    <color name="black">#000000</color>
+    <!--<color name="theme_blue">#037aff</color>-->
+    <color name="theme_blue">#72a8f3</color>
+    <color name="theme_blue_add_board">#037aff</color>
+    <color name="theme_green" >#430c1f</color>
+    <color name="theme_green_highlight">#70430c1f</color>
+    <color name="theme_google">#00A4C5</color>
+    <color name="theme_green_hint">#91FAFA</color>
+    <color name="player_button">#00a7c8</color>
+    <color name="player_button_light">#93dff3</color>
+    <color name="theme_player">#9BAAC7</color>
+    <color name="text_no_data">#DDD</color>
+    <color name="theme_gray">#F3F7F8</color>
+    <color name="theme_gray_stoke">#40F3F7F8</color>
+    <color name="dark_linkedin">#0274b3</color>
+    <color name="doc_attached_bg">#ABB7CD</color>
+    <color name="doc_selection_bg">#DDE5F2</color>
+    <color name="tab_highlight">#B9BEC2</color>
+    <color name="red_color">#ff0000</color>
+    <color name="theme_divider_color">#D8D8D8</color>
+    <color name="blue_color">#00bfff</color>
+    <color name="blue_light_color">#84E0F4</color>
+    <color name="follow_btn_color">#a6b7cd</color>
+    <color name="blue_hint_color">#a2d8da</color>
+    <color name="main_txt_color">#9A9FA3</color>
+    <color name="login_button_color">#91cd5b</color>
+    <color name="font_hint_color">#cad4e2</color>
+    <color name="dialog_search_text_hint">#DDDDDD</color>
+    <color name="font_text_black">#000</color>
+    <color name="name_user">#262222</color>
+    <color name="user_type">#788692</color>
+    <color name="board_button_color">#38BDB6</color>
+    <color name="board_options">#4D5665</color>
+    <color name="setting_heading">#9ba8ca</color>
+    <color name="setting_text">#727f90</color>
+    <color name="underlinebg1">#A9B7D1</color>
+    <color name="student_select">#64A6F1</color>55
+    <color name="department_select">#FFC659</color>
+    <color name="teacher_select">#05D1B7</color>
+    <color name="patrent_select">#FF516B</color>
+    <color name="black_search">#181818</color>
+    <color name="forgot_search_hint">#A6ABB4</color>
+    <color name="text_bg_disable">#f7f8f9</color>
+    <color name="text_color_enable">#93e0f4</color>
+    <color name="text_bg_enable">#BAF4FF</color>
+    <color name="text_bg_follow_selected">#dee5f2</color>
+    <color name="text_bg_message_selected">#93e0f4</color>
+    <color name="text_message_selected">#1bb1cf</color>
+    <color name="text_bg_click">#BF93e0f4</color>
+    <!--<color name="text_tagging_chat">#77e6a6</color>-->
+    <color name="text_color_click_disable">#a6b7cd</color>
+    <color name="text_blue">#097dff</color>
+    <color name="bg_red">#f67474</color>
+    <color name="bg_orange">#f5a623</color>
+    <color name="light_black">#262626</color>
+    <color name="tab_board_unselected">#c8cfd4</color>
+    <!--<color name="theme_action_bar_color_bg">#38BDB6</color>-->
+    <color name="header_bg_color">#FFF</color>
+    <color name="explore_backgroond">#E2E3E7</color>
+    <color name="round_corner_progress_bar_background_default">#5f5f5f</color>
+    <color name="round_corner_progress_bar_progress_default">#7f7f7f</color>
+    <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
+    </color>
+    <color name="custom_progress_orange_header">#ffffbb33</color>
+    <color name="custom_progress_red_header">#ffcc0000</color>
+    <color name="custom_progress_green_header">#ff99cc00</color>
+    <color name="custom_setting_color">#E3F9FF</color>
+    <color name="upgrade_account_color">#1CB0CE</color>
+    <color name="audio_record_cover_bg">#eceff1</color>
+    <color name="audio_record_bg">#f4f7f9</color>
+    <color name="audio_record_progress_bg">#dadee6</color>
+    <color name="audio_record_progress">#c9e4af</color>
+    <color name="audio_record">#88909d</color>
+    <color name="present_text">#BEECF8</color>
+    <color name="absent_text">#FF98B1</color>
+    <color name="absent_text_color">#FF003F</color>
+    <color name="attendance_blink_color">#44db5e</color>
+    <color name="flyer_background">#1B8578</color>
+    <color name="late_dark">#EC9E02</color>
+    <color name="late_light">#FFCA5F</color>
+    <color name="setting_text_color">#727E8E</color>
+    <color name="namelist_blue">#0029FF</color>
+    <color name="taphereforgroup">#3D85EA</color>
+    <color name="font_text">#768692</color>
+    <color name="md_white_1000">#ffffff</color>
+
 </resources>

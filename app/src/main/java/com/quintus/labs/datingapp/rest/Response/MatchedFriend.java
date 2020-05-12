@@ -4,10 +4,10 @@ public class MatchedFriend {
 
     @com.google.gson.annotations.Expose
     @com.google.gson.annotations.SerializedName("sender")
-    private Receiver sender;
+    private UserData sender;
     @com.google.gson.annotations.Expose
     @com.google.gson.annotations.SerializedName("receiver")
-    private Receiver receiver;
+    private UserData receiver;
     @com.google.gson.annotations.Expose
     @com.google.gson.annotations.SerializedName("updatedAt")
     private String updatedAt;
@@ -30,19 +30,19 @@ public class MatchedFriend {
     @com.google.gson.annotations.SerializedName("id")
     private int id;
 
-    public Receiver getSender() {
+    public UserData getSender() {
         return sender;
     }
 
-    public void setSender(Receiver sender) {
+    public void setSender(UserData sender) {
         this.sender = sender;
     }
 
-    public Receiver getReceiver() {
+    public UserData getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Receiver receiver) {
+    public void setReceiver(UserData receiver) {
         this.receiver = receiver;
     }
 

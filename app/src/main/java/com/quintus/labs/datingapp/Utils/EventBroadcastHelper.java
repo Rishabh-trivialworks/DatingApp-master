@@ -166,6 +166,9 @@ public class EventBroadcastHelper {
     public static void sendUserOnlineStatus(int userId, boolean isAvailable) {
         GlobalBus.getBus().post(new Events.UserOnline(userId, isAvailable));
     }
+    public static void sendUserUpdate() {
+        GlobalBus.getBus().post(new Events.UserUpdate());
+    }
 
     public static void sendLogout(Context context) {
         AppSharedPreferences.getInstance(context).setLogin(false);

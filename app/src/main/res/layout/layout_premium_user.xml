@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentSwiping"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:id="@+id/activity_landing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/textViewPlanDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    android:textSize="@dimen/margin_16"
+                    android:text="@string/activate_boost_message"
+                    android:textColor="@color/textColor"
+                    android:fontFamily="sans-serif"
+                    android:layout_margin="@dimen/margin_10"
+                    />
+
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@color/float_transparent"
+                    android:src="@drawable/body_letter"
+                    android:tint="@color/colorAccent"
+                    android:layout_above="@+id/textViewHowWasClass"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+
+
+                    />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_start_swiping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/drwable_rounded_half_bottom"
+                android:padding="12dp"
+                android:text="Start swiping"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_below="@+id/activity_landing"
+                />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

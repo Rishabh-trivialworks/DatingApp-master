@@ -75,13 +75,11 @@ public class UserData implements Serializable {
     }
 
     private  String username;
-    private  boolean isPremiumUser;
     private  boolean isBlocked;
     private  String onWhoseSide;
     private  List<UserDeviceInfoModel> deviceInfo;
     private  boolean hideReadReceipt;
     private  MediaModel profileImage;
-    private Object subscription;
 
     @SerializedName("id")
     @Expose
@@ -217,6 +215,19 @@ public class UserData implements Serializable {
     @SerializedName("politicalLeanings")
     @Expose
     private String politicalLeanings;
+
+    @SerializedName("isPremiumUser")
+    @Expose
+    private boolean isPremiumUser;
+
+    @SerializedName("subscription")
+    @Expose
+    private Subscription subscription;
+
+    @SerializedName("subscriptionId")
+    @Expose
+    private int subscriptionId;
+
 
     private boolean receivePrivateMsg;
     private boolean receivePrivateMsgNotification;
@@ -577,11 +588,11 @@ public class UserData implements Serializable {
         this.profileImage = profileImage;
     }
 
-    public Object getSubscription() {
+    public Subscription getSubscription() {
         return subscription;
     }
 
-    public void setSubscription(Object subscription) {
+    public void setSubscription(Subscription subscription) {
         this.subscription = subscription;
     }
     public List<Interest> getInterests() {
@@ -606,5 +617,13 @@ public class UserData implements Serializable {
 
     public void setUserPresenceStatus(boolean userPresenceStatus) {
         this.userPresenceStatus = userPresenceStatus;
+    }
+
+    public int getSubscriptionId() {
+        return subscriptionId;
+    }
+
+    public void setSubscriptionId(int subscriptionId) {
+        this.subscriptionId = subscriptionId;
     }
 }

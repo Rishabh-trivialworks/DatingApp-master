@@ -388,6 +388,10 @@ public class Events {
 
     }
 
+    public static class UserUpdate{
+
+    }
+
 
 
     public static class DeletedMedia {

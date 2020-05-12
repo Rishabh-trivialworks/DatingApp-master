@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "1095561050055",
-    "firebase_url": "https://datingapp-master-c6632.firebaseio.com",
-    "project_id": "datingapp-master-c6632",
-    "storage_bucket": "datingapp-master-c6632.appspot.com"
+    "project_number": "662578424074",
+    "firebase_url": "https://huddle-16ed5.firebaseio.com",
+    "project_id": "huddle-16ed5",
+    "storage_bucket": "huddle-16ed5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1095561050055:android:5d800e5a0593ab46864be2",
+        "mobilesdk_app_id": "1:662578424074:android:e9c45af077e2470a8bf2f3",
         "android_client_info": {
           "package_name": "com.quintus.labs.datingapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1095561050055-qdo3v72q30lq4hel19efrgqvdbme0s3t.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.quintus.labs.datingapp",
-            "certificate_hash": "558af03bdfbebf00a2c326433497ab5f55c5a174"
-          }
-        },
-        {
-          "client_id": "1095561050055-scd0emsog1ian504be34bcsveup4euj3.apps.googleusercontent.com",
+          "client_id": "662578424074-8rsed6cq56ko15f9mq9t68qq956p9rkn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCD5IFUIn0E-GUU0UcNnNZHMPt0F3nUG0"
+          "current_key": "AIzaSyAXj3pwXVuwLNsNXKViFU0Vh_gxMrghhpU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1095561050055-scd0emsog1ian504be34bcsveup4euj3.apps.googleusercontent.com",
+              "client_id": "662578424074-8rsed6cq56ko15f9mq9t68qq956p9rkn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

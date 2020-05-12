@@ -10,10 +10,13 @@ import com.quintus.labs.datingapp.rest.RequestModel.ChangepasswordRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.EditProfileUpdateRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.HelpCenterRequestModel;
 import com.quintus.labs.datingapp.rest.RequestModel.LoginRequest;
+import com.quintus.labs.datingapp.rest.RequestModel.PaymentIntentRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.PaymentRSARequest;
 import com.quintus.labs.datingapp.rest.RequestModel.PaymentRequest;
+import com.quintus.labs.datingapp.rest.RequestModel.PaymentResultRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.SaveBookingModel;
+import com.quintus.labs.datingapp.rest.RequestModel.SuperLikeRequest;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.CatagoryList;
@@ -24,7 +27,10 @@ import com.quintus.labs.datingapp.rest.Response.RSAList;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.ServiceproviderList;
 import com.quintus.labs.datingapp.rest.Response.SubCategoryList;
+import com.quintus.labs.datingapp.rest.Response.SuperLikeModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.rest.model.PaymentIntentModel;
+import com.quintus.labs.datingapp.rest.model.PaymentResultModel;
 
 import java.util.List;
 import java.util.Map;
@@ -125,8 +131,27 @@ public interface ApiService {
     Call<ResponseModel<MatchedFriend>> requestFriend(@Body AcceptRejectModel acceptRejectModel);
 
     @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.SUPER_LIKE)
+    Call<ResponseModel<Object>> superLike(@Body SuperLikeRequest superLikeRequest);
+
+    @Headers("Content-type: application/json")
+    @GET(AppConstants.Url.SUPER_LIKE)
+    Call<ResponseModel<List<SuperLikeModel>>> getSuperLikeUser();
+
+    @Headers("Content-type: application/json")
     @GET(AppConstants.Url.GETUSER)
     Call<ResponseModel<UserData>> getUserDetails();
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.GET_PAYMENT_INTENT)
+    Call<ResponseModel<PaymentIntentModel>> getPaymentIntent(@Body PaymentIntentRequest paymentIntentRequest);
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.PAYMENT_URL)
+    Call<ResponseModel<PaymentResultModel>> payment(@Body PaymentResultRequest paymentResultRequest);
+
+
+
 
     @Headers("Content-type: application/json")
     @GET(AppConstants.Url.FRIEND_LIST)

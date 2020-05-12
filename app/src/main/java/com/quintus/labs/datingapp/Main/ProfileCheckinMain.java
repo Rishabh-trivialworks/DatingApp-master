@@ -18,6 +18,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexDirection;
@@ -26,6 +29,7 @@ import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.GlideUtils;
 import com.quintus.labs.datingapp.Utils.Helper;
+import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 
@@ -39,12 +43,15 @@ public class ProfileCheckinMain extends AppCompatActivity {
     String profileImageUrl;
     int id;
     CardList card;
-    @BindView(R.id.flexBoxLayout)
-    public FlexboxLayout flexBoxLayout;
-    @BindView(R.id.scrollView)
-    public ScrollView scrollView;
+
+    @BindView(R.id.profileRecyclerView)
+    RecyclerView profileRecyclerView;
+
+    @BindView(R.id.close)
+    Button close;
 
     public Activity activity;
+    private ProfileAdapter adapter;
 
 
     public static void open(Context context,CardList card){
@@ -54,133 +61,38 @@ public class ProfileCheckinMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_checkin_main);
+        setContentView(R.layout.activity_view_profile);
         activity = this;
-
-        ButterKnife.bind(activity);
-
-        flexBoxLayout.setFlexDirection(FlexDirection.ROW);
         mContext = ProfileCheckinMain.this;
-        if (getIntent().hasExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT)) {
-
-            card = (CardList) getIntent().getSerializableExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT);
-
-
-        TextView profileName = findViewById(R.id.name_main);
-        ImageView profileImage = findViewById(R.id.profileImage);
-        TextView profileBio = findViewById(R.id.bio_beforematch);
-        TextView profileInterest = findViewById(R.id.interests_beforematch);
-        TextView profileDistance = findViewById(R.id.distance_main);
-        LinearLayout layoutBio = findViewById(R.id.layoutBio);
-        LinearLayout layoutIntrest = findViewById(R.id.layoutIntrest);
-        LinearLayout layoutUserInfoOthers = findViewById(R.id.layoutUserInfoOthers);
-        TextView infoOthers = findViewById(R.id.infoOthers);
-        Button close = findViewById(R.id.close);
-
-
-        String append = (card.getHowFar() == 1) ? "mile away" : "miles away";
-
-        profileDistance.setText(String.format("%.2f", card.getHowFar()) + " " + append);
-        profileName.setText(card.getFullName());
-        if(card.getAbout()!=null&&card.getAbout().length()>0){
-            profileBio.setText(card.getAbout());
-        }else{
-            layoutBio.setVisibility(View.GONE);
-        }
-        if(card.getInterests()!=null&&card.getInterests().size()>0){
-
-            profileInterest.setText(Helper.getIntrestString(card.getInterests()));
-        }else{
-            layoutIntrest.setVisibility(View.GONE);
-        }
-
-            Helper.loadImage(mContext,card.getMedia(),card.getGender(),profileImage);
-
-
-        if(card.getInterested()!=null&&!card.getInterested().isEmpty()){
-            layoutUserInfoOthers.setVisibility(View.VISIBLE);
-            infoOthers.append(getSpanableString("Intrested In : "));
-            infoOthers.append(card.getInterested()+" \n");
-            addTag(getSpanableString("Intrested In : ")+card.getInterested());
-        }
-        if(card.getDob()!=null&&!card.getDob().isEmpty()){
-            layoutUserInfoOthers.setVisibility(View.VISIBLE);
-            infoOthers.append(getSpanableString("DOB : "));
-            infoOthers.append(card.getDob()+" \n");
-            addTag(getSpanableString("DOB : ")+card.getDob());
-
-        }
-        if(card.getHeight()>0){
-            layoutUserInfoOthers.setVisibility(View.VISIBLE);
-            infoOthers.append(getSpanableString("Height : "));
-            infoOthers.append(card.getHeight()+" CM "+" \n");
-            addTag(getSpanableString("Height : ")+""+card.getHeight());
-
-        }
-
-        if(card.getEducation()!=null&&!card.getEducation().isEmpty()){
-            layoutUserInfoOthers.setVisibility(View.VISIBLE);
-            infoOthers.append(getSpanableString("Education : "));
-            infoOthers.append(card.getEducation()+" \n");
-            addTag(getSpanableString("Education : ")+card.getEducation());
-
-        }
-
-            if(card.getExercise()!=null&&!card.getExercise().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Exercise : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Exercise : ")+card.getExercise());
-
-            }
-
-            if(card.getSmoking()!=null&&!card.getSmoking().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Smoking Habit : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Smoking Habit : ")+card.getSmoking());
-
-            }
-            if(card.getDrinking()!=null&&!card.getDrinking().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Drinking Habit : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Drinking Habit : ")+card.getDrinking());
-
-            }
-            if(card.getLookingFor()!=null&&!card.getLookingFor().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Looking For : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Looking For : ")+card.getLookingFor());
-
-            }
-            if(card.getPoliticalLeanings()!=null&&!card.getPoliticalLeanings().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Polotical Leanings : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Polotical Leanings : ")+card.getPoliticalLeanings());
-
-            }
-
-            if(card.getReligion()!=null&&!card.getReligion().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Religion : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Religion : ")+card.getReligion());
-
-            }
-            if(card.getZodiac()!=null&&!card.getZodiac().isEmpty()){
-                layoutUserInfoOthers.setVisibility(View.VISIBLE);
-                infoOthers.append(getSpanableString("Zodiac : "));
-                infoOthers.append(card.getEducation()+" \n");
-                addTag(getSpanableString("Zodiac : ")+card.getZodiac());
-
-            }
-            close.setOnClickListener(v -> {
-           finish();
+        ButterKnife.bind(activity);
+        close.setOnClickListener(v -> {
+            finish();
         });
+        if (getIntent().hasExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT)) {
+            card = (CardList) getIntent().getSerializableExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT);
+            setAdapter();
+        }
     }
+
+    private void setAdapter(){
+        adapter = new ProfileAdapter(this);
+       // adapter.setClickListener(this);
+        profileRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        profileRecyclerView.setHasFixedSize(true);
+        profileRecyclerView.setAdapter(adapter);
+        try {
+            ((SimpleItemAnimator) profileRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.debug(e.getMessage());
+        }
+        adapter.addItem(card);
+        if(card.getMedia()!=null&&card.getMedia().size()>1){
+            for(int i =1;i<card.getMedia().size();i++){
+                if(card.getMedia().get(i).getType().equals(AppConstants.ApiParamKey.IMAGE))
+                adapter.addItem(card.getMedia().get(i));
+            }
+        }
     }
 
 
@@ -202,49 +114,7 @@ public class ProfileCheckinMain extends AppCompatActivity {
         startActivity(btnClick);
 
     }
-    private SpannableString getSpanableString(String title){
-        SpannableString ss1=  new SpannableString(title);
-        ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
-        return ss1;
-    }
 
-    private void addTag(final String classesFilter) {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.view_about_tag, flexBoxLayout, false);
-        ImageView imageLeft = view.findViewById(R.id.imageLeft);
-        TextView textView = view.findViewById(R.id.textView);
-         textView.setText(classesFilter);
-
-
-
-        checkTags();
-
-
-
-        flexBoxLayout.addView(view);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
-    }
-
-    public void checkTags() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            TransitionManager.beginDelayedTransition(scrollView);
-        }
-
-//        if (filterAdapter.getClassesFiltersSelected().isEmpty()) {
-//            if (scrollView.getVisibility() != View.GONE) {
-//                scrollView.setVisibility(View.GONE);
-//            }
-//        } else {
-//            if (scrollView.getVisibility() != View.VISIBLE) {
-//                scrollView.setVisibility(View.VISIBLE);
-//            }
-//        }
-    }
 
 }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.HandlerThread;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
@@ -15,6 +16,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.FirebaseApp;
 import com.google.gson.Gson;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.AppContext;
@@ -28,6 +30,7 @@ import com.quintus.labs.datingapp.xmpp.room.models.ChatDataBase;
 import com.quintus.labs.datingapp.xmpp.utils.AppSharedPreferences;
 import com.quintus.labs.datingapp.xmpp.utils.NetworkUtil;
 import com.shawnlin.preferencesmanager.PreferencesManager;
+import com.stripe.android.PaymentConfiguration;
 
 import org.jivesoftware.smack.packet.Presence;
 
@@ -52,6 +55,11 @@ public class MyApplication extends MultiDexApplication implements NetworkChangeR
     private NetworkChangeReceiver mNetWorkChangeReciver;
     public static ChatDataBase chatDataBase;
     private static long bgTime;
+    public static String STRIPE_EXAMPLE_PUBLISHABLE_KEY = "pk_test_2lIaCJoBMsiId5L5Pd30mtwZ00X9UqRN49";
+    public static String       STRIPE_ACCOUNT_ID = "acct_1GSZ0yFKSVpb9Yku";
+    public static String       STRIPE_SECRET_KEY = "sk_test_TKfmtCvEGgYqxJJoawpZASMe00uSuWS6o2";
+
+    public static String BACKEND_URL = "";
 
     public enum ApiMode {
         TESTING_ALPHA,
@@ -64,7 +72,10 @@ public class MyApplication extends MultiDexApplication implements NetworkChangeR
     public void onCreate() {
         super.onCreate();
         context = this;
-
+        PaymentConfiguration.init(
+                getApplicationContext(),
+                STRIPE_EXAMPLE_PUBLISHABLE_KEY
+        );
         LogUtils.debug("MyApplication onCreate");
 
         HandlerThread handlerThread = new HandlerThread("HandlerThread");
@@ -72,6 +83,7 @@ public class MyApplication extends MultiDexApplication implements NetworkChangeR
         AppContext.getInstance().setContext(this);
         registerActivityLifecycleCallbacks(this);
         MultiDex.install(this);
+        FirebaseApp.initializeApp(context);
 
 
 

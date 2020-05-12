@@ -1,7 +1,9 @@
 package com.quintus.labs.datingapp.BoostPaidPlans;
 
 
-public class PlanModel {
+import java.io.Serializable;
+
+public class PlanModel implements Serializable {
     private int id;
     private String name;
     private String price;

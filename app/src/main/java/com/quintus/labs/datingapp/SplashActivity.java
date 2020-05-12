@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.Utils.FirebaseRemoteConfigHelper;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
@@ -76,9 +77,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_splash);
         GlobalBus.getBus().register(this);
-
         mContext=this;
-        if(TempStorage.getUser()!=null){
+        FirebaseRemoteConfigHelper.getFirebaseRemoteConfigHelper(mContext).fetchRemoteConfig();
+
+            if(TempStorage.getUser()!=null){
             getUser();
           //  doBindService();
 

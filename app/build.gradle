@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
-
+apply plugin: 'com.google.firebase.crashlytics'
+googleServices {
+    disableVersionCheck = true
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -51,7 +53,6 @@ allprojects {
 
 
 dependencies {
-    implementation 'com.google.firebase:firebase-core:16.0.4'
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-v13'
     }
@@ -62,6 +63,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'com.google.android.gms:play-services-wallet:18.0.0'
 
     implementation project(path: ':androidRecording')
 
@@ -73,7 +75,7 @@ dependencies {
     //swipecard dependency
     implementation 'com.lorentzos.swipecards:library:1.0.9'
     //navigation
-    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
 
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
@@ -136,7 +138,15 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.1'
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
-    compile 'br.com.instachat:emoji-library:1.0.10'
+    implementation 'br.com.instachat:emoji-library:1.0.8'
+    implementation 'com.stripe:stripe-android:14.4.1'
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.6'
+    implementation 'com.google.firebase:firebase-config:18.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+
 
 
 

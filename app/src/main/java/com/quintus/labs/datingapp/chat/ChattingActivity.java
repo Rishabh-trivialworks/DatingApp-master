@@ -376,8 +376,7 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void getUserTypingStatus(
-            final Events.NewIncomingTypingMessage newIncomingTypingMessage) {
+    public void getUserTypingStatus(final Events.NewIncomingTypingMessage newIncomingTypingMessage) {
         LogUtils.newMessagesXMPP("user is typing a message : " + newIncomingTypingMessage.isTyping());
         handler.post(new Runnable() {
             @Override

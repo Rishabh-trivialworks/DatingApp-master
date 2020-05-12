@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
+import com.quintus.labs.datingapp.Main.MainActivity;
 import com.quintus.labs.datingapp.Main.ProfileCheckinMain;
 import com.quintus.labs.datingapp.Main.ViewOwnProfileActivty;
 import com.quintus.labs.datingapp.R;
@@ -34,12 +36,19 @@ import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.ViewPagerIndicator;
 import com.quintus.labs.datingapp.chatview.activities.ImageFFActivity;
+import com.quintus.labs.datingapp.eventbus.Events;
+import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.rest.ProgressRequestBody;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
+import com.quintus.labs.datingapp.xmpp.utils.TimeUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,15 +81,24 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
     private ChoosePhotoHelper choosePhotoHelper;
     private UserData userInfo;
     private LinearLayout parentLayout;
+    private TextView textViewYourPlanText;
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserUpdate(final Events.UserUpdate userUpdate) {
+       getUser();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: create the page");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        GlobalBus.getBus().register(this);
         buttonRegister = findViewById(R.id.btn_login);
         btn_activate = findViewById(R.id.btn_activate);
         parentLayout =findViewById(R.id.parentLayout);
+        textViewYourPlanText = findViewById(R.id.textViewHowWasClass);
 
         context=this;
 
@@ -139,10 +157,16 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
         btn_activate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BoostPlans.open(context,userInfo);
+                if(userInfo.isPremiumUser()){
+                    MainActivity.open(context);
+                }else{
+                    BoostPlans.open(context,userInfo);
+
+                }
             }
         });
         setUserInfo();
+        getUser();
     }
 
     private void setUserInfo(){
@@ -158,10 +182,14 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
         name.setText(userInfo.getFullName());
         if(!userInfo.isPremiumUser()){
             parentLayout.setVisibility(View.VISIBLE);
-
+            textViewYourPlanText.setText(mContext.getResources().getString(R.string.activate_boost_message));
+            btn_activate.setText(mContext.getResources().getString(R.string.activate));
         }else{
-            parentLayout.setVisibility(View.INVISIBLE);
-
+            parentLayout.setVisibility(View.VISIBLE);
+            String time_msg = String.format(mContext.getResources().getString(R.string.your_plan_expire),"<br/>" +
+                    "<b>"+ TimeUtils.getSubscriptionDates(userInfo.getSubscription().getExpiryDate())+ "</b>");
+            textViewYourPlanText.setText(Html.fromHtml(time_msg));
+            btn_activate.setText(mContext.getResources().getString(R.string.start_swiping));
         }
 
     }
@@ -300,9 +328,10 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GlobalBus.getBus().unregister(this);
 
-
-
-
-
+    }
 }

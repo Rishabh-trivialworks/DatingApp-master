@@ -15,6 +15,7 @@ public class TempStorage {
 
     private static int userId;
     public static String authToken = "";
+    public static String fcmToken = "";
 
 
     public static String version = "not available";
@@ -49,7 +50,15 @@ public class TempStorage {
         PreferencesManager.putObject(AppConstants.Pref.USER_MODEL_OBJECT, userData);
         TempStorage.userData=userData;
     }
+    public static String getFcmToken() {
+        fcmToken = PreferencesManager.getString(AppConstants.Pref.FCM_TOKEN);
+        return fcmToken;
+    }
 
+    public static void setFCMToken(String authToken) {
+        PreferencesManager.putString(AppConstants.Pref.FCM_TOKEN,authToken);
+        TempStorage.fcmToken = authToken;
+    }
     public static String getAuthToken() {
         return authToken;
     }

@@ -86,5 +86,12 @@ public static void loadImage(Context context, List<ImageModel> media, String gen
             break;
     }
 }
+    public static void loadImage(Context context, ImageModel media, ImageView profileImage){
+        String url = "";
+            url = media.getUrl();
 
+
+                GlideUtils.loadImage(context,url,profileImage,R.drawable.default_man);
+
+    }
 }

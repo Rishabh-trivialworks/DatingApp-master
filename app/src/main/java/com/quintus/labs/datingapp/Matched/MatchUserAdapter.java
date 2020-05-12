@@ -72,7 +72,7 @@ public class MatchUserAdapter extends RecyclerView.Adapter<MatchUserAdapter.MyVi
         UserData users = usersList.get(position);
 
         holder.name.setText(users.getFullName());
-      ConversationData chatModelNotification = MyApplication.getChatDataBase().chatConversationDao().getChatConversationDialog(users.getId(), AppConstants.Chat.TYPE_SINGLE_CHAT);
+        ConversationData chatModelNotification = MyApplication.getChatDataBase().chatConversationDao().getChatConversationDialog(users.getId(), AppConstants.Chat.TYPE_SINGLE_CHAT);
        if(chatModelNotification!=null&&chatModelNotification.chatMessage!=null){
            holder.textViewAssignmentTime.setVisibility(View.VISIBLE);
            holder.textViewAssignmentTime.setText(TimeUtils.getChatListTimeFromMillis(context, chatModelNotification.chatMessage.getTimestamp()));

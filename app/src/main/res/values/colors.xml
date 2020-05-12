@@ -169,6 +169,7 @@
     <color name="grey">#bfbfbf</color>
     <color name="light_grey">#eeeeee</color>
     <color name="background">#F3F7F8</color>
+    <color name="light_grey_transparent">#50eeeeee</color>
 
 
 

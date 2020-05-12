@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/photo_icon_anactive" android:state_pressed="true" />
+    <item android:drawable="@drawable/photo_icon_anactive_chat_inactive" android:state_enabled="false" />
+    <item android:drawable="@drawable/photo_icon_anactive" />
+
+</selector>

@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="com.myu.android.view.activity.ChattingActivity">
+
+    <item
+        android:id="@+id/action_message_copy"
+        android:icon="@drawable/copy_ic"
+        android:iconTint="@color/white"
+        android:orderInCategory="10"
+        android:title="@string/copy_text"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_message_info"
+        android:icon="@drawable/info_ic"
+        android:iconTint="@color/white"
+        android:orderInCategory="10"
+        android:title="@string/message_info"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_forward"
+        android:icon="@drawable/forward_icon"
+        android:orderInCategory="10"
+        android:title="@string/forward"
+        app:showAsAction="always" />
+
+</menu>

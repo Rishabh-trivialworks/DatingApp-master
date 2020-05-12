@@ -32,8 +32,10 @@
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_search"
                 android:drawablePadding="10dp"
-                android:hint="Seearch Here..."
-                android:textSize="18dp" />
+                android:hint="Search Here..."
+                android:textSize="18dp"
+                android:visibility="gone"
+                />
 
             <View
                 android:layout_width="match_parent"

@@ -3,12 +3,85 @@ package com.quintus.labs.datingapp.rest.Response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.quintus.labs.datingapp.Matched.Users;
+import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
+import com.quintus.labs.datingapp.xmpp.utils.MediaModel;
+import com.quintus.labs.datingapp.xmpp.utils.UserDeviceInfoModel;
+import com.quintus.labs.datingapp.xmpp.utils.UserModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserData implements Serializable {
+    public UserData(UserModel userModel) {
+        this.name = userModel.getName();
+        //this.surName = userModel.getSurName();
+        this.email = userModel.getEmail();
+        this.id = userModel.getId();
+        this.username = userModel.getUsername();
+        this.isPremiumUser = userModel.isPremiumUser();
+        this.receivePrivateMsg = userModel.isReceivePrivateMsg();
+        this.onWhoseSide = userModel.getOnWhoseSide();
+        this.deviceInfo = userModel.getDeviceInfo();
+        this.isBlocked = userModel.isBlocked();
+        this.hideReadReceipt=userModel.isHideReadReceipt();
+
+        MediaModel mediaModel = new MediaModel();
+        mediaModel.setMediaPath(userModel.getProfileImage());
+        mediaModel.setThumbnailPath(userModel.getProfileImageThumbnail());
+        mediaModel.setMediaType(AppConstants.ApiParamValue.MEDIA_TYPE_IMAGE);
+        this.profileImage = mediaModel;
+    }
+    public UserData(Users userModel) {
+        this.name = userModel.getName();
+        //this.surName = userModel.getSurName();
+        this.email = "";
+        this.id = Integer.parseInt(userModel.getUserId());
+        this.username = userModel.getName();
+        this.isPremiumUser = true;
+        this.receivePrivateMsg = true;
+        this.onWhoseSide = "OTHER";
+        List<UserDeviceInfoModel> list = new ArrayList<>();
+        list.add(new UserDeviceInfoModel("android","1.0.0"));
+        this.deviceInfo = list;
+        this.isBlocked = false;
+        this.hideReadReceipt=false;
+
+        MediaModel mediaModel = new MediaModel();
+        mediaModel.setMediaPath(userModel.getProfileImageUrl());
+        mediaModel.setThumbnailPath(userModel.getProfileImageUrl());
+        mediaModel.setMediaType(AppConstants.ApiParamValue.MEDIA_TYPE_IMAGE);
+        this.profileImage = mediaModel;
+    }
+    public UserData(UserData userModel) {
+        this.name = userModel.getFullName();
+        this.fullName = userModel.getFullName();
+        this.username = userModel.getFullName();
+
+        this.email = userModel.getEmail();
+        this.id = userModel.getId();
+        this.isPremiumUser = true;
+        this.receivePrivateMsg = true;
+        this.onWhoseSide = "OTHER";
+        List<UserDeviceInfoModel> list = new ArrayList<>();
+        list.add(new UserDeviceInfoModel("android","1.0.0"));
+        this.deviceInfo = list;
+        this.isBlocked = false;
+        this.hideReadReceipt=false;
+
+
+
+    }
+
+    private  String username;
+    private  boolean isPremiumUser;
+    private  boolean isBlocked;
+    private  String onWhoseSide;
+    private  List<UserDeviceInfoModel> deviceInfo;
+    private  boolean hideReadReceipt;
+    private  MediaModel profileImage;
+    private Object subscription;
 
     @SerializedName("id")
     @Expose
@@ -140,6 +213,17 @@ public class UserData implements Serializable {
     @SerializedName("interests")
     @Expose
     private List<Interest> interests = null;
+
+    @SerializedName("politicalLeanings")
+    @Expose
+    private String politicalLeanings;
+
+    private boolean receivePrivateMsg;
+    private boolean receivePrivateMsgNotification;
+
+    private boolean userPresenceStatus;
+
+
 
 
     public int getId() {
@@ -422,11 +506,105 @@ public class UserData implements Serializable {
         this.bio = bio;
     }
 
+    public boolean isReceivePrivateMsg() {
+        return receivePrivateMsg;
+    }
+
+    public void setReceivePrivateMsg(boolean receivePrivateMsg) {
+        this.receivePrivateMsg = receivePrivateMsg;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean isPremiumUser() {
+        return isPremiumUser;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+    public void setBlocked(boolean blocked) {
+        this.isBlocked = blocked;
+    }
+
+    public String getOnWhoseSide() {
+        return onWhoseSide;
+    }
+
+    public List<UserDeviceInfoModel> getDeviceInfo() {
+        return deviceInfo;
+    }
+
+    public boolean isHideReadReceipt() {
+        return hideReadReceipt;
+    }
+
+    public MediaModel getProfileImage() {
+        return profileImage;
+    }
+
+    public boolean isReceivePrivateMsgNotification() {
+        return receivePrivateMsgNotification;
+    }
+
+    public void setReceivePrivateMsgNotification(boolean receivePrivateMsgNotification) {
+        this.receivePrivateMsgNotification = receivePrivateMsgNotification;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPremiumUser(boolean premiumUser) {
+        isPremiumUser = premiumUser;
+    }
+
+    public void setOnWhoseSide(String onWhoseSide) {
+        this.onWhoseSide = onWhoseSide;
+    }
+
+    public void setDeviceInfo(List<UserDeviceInfoModel> deviceInfo) {
+        this.deviceInfo = deviceInfo;
+    }
+
+    public void setHideReadReceipt(boolean hideReadReceipt) {
+        this.hideReadReceipt = hideReadReceipt;
+    }
+
+    public void setProfileImage(MediaModel profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public Object getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Object subscription) {
+        this.subscription = subscription;
+    }
     public List<Interest> getInterests() {
         return interests;
     }
 
     public void setInterests(List<Interest> interests) {
         this.interests = interests;
+    }
+
+    public String getPoliticalLeanings() {
+        return politicalLeanings;
+    }
+
+    public void setPoliticalLeanings(String politicalLeanings) {
+        this.politicalLeanings = politicalLeanings;
+    }
+
+    public boolean isUserPresenceStatus() {
+        return userPresenceStatus;
+    }
+
+    public void setUserPresenceStatus(boolean userPresenceStatus) {
+        this.userPresenceStatus = userPresenceStatus;
     }
 }

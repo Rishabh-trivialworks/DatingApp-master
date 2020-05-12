@@ -17,14 +17,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.Main.MainActivity;
+import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
+import com.quintus.labs.datingapp.eventbus.Events;
+import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 import com.quintus.labs.datingapp.xmpp.LocalBinder;
 import com.quintus.labs.datingapp.xmpp.MyService;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,13 +62,21 @@ public class SplashActivity extends AppCompatActivity {
             Log.d(TAG, "onServiceDisconnected");
         }
     };
-    @Override
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getXMPPStatus(Events.XMPP xmpp) {
+
+        LogUtils.debug("getXMPPStatus Call " + xmpp.callback.toString());
+    }
+        @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_splash);
+        GlobalBus.getBus().register(this);
+
         mContext=this;
         if(TempStorage.getUser()!=null){
             getUser();
@@ -115,6 +129,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //doUnbindService();
+        GlobalBus.getBus().unregister(this);
+
     }
 
     void doBindService() {

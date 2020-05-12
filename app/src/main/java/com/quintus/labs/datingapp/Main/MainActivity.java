@@ -21,10 +21,12 @@ import androidx.core.content.ContextCompat;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.ItsAMatchDialog;
 import com.quintus.labs.datingapp.Utils.PulsatorLayout;
+import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.TransparentProgressDialog;
@@ -57,7 +59,7 @@ public class MainActivity extends Activity {
     private static final int ACTIVITY_NUM = 1;
     final private int MY_PERMISSIONS_REQUEST_LOCATION = 123;
     ListView listView;
-    List<Cards> rowItems;
+    //List<Cards> rowItems;
     //ArrayList<com.quintus.labs.datingapp.rest.Response.CardList> rowItems = new ArrayList<>();
     FrameLayout cardFrame, moreFrame;
     private Context mContext = MainActivity.this;
@@ -66,6 +68,7 @@ public class MainActivity extends Activity {
     private PhotoAdapter arrayAdapter;
     Context context;
     private TransparentProgressDialog pd;
+    private List<CardList> feedList;
 
 
     @Override
@@ -88,24 +91,6 @@ public class MainActivity extends Activity {
         hitApiToGetFeed();
 
 
-        rowItems = new ArrayList<Cards>();
-//        Cards cards = new Cards("1", "Swati Tripathy", 21, "https://im.idiva.com/author/2018/Jul/shivani_chhabra-_author_s_profile.jpg", "Simple and beautiful Girl", "Acting", 200);
-//        rowItems.add(cards);
-//        cards = new Cards("2", "Ananaya Pandy", 20, "https://i0.wp.com/profilepicturesdp.com/wp-content/uploads/2018/06/beautiful-indian-girl-image-for-profile-picture-8.jpg", "cool Minded Girl", "Dancing", 800);
-//        rowItems.add(cards);
-//        cards = new Cards("3", "Anjali Kasyap", 22, "https://pbs.twimg.com/profile_images/967542394898952192/_M_eHegh_400x400.jpg", "Simple and beautiful Girl", "Singing", 400);
-//        rowItems.add(cards);
-//        cards = new Cards("4", "Preety Deshmukh", 19, "http://profilepicturesdp.com/wp-content/uploads/2018/07/fb-real-girls-dp-3.jpg", "dashing girl", "swiming", 1308);
-//        rowItems.add(cards);
-//        cards = new Cards("5", "Srutimayee Sen", 20, "https://dp.profilepics.in/profile_pictures/selfie-girls-profile-pics-dp/selfie-pics-dp-for-whatsapp-facebook-profile-25.jpg", "chulbuli nautankibaj ", "Drawing", 1200);
-//        rowItems.add(cards);
-//        cards = new Cards("6", "Dikshya Agarawal", 21, "https://pbs.twimg.com/profile_images/485824669732200448/Wy__CJwU.jpeg", "Simple and beautiful Girl", "Sleeping", 700);
-//        rowItems.add(cards);
-//        cards = new Cards("7", "Sudeshna Roy", 19, "https://talenthouse-res.cloudinary.com/image/upload/c_fill,f_auto,h_640,w_640/v1411380245/user-415406/submissions/hhb27pgtlp9akxjqlr5w.jpg", "Papa's Pari", "Art", 5000);
-//        rowItems.add(cards);
-        // arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
-        //arrayAdapter.notifyDataSetChanged();
-
 
     }
 
@@ -123,39 +108,8 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<ResponseModel<List<CardList>>> call, Response<ResponseModel<List<CardList>>> restResponse, ResponseModel<List<CardList>> response) {
                 if (RestCallBack.isSuccessFull(response)) {
-                    for (int i = 0; i < response.data.size(); i++) {
-                        if(response.data.get(i).getMedia()!=null&&response.data.get(i).getMedia().size()>0){
-                            String segments[] = response.data.get(i).getDob().split("-");
-                            String year = segments[0];
-                            String month = segments[1];
-                            String day = segments[2];
-                            String intrest = "";
-
-                            String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
-                            if(response.data.get(i).getInterests()!=null&&response.data.get(i).getInterests().size()>0){
-                                for (Interest intr:response.data.get(i).getInterests()
-                                     ) {
-                                    intrest.concat(intr.getInterest());
-
-                                }
-                            }
-                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age),response.data.get(i).getMedia().get(0).getUrl() , response.data.get(i).getAbout(), intrest, response.data.get(i).getDistance(),response.data.get(i).getGender());
-                            rowItems.add(cards);
-                        }
-                        else{
-                            String segments[] = response.data.get(i).getDob().split("-");
-                            String year = segments[0];
-                            String month = segments[1];
-                            String day = segments[2];
-
-                            String age =getAge(Integer.valueOf(year),Integer.valueOf(month),Integer.valueOf(day));
-                            Cards cards = new Cards(String.valueOf(response.data.get(i).getId()), response.data.get(i).getFullName(), Integer.valueOf(age), "", response.data.get(i).getAbout(), response.data.get(i).getInterests().get(0).getInterest(), response.data.get(i).getDistance(),response.data.get(i).getGender());
-                            rowItems.add(cards);
-                        }
-
-                    }
-
-                    arrayAdapter = new PhotoAdapter(context, R.layout.item, rowItems);
+                    feedList = response.data;
+                    arrayAdapter = new PhotoAdapter(context, R.layout.item, feedList);
                     checkRowItem();
                     updateSwipeCard();
                     arrayAdapter.notifyDataSetChanged();
@@ -192,7 +146,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkRowItem() {
-        if (rowItems.isEmpty()) {
+        if (feedList.isEmpty()) {
             moreFrame.setVisibility(View.VISIBLE);
             cardFrame.setVisibility(View.GONE);
         }
@@ -242,24 +196,24 @@ public class MainActivity extends Activity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                rowItems.remove(0);
+                feedList.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                Cards obj = (Cards) dataObject;
+                CardList obj = (CardList) dataObject;
                 checkRowItem();
-                requestFriend(AppConstants.REJECTED,Integer.parseInt(obj.getUserId()));
+                requestFriend(AppConstants.REJECTED,obj.getId());
 
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Cards obj = (Cards) dataObject;
+                CardList obj = (CardList) dataObject;
                 checkRowItem();
 
-                requestFriend(AppConstants.ACCEPTED,Integer.parseInt(obj.getUserId()));
+                requestFriend(AppConstants.ACCEPTED,obj.getId());
 
 
             }
@@ -283,19 +237,9 @@ public class MainActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Cards card= (Cards) dataObject;
-                Intent i = new Intent(context,ProfileCheckinMain.class);
-                i.putExtra("name",card.getName());
-                i.putExtra("bio",card.getBio());
-                i.putExtra("interest",card.getInterest());
-                i.putExtra("distance",card.getDistance());
-                i.putExtra("photo",card.getProfileImageUrl());
-                i.putExtra("id",Integer.parseInt(card.getUserId()));
-                i.putExtra("gender",card.getGender());
+                CardList card= (CardList) dataObject;
+                ProfileCheckinMain.open(context,card);
 
-                startActivity(i);
-
-             //   Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -309,37 +253,53 @@ public class MainActivity extends Activity {
 
 
     public void DislikeBtn(View v) {
-        if (rowItems.size() != 0) {
-            Cards card_item = rowItems.get(0);
+        if (feedList.size() != 0) {
+            CardList card_item = feedList.get(0);
+            String url="";
 
-            String userId = card_item.getUserId();
+            if(card_item.getMedia()!=null&&card_item.getMedia().size()>0){
+                url = card_item.getMedia().get(0).getUrl();
+            }
 
-            rowItems.remove(0);
+            feedList.remove(0);
             arrayAdapter.notifyDataSetChanged();
 
             Intent btnClick = new Intent(mContext, BtnDislikeActivity.class);
-            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            btnClick.putExtra("url", url);
             startActivity(btnClick);
-            requestFriend(AppConstants.REJECTED,Integer.parseInt(card_item.getUserId()));
+            requestFriend(AppConstants.REJECTED,card_item.getId());
 
         }
     }
 
+    public void SuperLike(View v){
+        if (feedList.size() != 0) {
+            CardList card_item = feedList.get(0);
+            if(!TempStorage.getUser().isPremiumUser()){
+                BoostPlans.open(context,card_item);
+
+            }
+            else{
+           ToastUtils.show(mContext,"Super Like");
+            }
+        }
+
+    }
+
     public void LikeBtn(View v) {
-        if (rowItems.size() != 0) {
-            Cards card_item = rowItems.get(0);
+        if (feedList.size() != 0) {
+            CardList card_item = feedList.get(0);
 
-            String userId = card_item.getUserId();
-
-            //check matches
-
-            rowItems.remove(0);
+            feedList.remove(0);
             arrayAdapter.notifyDataSetChanged();
-
+            String url="";
+            if(card_item.getMedia()!=null&&card_item.getMedia().size()>0){
+                url = card_item.getMedia().get(0).getUrl();
+            }
             Intent btnClick = new Intent(mContext, BtnLikeActivity.class);
-            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            btnClick.putExtra("url", url);
             startActivity(btnClick);
-            requestFriend(AppConstants.ACCEPTED,Integer.parseInt(card_item.getUserId()));
+            requestFriend(AppConstants.ACCEPTED,card_item.getId());
 
         }
     }

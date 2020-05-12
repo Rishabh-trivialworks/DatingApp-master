@@ -34,7 +34,8 @@ public class GlideUtils {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        //on load success
+                        LogUtils.debug("************************* "+" onResourceReady");
+
                         return false;
                     }
                 })
@@ -55,7 +56,7 @@ public class GlideUtils {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        //on load success
+                        view.setImageDrawable(resource);
                         return false;
                     }
                 })

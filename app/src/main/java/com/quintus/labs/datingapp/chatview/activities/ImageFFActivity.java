@@ -1,15 +1,19 @@
 package com.quintus.labs.datingapp.chatview.activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.quintus.labs.datingapp.R;
@@ -19,6 +23,15 @@ public class ImageFFActivity extends AppCompatActivity {
 
     PhotoView photoView;
     Context context;
+
+    public static void open(Context context, String url, ImageView imgView){
+        Intent intent = new Intent(context, ImageFFActivity.class);
+        intent.putExtra("photoURI",url);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, imgView,imgView.getTransitionName());
+        context.startActivity(intent, optionsCompat.toBundle());
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

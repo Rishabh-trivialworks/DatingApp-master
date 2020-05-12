@@ -19,7 +19,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.aminography.choosephotohelper.ChoosePhotoHelper;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
 import com.quintus.labs.datingapp.Main.ProfileCheckinMain;
 import com.quintus.labs.datingapp.Main.ViewOwnProfileActivty;
 import com.quintus.labs.datingapp.R;
@@ -31,6 +33,7 @@ import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.ViewPagerIndicator;
+import com.quintus.labs.datingapp.chatview.activities.ImageFFActivity;
 import com.quintus.labs.datingapp.rest.ProgressRequestBody;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -64,36 +67,34 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     private String userId;
 
-    public ViewPager viewPager;
-    public LinearLayout layoutIndicator;
-    public Button buttonRegister;
+    public Button buttonRegister,btn_activate;
     public Context context;
-    private InfoScreenAdapter infoScreenAdapter;
     private ChoosePhotoHelper choosePhotoHelper;
     private UserData userInfo;
+    private LinearLayout parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: create the page");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        viewPager = findViewById(R.id.viewPager);
-        layoutIndicator = findViewById(R.id.layoutIndicator);
         buttonRegister = findViewById(R.id.btn_login);
+        btn_activate = findViewById(R.id.btn_activate);
+        parentLayout =findViewById(R.id.parentLayout);
+
         context=this;
 
         setupTopNavigationView();
         userInfo=TempStorage.getUser();
 
-        imagePerson = (CircleImageView)findViewById(R.id.circle_profile_image);
-        name = (TextView) findViewById(R.id.name);
+        imagePerson = findViewById(R.id.circle_profile_image);
+        name =  findViewById(R.id.name);
         choosePhotoHelper = ChoosePhotoHelper.with(this)
                 .asFilePath()
                 .build(photo -> {
-                    Glide.with(context)
-                            .load(photo)
-                            .into(imagePerson);
+//                    Glide.with(context)
+//                            .load(photo)
+//                            .into(imagePerson);
                     fileUpload(photo);
                 });
         name.setText(userInfo.getFullName());
@@ -107,16 +108,25 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
             choosePhotoHelper.showChooser();
 
         });
+        imagePerson.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
+                    imagePerson.setTransitionName("profileImageTransion");
+                    ImageFFActivity.open(context,userInfo.getMedia().get(userInfo.getMedia().size()-1).getUrl(),imagePerson);
+
+                }
+
+                return false;
+            }
+        });
 
         ImageButton settings = findViewById(R.id.settings);
         settings.setOnClickListener(v -> {
                 Intent intent = new Intent(Profile_Activity.this, EditProfileNewActivity.class);
                 startActivity(intent);
         });
-        viewPager.addOnPageChangeListener(this);
-        if(userInfo.getMedia()!=null && userInfo.getMedia().size()>0) {
-            GlideUtils.loadImage(mContext, userInfo.getMedia().get(0).getUrl(),imagePerson);
-        }
+
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,16 +136,33 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
                  mContext.startActivity(intent);
             }
         });
+        btn_activate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BoostPlans.open(context,userInfo);
+            }
+        });
+        setUserInfo();
     }
 
     private void setUserInfo(){
         if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>0){
-
-            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
+           // GlideUtils.loadImage(context,userInfo.getMedia().get(userInfo.getMedia().size()-1).getUrl(),imagePerson);
+            Glide.with(context)
+                    .load(userInfo.getMedia().get(userInfo.getMedia().size()-1).getUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .into(imagePerson);
 
         }
-        setViewPagerAdapter();
         name.setText(userInfo.getFullName());
+        if(!userInfo.isPremiumUser()){
+            parentLayout.setVisibility(View.VISIBLE);
+
+        }else{
+            parentLayout.setVisibility(View.INVISIBLE);
+
+        }
 
     }
 
@@ -143,7 +170,6 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: resume to the page");
-        getUser();
 
     }
 
@@ -174,24 +200,7 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
 
     }
 
-    private void setViewPagerAdapter() {
-        if(userInfo!=null&&userInfo.getMedia()!=null&&userInfo.getMedia().size()>1){
-            GlideUtils.loadImage(context,userInfo.getMedia().get(0).getUrl(),imagePerson);
 
-            List<InfoScreenData> infoScreenDataList = new ArrayList<>(userInfo.getMedia().size());
-            for (ImageModel model:userInfo.getMedia()) {
-                infoScreenDataList.add(new InfoScreenData(context.getString(R.string.info_screen_desc_4), model.getUrl()));
-            }
-            infoScreenAdapter = new InfoScreenAdapter(context, this, infoScreenDataList);
-            viewPager.setAdapter(infoScreenAdapter);
-            layoutIndicator.removeAllViews();
-            new ViewPagerIndicator(context, ViewPagerIndicator.STYLE_SMALL).setup(viewPager, layoutIndicator, R.drawable.circle_black, R.drawable.circle_grey);
-
-        }else{
-            viewPager.setVisibility(View.INVISIBLE);
-        }
-
-           }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -253,7 +262,7 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
             @Override
             public void onResponse(@NonNull Call<ResponseModel<ImageModel>> call, @NonNull Response<ResponseModel<ImageModel>> response) {
                 Log.d("Response: " , response.message());
-                getUserAfterUpload();
+                getUser();
 
 
             }
@@ -291,37 +300,9 @@ public class Profile_Activity extends AppCompatActivity implements ViewPager.OnP
         });
     }
 
-    private void getUserAfterUpload(){
-
-        Call<ResponseModel<UserData>> responseModelCall = RestServiceFactory.createService().getUserDetails();
-        responseModelCall.enqueue(new RestCallBack<ResponseModel<UserData>>() {
-            @Override
-            public void onFailure(Call<ResponseModel<UserData>> call, String message) {
-                ToastUtils.show(mContext, message);
-
-            }
-
-            @Override
-            public void onResponse(Call<ResponseModel<UserData>> call, Response<ResponseModel<UserData>> restResponse, ResponseModel<UserData> response) {
-                if (RestCallBack.isSuccessFull(response)) {
-                    TempStorage.setUserData(response.data);
-                    TempStorage.userData = response.data;
-                    userInfo = TempStorage.getUser();
-                    setUserInfoAfterUpload();
-
-                } else {
-                    ToastUtils.show(mContext, response.errorMessage);
-                }
-            }
-        });
-    }
 
 
-    private void setUserInfoAfterUpload(){
 
-        setViewPagerAdapter();
-        name.setText(userInfo.getFullName());
 
-    }
 
 }

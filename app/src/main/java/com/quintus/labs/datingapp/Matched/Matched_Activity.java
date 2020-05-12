@@ -9,9 +9,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -21,19 +24,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.User;
+import com.quintus.labs.datingapp.eventbus.Events;
+import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 import com.quintus.labs.datingapp.xmpp.LocalBinder;
 import com.quintus.labs.datingapp.xmpp.MyService;
+import com.quintus.labs.datingapp.xmpp.room.models.MessageData;
+import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -50,8 +64,8 @@ public class Matched_Activity extends AppCompatActivity {
 
     private static final String TAG = "Matched_Activity";
     private static final int ACTIVITY_NUM = 2;
-    List<Users> matchList = new ArrayList<>();
-    List<User> copyList = new ArrayList<>();
+    List<UserData> matchList = new ArrayList<>();
+    List<UserData> copyList = new ArrayList<>();
     private Context mContext = Matched_Activity.this;
     private String userId, userSex, lookforSex;
     private double latitude = 37.349642;
@@ -83,6 +97,44 @@ public class Matched_Activity extends AppCompatActivity {
         }
     };
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void chatMessageSuccess(final Events.ChatMessageSuccess chatMessageSuccess) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+refreshList();
+            }
+        });
+
+
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getNewIncomingMessages(Events.NewIncomingChatMessage newIncomingChatMessage) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                refreshList();
+            }
+        });
+
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void sendUserOnlineStatus(final Events.UserOnline userStatus) {
+           runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    refreshUserStatusList(userStatus);
+                }
+            });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +144,7 @@ public class Matched_Activity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setupTopNavigationView();
         searchFunc();
+        GlobalBus.getBus().register(this);
 
 
         recyclerView = findViewById(R.id.active_recycler_view);
@@ -104,7 +157,7 @@ public class Matched_Activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
        // prepareActiveData();
 
-        mAdapter = new MatchUserAdapter(matchList, getApplicationContext());
+        mAdapter = new MatchUserAdapter(matchList, getApplicationContext(),this);
         RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager1);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -113,7 +166,7 @@ public class Matched_Activity extends AppCompatActivity {
 
         //prepareMatchData();
         getFriendList();
-        new connectXmpp().execute();
+        //new connectXmpp().execute();
 
 
     }
@@ -163,7 +216,7 @@ public class Matched_Activity extends AppCompatActivity {
 //    }
 
     private void searchFunc() {
-       /* search = findViewById(R.id.searchBar);
+        search = findViewById(R.id.searchBar);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -178,15 +231,15 @@ public class Matched_Activity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 searchText();
             }
-        });*/
+        });
     }
 
-    /* private void searchText() {
+   private void searchText() {
          String text = search.getText().toString().toLowerCase(Locale.getDefault());
          if (text.length() != 0) {
              if (matchList.size() != 0) {
                  matchList.clear();
-                 for (User user : copyList) {
+                 for (UserData user : copyList) {
                      if (user.getUsername().toLowerCase(Locale.getDefault()).contains(text)) {
                          matchList.add(user);
                      }
@@ -202,7 +255,7 @@ public class Matched_Activity extends AppCompatActivity {
 
      private boolean checkDup(User user) {
          if (matchList.size() != 0) {
-             for (User u : matchList) {
+             for (UserData u : matchList) {
                  if (u.getUsername() == user.getUsername()) {
                      return true;
                  }
@@ -214,14 +267,13 @@ public class Matched_Activity extends AppCompatActivity {
 
      private void checkClickedItem(int position) {
 
-         User user = matchList.get(position);
+         UserData user = matchList.get(position);
          //calculate distance
          Intent intent = new Intent(this, ProfileCheckinMatched.class);
          intent.putExtra("classUser", user);
 
          startActivity(intent);
      }
- */
     private void setupTopNavigationView() {
         Log.d(TAG, "setupTopNavigationView: setting up TopNavigationView");
         BottomNavigationViewEx tvEx = findViewById(R.id.topNavViewBar);
@@ -255,15 +307,17 @@ public class Matched_Activity extends AppCompatActivity {
     private void prepareMatchDataOne(MatchedFriend friend) {
         if(TempStorage.getUser().getId()==friend.getSenderId()){
             Users users = new Users(String.valueOf(friend.getReceiver().getId()), friend.getReceiver().getFullName(), 21, getRandomImage(), friend.getReceiver().getAbout(), friend.getReceiver().getInterested(), friend.getReceiver().getDistance(),friend.getReceiver().getGender());
-            matchList.add(users);
+            matchList.add(friend.getReceiver());
             mAdapter.notifyDataSetChanged();
         }
         else{
             Users users = new Users(String.valueOf(friend.getSender().getId()), friend.getSender().getFullName(), 21, getRandomImage(), friend.getSender().getAbout(), friend.getSender().getInterested()
                     , friend.getSender().getDistance(),friend.getSender().getGender());
-            matchList.add(users);
+            matchList.add(friend.getSender());
             mAdapter.notifyDataSetChanged();
         }
+        copyList.clear();
+        copyList.addAll(matchList);
 
     }
 
@@ -294,6 +348,8 @@ public class Matched_Activity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         doUnbindService();
+        GlobalBus.getBus().unregister(this);
+
     }
 
     void doBindService() {
@@ -311,4 +367,49 @@ public class Matched_Activity extends AppCompatActivity {
         return mService;
     }
 
+    public void refreshList(){
+        try {
+            LogUtils.debug("********************************************"+"  Message Sent");
+//            List<UserData> userList = mAdapter.getList();
+//            matchList.clear();
+//            matchList.addAll(userList);
+            mAdapter.notifyDataSetChanged();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshUserStatusList(Events.UserOnline userStatus){
+        try {
+            for(int i=0;i<mAdapter.getList().size();i++){
+                UserData data = mAdapter.getList().get(i);
+                if (userStatus.getUserID() == data.getId() ) {
+                    if (userStatus.isAvailable()) {
+                        data.setUserPresenceStatus(true);
+                    } else {
+                        data.setUserPresenceStatus(false);
+
+                    }
+                    mAdapter.notifyItemChanged(i);
+
+                }
+
+
+
+                }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAdapter!=null&&mAdapter.getList().size()>0){
+            refreshList();
+        }
+    }
 }

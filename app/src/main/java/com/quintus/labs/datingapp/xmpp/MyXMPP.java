@@ -145,7 +145,7 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
         builder.setUsernameAndPassword("1", "1");
         builder.setHost(serverAddress);
-        builder.setServiceName("localhost");
+        //builder.setServiceName("localhost");
 
 //        try {
 //            builder.setHostAddress(InetAddress.getByName("localhost"));
@@ -192,95 +192,95 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
     public void connect(final String caller) {
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected synchronized Boolean doInBackground(Void... arg0) {
-                if (connection.isConnected())
-                    return false;
-                isconnecting = true;
-                if (isToasted)
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-                        @Override
-                        public void run() {
-
-                            Toast.makeText(context,
-                                    caller + "=>connecting....",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                Log.d("Connect() Function", caller + "=>connecting....");
-
-                try {
-                    connection.connect();
-                    DeliveryReceiptManager dm = DeliveryReceiptManager
-                            .getInstanceFor(connection);
-                    dm.setAutoReceiptMode(AutoReceiptMode.always);
-                    dm.addReceiptReceivedListener(new ReceiptReceivedListener() {
-
-
-                        @Override
-                        public void onReceiptReceived(final String fromid,
-                                                      final String toid, final String msgid,
-                                                      final Stanza packet) {
-
-                        }
-                    });
-                    connected = true;
-
-                } catch (IOException e) {
-                    if (isToasted)
-                        new Handler(Looper.getMainLooper())
-                                .post(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-
-                                        Toast.makeText(
-                                                context,
-                                                "(" + caller + ")"
-                                                        + "IOException: ",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                    Log.e("(" + caller + ")", "IOException: " + e.getMessage());
-                } catch (SmackException e) {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            Toast.makeText(context,
-                                    "(" + caller + ")" + "SMACKException: ",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    Log.e("(" + caller + ")",
-                            "SMACKException: " + e.getMessage());
-                } catch (XMPPException e) {
-                    if (isToasted)
-
-                        new Handler(Looper.getMainLooper())
-                                .post(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-
-                                        Toast.makeText(
-                                                context,
-                                                "(" + caller + ")"
-                                                        + "XMPPException: ",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    Log.e("connect(" + caller + ")",
-                            "XMPPException: " + e.getMessage());
-
-                }
-                return isconnecting = false;
-            }
-        };
-        connectionThread.execute();
+//        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
+//            @Override
+//            protected synchronized Boolean doInBackground(Void... arg0) {
+//                if (connection.isConnected())
+//                    return false;
+//                isconnecting = true;
+//                if (isToasted)
+//                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//
+//                            Toast.makeText(context,
+//                                    caller + "=>connecting....",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                Log.d("Connect() Function", caller + "=>connecting....");
+//
+//                try {
+//                    connection.connect();
+//                    DeliveryReceiptManager dm = DeliveryReceiptManager
+//                            .getInstanceFor(connection);
+//                    dm.setAutoReceiptMode(AutoReceiptMode.always);
+//                    dm.addReceiptReceivedListener(new ReceiptReceivedListener() {
+//
+//
+//                        @Override
+//                        public void onReceiptReceived(final String fromid,
+//                                                      final String toid, final String msgid,
+//                                                      final Stanza packet) {
+//
+//                        }
+//                    });
+//                    connected = true;
+//
+//                } catch (IOException e) {
+//                    if (isToasted)
+//                        new Handler(Looper.getMainLooper())
+//                                .post(new Runnable() {
+//
+//                                    @Override
+//                                    public void run() {
+//
+//                                        Toast.makeText(
+//                                                context,
+//                                                "(" + caller + ")"
+//                                                        + "IOException: ",
+//                                                Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//
+//                    Log.e("(" + caller + ")", "IOException: " + e.getMessage());
+//                } catch (SmackException e) {
+//                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(context,
+//                                    "(" + caller + ")" + "SMACKException: ",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    Log.e("(" + caller + ")",
+//                            "SMACKException: " + e.getMessage());
+//                } catch (XMPPException e) {
+//                    if (isToasted)
+//
+//                        new Handler(Looper.getMainLooper())
+//                                .post(new Runnable() {
+//
+//                                    @Override
+//                                    public void run() {
+//
+//                                        Toast.makeText(
+//                                                context,
+//                                                "(" + caller + ")"
+//                                                        + "XMPPException: ",
+//                                                Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                    Log.e("connect(" + caller + ")",
+//                            "XMPPException: " + e.getMessage());
+//
+//                }
+//                return isconnecting = false;
+//            }
+//        };
+//        connectionThread.execute();
     }
 
     public void login() {
@@ -326,74 +326,74 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
     @SuppressLint("LongLogTag")
     public void sendMessage(MessageModel chatMessage) {
-        String body = gson.toJson(chatMessage);
-
-        if (!chat_created) {
-            Mychat = ChatManager.getInstanceFor(connection).createChat(
-                    chatMessage.getReceiver() + "@localhost",
-                    mMessageListener);
-            chat_created = true;
-        }
-        final Message message = new Message();
-        message.setBody(body);
-        message.setStanzaId(String.valueOf(chatMessage.getMsgIdl()));
-        message.setType(Message.Type.chat);
-
-        try {
-            if (connection.isAuthenticated()) {
-
-                Mychat.sendMessage(message);
-
-            } else {
-
-                login();
-            }
-        } catch (NotConnectedException e) {
-            Log.e("xmpp.SendMessage()", "msg Not sent!-Not Connected!");
-
-        } catch (Exception e) {
-            Log.e("xmpp.SendMessage()-Exception",
-                    "msg Not sent!" + e.getMessage());
-        }
+//        String body = gson.toJson(chatMessage);
+//
+//        if (!chat_created) {
+//            Mychat = ChatManager.getInstanceFor(connection).createChat(
+//                    chatMessage.getReceiver() + "@localhost",
+//                    mMessageListener);
+//            chat_created = true;
+//        }
+//        final Message message = new Message();
+//        message.setBody(body);
+//        message.setStanzaId(String.valueOf(chatMessage.getMsgIdl()));
+//        message.setType(Message.Type.chat);
+//
+//        try {
+//            if (connection.isAuthenticated()) {
+//
+//                Mychat.sendMessage(message);
+//
+//            } else {
+//
+//                login();
+//            }
+//        } catch (NotConnectedException e) {
+//            Log.e("xmpp.SendMessage()", "msg Not sent!-Not Connected!");
+//
+//        } catch (Exception e) {
+//            Log.e("xmpp.SendMessage()-Exception",
+//                    "msg Not sent!" + e.getMessage());
+//        }
 
     }
 
     public void XMPPAddNewPrivacyList(XMPPConnection connection, String userName, boolean isAllow) {
 
-        String listName = "newList";
-        List<PrivacyItem> privacyItems = new Vector<PrivacyItem>();
-
-        PrivacyItem item = new PrivacyItem(PrivacyItem.Type.jid,
-                userName,isAllow, 1l);
-        privacyItems.add(item);
-
-        try {
-            boolean itemExist=false;
-            PrivacyListManager privacyManager;
-            privacyManager = PrivacyListManager
-                    .getInstanceFor(connection);
-            privacyManager.getPrivacyList(listName);
-            for (PrivacyItem itemOfList: privacyManager.getPrivacyList(listName).getItems()) {
-                if(itemOfList.getValue().equalsIgnoreCase(userName)){
-                    itemExist=true;
-                }
-
-            }
-            if(itemExist){
-                privacyManager.updatePrivacyList(listName, privacyItems);
-
-            }else{
-                privacyManager.createPrivacyList(listName, privacyItems);
-
-            }
-
-        } catch (XMPPException e) {
-            System.out.println("PRIVACY_ERROR: " + e);
-        } catch (NotConnectedException e) {
-            e.printStackTrace();
-        } catch (SmackException.NoResponseException e) {
-            e.printStackTrace();
-        }
+//        String listName = "newList";
+//        List<PrivacyItem> privacyItems = new Vector<PrivacyItem>();
+//
+//        PrivacyItem item = new PrivacyItem(PrivacyItem.Type.jid,
+//                userName,isAllow, 1l);
+//        privacyItems.add(item);
+//
+//        try {
+//            boolean itemExist=false;
+//            PrivacyListManager privacyManager;
+//            privacyManager = PrivacyListManager
+//                    .getInstanceFor(connection);
+//            privacyManager.getPrivacyList(listName);
+//            for (PrivacyItem itemOfList: privacyManager.getPrivacyList(listName).getItems()) {
+//                if(itemOfList.getValue().equalsIgnoreCase(userName)){
+//                    itemExist=true;
+//                }
+//
+//            }
+//            if(itemExist){
+//                privacyManager.updatePrivacyList(listName, privacyItems);
+//
+//            }else{
+//                privacyManager.createPrivacyList(listName, privacyItems);
+//
+//            }
+//
+//        } catch (XMPPException e) {
+//            System.out.println("PRIVACY_ERROR: " + e);
+//        } catch (NotConnectedException e) {
+//            e.printStackTrace();
+//        } catch (SmackException.NoResponseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void blockUnblock(final int userId, final boolean block) {
@@ -469,56 +469,56 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
             loggedin = false;
         }
 
-        @Override
-        public void reconnectingIn(int arg0) {
+//        @Override
+//        public void reconnectingIn(int arg0) {
+//
+//            Log.d("xmpp", "Reconnectingin " + arg0);
+//
+//            loggedin = false;
+//        }
+//
+//        @Override
+//        public void reconnectionFailed(Exception arg0) {
+//            if (isToasted)
+//
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//
+//                        Toast.makeText(context, "ReconnectionFailed!",
+//                                Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
+//            Log.d("xmpp", "ReconnectionFailed!");
+//            connected = false;
+//
+//            chat_created = false;
+//            loggedin = false;
+//        }
 
-            Log.d("xmpp", "Reconnectingin " + arg0);
-
-            loggedin = false;
-        }
-
-        @Override
-        public void reconnectionFailed(Exception arg0) {
-            if (isToasted)
-
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        Toast.makeText(context, "ReconnectionFailed!",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-            Log.d("xmpp", "ReconnectionFailed!");
-            connected = false;
-
-            chat_created = false;
-            loggedin = false;
-        }
-
-        @Override
-        public void reconnectionSuccessful() {
-            if (isToasted)
-
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-
-                        Toast.makeText(context, "REConnected!",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-            Log.d("xmpp", "ReconnectionSuccessful");
-            connected = true;
-
-            chat_created = false;
-            loggedin = false;
-        }
+//        @Override
+//        public void reconnectionSuccessful() {
+//            if (isToasted)
+//
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // TODO Auto-generated method stub
+//
+//                        Toast.makeText(context, "REConnected!",
+//                                Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
+//            Log.d("xmpp", "ReconnectionSuccessful");
+//            connected = true;
+//
+//            chat_created = false;
+//            loggedin = false;
+//        }
 
         @Override
         public void authenticated(XMPPConnection arg0, boolean arg1) {
@@ -580,23 +580,23 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
         private void processMessage(final Message message) {
 
-            String sender1 = message.getFrom();
-            String receiver = message.getTo();
-            final Random random = new Random();
-            final String delimiter = "\\@";
-            String[] temp = sender1.split(delimiter);
-            String[] temp1 = receiver.split(delimiter);
-            final String sender = temp[0];
-            Log.d("USERS" + sender, temp1[0]);
-
-            final MessageModel messageModel = gson.fromJson(
-                    message.getBody(), MessageModel.class);
-            messageModel.setIsMine(false);
-            messageModel.setMsgIdl(random.nextInt(1000));
-            messageModel.setType("TEXT");
-            messageModel.setReceiver(temp1[0]);
-            messageModel.setSender(sender);
-            downloadMediaMessage(messageModel,temp1[0]);
+//            String sender1 = message.getFrom();
+//            String receiver = message.getTo();
+//            final Random random = new Random();
+//            final String delimiter = "\\@";
+//            String[] temp = sender1.split(delimiter);
+//            String[] temp1 = receiver.split(delimiter);
+//            final String sender = temp[0];
+//            Log.d("USERS" + sender, temp1[0]);
+//
+//            final MessageModel messageModel = gson.fromJson(
+//                    message.getBody(), MessageModel.class);
+//            messageModel.setIsMine(false);
+//            messageModel.setMsgIdl(random.nextInt(1000));
+//            messageModel.setType("TEXT");
+//            messageModel.setReceiver(temp1[0]);
+//            messageModel.setSender(sender);
+//            downloadMediaMessage(messageModel,temp1[0]);
 
 
         }
@@ -643,29 +643,29 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
         @Override
         public void fileTransferRequest(final FileTransferRequest request) {
-            final IncomingFileTransfer transfer = request.accept();
-            try {
-                InputStream is = transfer.recieveFile();
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                int nRead;
-                byte[] buf = new byte[1024];
-                try {
-                    while ((nRead = is.read(buf, 0, buf.length)) != -1) {
-                        os.write(buf, 0, nRead);
-                    }
-                    os.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                dataReceived = os.toByteArray();
-                createDirectoryAndSaveFile(dataReceived, request.getFileName());
-                Log.i("File Received", transfer.getFileName());
-                processMessage(request);
-            } catch (XMPPException ex) {
-                Logger.getLogger(MyXMPP.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SmackException e) {
-                e.printStackTrace();
-            }
+//            final IncomingFileTransfer transfer = request.accept();
+//            try {
+//                InputStream is = transfer.recieveFile();
+//                ByteArrayOutputStream os = new ByteArrayOutputStream();
+//                int nRead;
+//                byte[] buf = new byte[1024];
+//                try {
+//                    while ((nRead = is.read(buf, 0, buf.length)) != -1) {
+//                        os.write(buf, 0, nRead);
+//                    }
+//                    os.flush();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                dataReceived = os.toByteArray();
+//                createDirectoryAndSaveFile(dataReceived, request.getFileName());
+//                Log.i("File Received", transfer.getFileName());
+//                processMessage(request);
+//            } catch (XMPPException ex) {
+//                Logger.getLogger(MyXMPP.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (SmackException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -694,57 +694,57 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
             @Override
             public void run() {
-                Log.i("MSG RECE", "LOOPER");
-                String time = System.currentTimeMillis()+"";
-                Random random = new Random();
-                CommonMethods commonMethods = new CommonMethods(context);
-                int iend = request.getRequestor().lastIndexOf("@");
-                String requester = request.getRequestor().substring(0, 10);
-                commonMethods.createTable(requester);
-                Log.i("MSG RECE", requester);
-
-                SharedPreferences pref = context.getSharedPreferences("Login", context.MODE_PRIVATE);
-                String rec = pref.getString("user", null);
-
-                // String tablename, String s, String r, String m, String w,String datatype
-                commonMethods.insertIntoTable(requester, requester, rec, request.getFileName(), "r", "IMAGE",time);
-                final MessageModel chatMessage = new MessageModel();
-                chatMessage.setSender(requester);
-                chatMessage.setType("IMAGE");
-                chatMessage.setReceiver(rec);
-                chatMessage.setMsgIdl(random.nextInt(1000));
-                chatMessage.setIsMine(false);
-                chatMessage.setMsg(request.getFileName());
-               // ChatActivity.chatlist.add(chatMessage);
-                //ChatActivity.chatAdapter.notifyDataSetChanged();
-                Log.i("MSG RECE", request.getRequestor());
+//                Log.i("MSG RECE", "LOOPER");
+//                String time = System.currentTimeMillis()+"";
+//                Random random = new Random();
+//                CommonMethods commonMethods = new CommonMethods(context);
+//                int iend = request.getRequestor().lastIndexOf("@");
+//                String requester = request.getRequestor().substring(0, 10);
+//                commonMethods.createTable(requester);
+//                Log.i("MSG RECE", requester);
+//
+//                SharedPreferences pref = context.getSharedPreferences("Login", context.MODE_PRIVATE);
+//                String rec = pref.getString("user", null);
+//
+//                // String tablename, String s, String r, String m, String w,String datatype
+//                commonMethods.insertIntoTable(requester, requester, rec, request.getFileName(), "r", "IMAGE",time);
+//                final MessageModel chatMessage = new MessageModel();
+//                chatMessage.setSender(requester);
+//                chatMessage.setType("IMAGE");
+//                chatMessage.setReceiver(rec);
+//                chatMessage.setMsgIdl(random.nextInt(1000));
+//                chatMessage.setIsMine(false);
+//                chatMessage.setMsg(request.getFileName());
+//               // ChatActivity.chatlist.add(chatMessage);
+//                //ChatActivity.chatAdapter.notifyDataSetChanged();
+//                Log.i("MSG RECE", request.getRequestor());
 
             }
         });
     }
 
-    public void fileTransfer(String user, Bitmap bitmap, String filename) throws XMPPException {
-        Roster roster = Roster.getInstanceFor(connection);
-        String destination = roster.getPresence(user).getFrom();
-        // Create the file transfer manager
-        FileTransferManager manager = FileTransferManager.getInstanceFor(connection);
-        // Create the outgoing file transfer
-        final OutgoingFileTransfer transfer = manager.createOutgoingFileTransfer(destination);
-        // Send the file
-        //transfer.sendFile(new File("abc.txt"), "You won't believe this!");
-        transfer.sendStream(new ByteArrayInputStream(convertFileToByte(bitmap)), filename, convertFileToByte(bitmap).length, "A greeting");
-
-        System.out.println("Status :: " + transfer.getStatus() + " Error :: " + transfer.getError() + " Exception :: " + transfer.getException());
-        System.out.println("Is it done? " + transfer.isDone());
-        if (transfer.getStatus().equals(FileTransfer.Status.refused))
-            System.out.println("refused  " + transfer.getError());
-        else if (transfer.getStatus().equals(FileTransfer.Status.error))
-            System.out.println(" error " + transfer.getError());
-        else if (transfer.getStatus().equals(FileTransfer.Status.cancelled))
-            System.out.println(" cancelled  " + transfer.getError());
-        else
-            System.out.println("Success");
-    }
+//    public void fileTransfer(String user, Bitmap bitmap, String filename) throws XMPPException {
+//        Roster roster = Roster.getInstanceFor(connection);
+//        String destination = roster.getPresence(user).getFrom();
+//        // Create the file transfer manager
+//        FileTransferManager manager = FileTransferManager.getInstanceFor(connection);
+//        // Create the outgoing file transfer
+//        final OutgoingFileTransfer transfer = manager.createOutgoingFileTransfer(destination);
+//        // Send the file
+//        //transfer.sendFile(new File("abc.txt"), "You won't believe this!");
+//        transfer.sendStream(new ByteArrayInputStream(convertFileToByte(bitmap)), filename, convertFileToByte(bitmap).length, "A greeting");
+//
+//        System.out.println("Status :: " + transfer.getStatus() + " Error :: " + transfer.getError() + " Exception :: " + transfer.getException());
+//        System.out.println("Is it done? " + transfer.isDone());
+//        if (transfer.getStatus().equals(FileTransfer.Status.refused))
+//            System.out.println("refused  " + transfer.getError());
+//        else if (transfer.getStatus().equals(FileTransfer.Status.error))
+//            System.out.println(" error " + transfer.getError());
+//        else if (transfer.getStatus().equals(FileTransfer.Status.cancelled))
+//            System.out.println(" cancelled  " + transfer.getError());
+//        else
+//            System.out.println("Success");
+//    }
 
 
     public byte[] convertFileToByte(Bitmap bmp) {
@@ -755,35 +755,35 @@ public class MyXMPP implements PingFailedListener, DownloadListener {
 
     public boolean createNewAccount(String username, String newpassword) {
         boolean status = false;
-        if (connection == null) {
-            try {
-                connection.connect();
-            } catch (SmackException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (XMPPException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            String newusername = username + connection.getServiceName();
-            Log.i("service", connection.getServiceName());
-            AccountManager accountManager = AccountManager.getInstance(connection);
-            accountManager.createAccount(username, newpassword);
-            status = true;
-        } catch (SmackException.NoResponseException e) {
-            status = false;
-            e.printStackTrace();
-        } catch (XMPPException.XMPPErrorException e) {
-            e.printStackTrace();
-            status = false;
-        } catch (NotConnectedException e) {
-            e.printStackTrace();
-            status = false;
-        }
-        connection.disconnect();
+//        if (connection == null) {
+//            try {
+//                connection.connect();
+//            } catch (SmackException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (XMPPException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        try {
+//            String newusername = username + connection.getServiceName();
+//            Log.i("service", connection.getServiceName());
+//            AccountManager accountManager = AccountManager.getInstance(connection);
+//            accountManager.createAccount(username, newpassword);
+//            status = true;
+//        } catch (SmackException.NoResponseException e) {
+//            status = false;
+//            e.printStackTrace();
+//        } catch (XMPPException.XMPPErrorException e) {
+//            e.printStackTrace();
+//            status = false;
+//        } catch (NotConnectedException e) {
+//            e.printStackTrace();
+//            status = false;
+//        }
+//        connection.disconnect();
         return status;
 
     }

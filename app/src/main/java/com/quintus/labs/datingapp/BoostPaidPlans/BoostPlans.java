@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quintus.labs.datingapp.Checkout.CheckoutActivity;
 import com.quintus.labs.datingapp.Main.Cards;
 import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.Profile.MyRecyclerViewAdapter;
@@ -30,6 +31,8 @@ import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.ZoomOutPageTransformer;
 import com.quintus.labs.datingapp.chat.ChattingActivity;
+import com.quintus.labs.datingapp.eventbus.Events;
+import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.MatchedFriend;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
@@ -38,6 +41,10 @@ import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +84,14 @@ public class BoostPlans extends AppCompatActivity implements PlanListAdapter.Ite
     UserData userData;
     private Handler handler;
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserUpdate(final Events.UserUpdate userUpdate) {
+        closeActivity();
+    }
+
+    private void closeActivity() {
+        finish();
+    }
 
     public static void open(Context context, CardList card){
         context.startActivity(new Intent(context, BoostPlans.class).putExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT, card));
@@ -97,6 +112,7 @@ public class BoostPlans extends AppCompatActivity implements PlanListAdapter.Ite
         handler = new Handler(Looper.getMainLooper());
 
         ButterKnife.bind(activity);
+        GlobalBus.getBus().register(this);
         setToolBar();
         if (getIntent().hasExtra(AppConstants.DataKey.CARD_DETAIL_MODEL_OBJECT)) {
 
@@ -245,6 +261,13 @@ public class BoostPlans extends AppCompatActivity implements PlanListAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position, Object model) {
+        CheckoutActivity.open(context, (PlanModel) model);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GlobalBus.getBus().unregister(this);
 
     }
 }

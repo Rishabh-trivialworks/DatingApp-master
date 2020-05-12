@@ -35,7 +35,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BoostPaidPlans.BoostPlans"></activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <activity android:name=".Checkout.CheckoutActivity"></activity>
+        <activity android:name=".BoostPaidPlans.BoostPlans" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -61,9 +65,8 @@
         <activity android:name=".Main.BtnLikeActivity" />
         <activity android:name=".Main.BtnDislikeActivity" />
         <activity android:name=".Main.ViewOwnProfileActivty" />
-        <service android:name=".xmpp.MyService"
-            />
 
+        <service android:name=".xmpp.MyService" />
         <service android:name=".xmpp.MyService" />
 
         <activity android:name=".chatview.activities.ImageFFActivity" />
@@ -71,12 +74,20 @@
         <activity
             android:name=".chat.ChattingActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mediapicker.activities.MediaPickerActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:theme="@style/MediaPickerTheme" />
+
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

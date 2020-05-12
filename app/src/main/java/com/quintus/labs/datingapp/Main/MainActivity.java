@@ -22,15 +22,20 @@ import androidx.core.content.ContextCompat;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.quintus.labs.datingapp.BoostPaidPlans.BoostPlans;
+import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.FirebaseRemoteConfigHelper;
 import com.quintus.labs.datingapp.Utils.ItsAMatchDialog;
 import com.quintus.labs.datingapp.Utils.PulsatorLayout;
+import com.quintus.labs.datingapp.Utils.RemoteConfigConst;
+import com.quintus.labs.datingapp.Utils.SuperLikeDialog;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.TransparentProgressDialog;
 import com.quintus.labs.datingapp.rest.RequestModel.AcceptRejectModel;
+import com.quintus.labs.datingapp.rest.RequestModel.SuperLikeRequest;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.Interest;
@@ -70,6 +75,16 @@ public class MainActivity extends Activity {
     private TransparentProgressDialog pd;
     private List<CardList> feedList;
 
+    public static void open(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+public static Intent createIntent(Context mContext){
+    Intent intent = new Intent(mContext, MainActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    return intent;
+}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +104,12 @@ public class MainActivity extends Activity {
         setupTopNavigationView();
 
         hitApiToGetFeed();
-
+        checkForcrash();
 
 
     }
+
+
 
     private void hitApiToGetFeed() {
         pd.show();
@@ -277,10 +294,10 @@ public class MainActivity extends Activity {
             CardList card_item = feedList.get(0);
             if(!TempStorage.getUser().isPremiumUser()){
                 BoostPlans.open(context,card_item);
-
             }
             else{
            ToastUtils.show(mContext,"Super Like");
+                supperLike(AppConstants.ACCEPTED,card_item.getId(),card_item.getFullName());
             }
         }
 
@@ -365,4 +382,36 @@ public class MainActivity extends Activity {
 
     }
 
-}
+    private void supperLike(String status,int id,String name){
+        Call<ResponseModel<Object>> responseModelCall = RestServiceFactory.createService().superLike( new SuperLikeRequest(id));
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<Object>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<Object>> call, String message) {
+
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<Object>> call, Response<ResponseModel<Object>> restResponse, ResponseModel<Object> response) {
+                if(isSuccessFull(response)){
+                    SuperLikeDialog superLikeDialog = new SuperLikeDialog(mContext, mContext.getString(R.string.super_like),String.format(mContext.getString(R.string.super_like_message),"<b>"+name+"</b>"),mContext.getString(R.string.got_it), AppConstants.Navigation.HOME_PAGE);
+                    try {
+                        superLikeDialog.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+        });
+    }
+    private void checkForcrash() {
+        String crashkey = FirebaseRemoteConfigHelper.getFirebaseRemoteConfigHelper(mContext).getRemoteConfigValue(RemoteConfigConst.CRASH_KEY);
+        if(crashkey.equalsIgnoreCase("true")){
+            throw new RuntimeException("This is a crash");
+
+        }
+
+    }
+
+    }

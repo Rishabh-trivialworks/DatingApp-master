@@ -10,11 +10,13 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
+import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 import com.quintus.labs.datingapp.xmpp.utils.UserDeviceInfoModel;
 import com.quintus.labs.datingapp.xmpp.utils.UserModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "user_info")
@@ -97,6 +99,31 @@ public class UserInfo implements Serializable {
 
         return this;
     }
+    public UserInfo setUserModel(UserData userModel) {
+
+        setId(userModel.getId());
+        setEmail(userModel.getEmail());
+        setUserTypeId(1);
+        setBlocked(userModel.isBlocked());
+        setHideReadReceipt(false);
+        setReceivePrivateMsg(true);
+        setOnWhoseSide(userModel.getOnWhoseSide());
+        setPremiumUser(userModel.isPremiumUser());
+        setName(userModel.getFullName());
+        setSurName(userModel.getFullName());
+        if(userModel.getMedia()!=null&&userModel.getMedia().size()>0){
+            setProfileImage(userModel.getMedia().get(0).getUrl());
+            setProfileImageThumbnail(userModel.getMedia().get(0).getUrl());
+        }
+
+        setUsername(userModel.getFullName());
+        List<UserDeviceInfoModel> list = new ArrayList<>();
+        list.add(new UserDeviceInfoModel("android","1.0.0"));
+        setDeviceInfo(list);
+
+        return this;
+    }
+
 
     public String getSurName() {
         return surName;

@@ -24,6 +24,8 @@ public class AppConstants {
         public static final String LOGIN_MODEL_OBJECT = "login_detail_model_object";
         public static final String USER_MODEL_OBJECT = "user_detail_model_object";
         public static final String AUTH_TOKEN = "auth_token";
+        public static final String FCM_TOKEN = "fcm_token";
+
     }
 
     public static class Navigation {
@@ -100,6 +102,11 @@ public class AppConstants {
         public static final String REQUEST_FRIEND = "api/v1/friend-user";
         public static final String CHATUPLOAD = "api/v1/chat-upload";
         public static final String PLAN_LIST = "api/v1/package";
+        public static final String GET_PAYMENT_INTENT = "api/v1/initiate-payment";
+        public static final String PAYMENT_URL = "/api/v1/payment";
+        public static final String SUPER_LIKE = "api/v1/super-like";
+
+
 
 
 

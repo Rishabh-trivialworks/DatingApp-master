@@ -10,6 +10,9 @@ public  class AcceptRejectModel {
         this.friendId = friendId;
         this.requestStatus = requestStatus;
     }
+    public AcceptRejectModel(int friendId) {
+        this.friendId = friendId;
+    }
 
     public int getFriendId() {
         return friendId;

@@ -50,6 +50,13 @@ public class Login extends AppCompatActivity {
 
 
         init();
+
+        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+            }
+        });
     }
 
     private boolean isStringNull(String string) {

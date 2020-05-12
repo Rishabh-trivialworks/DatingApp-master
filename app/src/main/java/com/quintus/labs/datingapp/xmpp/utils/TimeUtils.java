@@ -410,5 +410,17 @@ public class TimeUtils {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+    private static SimpleDateFormat subscriptiondateResponseFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private static SimpleDateFormat packageDateFormat = new SimpleDateFormat("d MMM yyyy", Locale.getDefault());
+
+    public static String getSubscriptionDates(String date){
+        try {
+            Date fromTimeDate = subscriptiondateResponseFormat.parse(date.split("T")[0]);
+            return packageDateFormat.format(fromTimeDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
 }

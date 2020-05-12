@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: __local_aars__:/Users/purnendumishra/StudioProjects/DatingApp-master/androidRecording/libs/simplesound-0.1.jar:unspecified@jar">
+  <library name="Gradle: __local_aars__:./androidRecording/libs/simplesound-0.1.jar:unspecified@jar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/androidRecording/libs/simplesound-0.1.jar!/" />
     </CLASSES>

@@ -1471,6 +1471,11 @@ This option will automatically delete and restore your data. This could take few
     <string name="plan_price">%s %s / %s</string>
     <string name="pleasewait">Please Wait</string>
     <string name="activate_boost_message">See who already liked you by upgrading to Huddle Boost.</string>
+    <string name="your_plan_expire">Your are Boost user.Your plan expire on  <b> %s</b></string>
+    <string name="start_swiping">Start swiping</string>
+    <string name="activate">Activate</string>
+    <string name="super_like">Super Like</string>
+    <string name="super_like_message">You super liked %s.He will receive notification.</string>
 
 
 </resources>

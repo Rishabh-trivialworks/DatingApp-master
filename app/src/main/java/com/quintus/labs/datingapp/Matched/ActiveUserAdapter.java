@@ -9,8 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.Helper;
 import com.quintus.labs.datingapp.Utils.ImageUtils;
+import com.quintus.labs.datingapp.chat.ChattingActivity;
+import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
+import com.quintus.labs.datingapp.xmpp.utils.UserModel;
 
 import java.util.List;
 
@@ -24,12 +30,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class ActiveUserAdapter extends RecyclerView.Adapter<ActiveUserAdapter.MyViewHolder> {
-    List<Users> usersList;
+    List<UserData> usersList;
     Context context;
+    Matched_Activity activity;
 
-    public ActiveUserAdapter(List<Users> usersList, Context context) {
+
+    public ActiveUserAdapter(List<UserData> usersList, Context context, Matched_Activity activity) {
         this.usersList = usersList;
         this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -43,18 +52,33 @@ public class ActiveUserAdapter extends RecyclerView.Adapter<ActiveUserAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull ActiveUserAdapter.MyViewHolder holder, int position) {
-        Users users = usersList.get(position);
-        holder.name.setText(users.getName());
-        if (users.getProfileImageUrl() != null) {
-            ImageUtils.setImage(context,users.getProfileImageUrl(),holder.imageView);
+        UserData users = usersList.get(position);
+        holder.name.setText(users.getFullName());
+        Helper.loadImage(context,users.getMedia(),users.getGender(),holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserInfo userModel = MyApplication.getChatDataBase().userInfoDao().get(users.getId());
+                if (userModel != null) {
+                    ChattingActivity.openActivity(activity,new UserData(new UserModel(userModel)));
 
-        }
+                }else{
+                    ChattingActivity.openActivity(activity,new UserData(users));
+
+                }
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return usersList.size();
     }
+    public List<UserData> getList(){
+        return usersList;
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CircleImageView imageView;

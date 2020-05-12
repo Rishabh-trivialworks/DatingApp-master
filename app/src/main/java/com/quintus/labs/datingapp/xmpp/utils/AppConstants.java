@@ -380,6 +380,8 @@ public class AppConstants {
         public static final String PAGER_CHAT_ACTIVITY = "chat_activity_page";
         public static final String USER_DETAIL_MODEL_OBJECT = "user_detail_model_object";
         public static final String CARD_DETAIL_MODEL_OBJECT = "card_detail_model_object";
+        public static final String PLAN_DETAIL_MODEL_OBJECT = "paln_detail_model_object";
+
         public static final String DETAIL_MODEL_OBJECT = "userinfo";
 
 
@@ -416,6 +418,7 @@ public class AppConstants {
 
         public static final String IS_OPENED_FROM_NOTIFICATION = "is_opened_from_notification";
 
+        public static final String IS_FROM_NOTIFICATION_STACK_BUILDER_BOOLEAN = "IS_FROM_NOTIFICATION_STACK_BUILDER_BOOLEAN";
     }
     public static class ShownIn {
         public static final int CHATTING_SCREEN = 30;

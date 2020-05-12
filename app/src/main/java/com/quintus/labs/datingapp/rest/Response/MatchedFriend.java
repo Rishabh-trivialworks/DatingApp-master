@@ -29,6 +29,10 @@ public class MatchedFriend {
     @com.google.gson.annotations.Expose
     @com.google.gson.annotations.SerializedName("id")
     private int id;
+    @com.google.gson.annotations.Expose
+    @com.google.gson.annotations.SerializedName("isBlocked")
+    private boolean isBlocked;
+
 
     public UserData getSender() {
         return sender;
@@ -100,5 +104,13 @@ public class MatchedFriend {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
     }
 }

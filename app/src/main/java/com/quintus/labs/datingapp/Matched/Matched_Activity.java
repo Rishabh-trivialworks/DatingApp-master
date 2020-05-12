@@ -118,6 +118,17 @@ refreshList();
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getBlockedUnblockedUsers(Events.UserBlockUnblocked userBlockUnblocked) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getFriendList();
+                getSuperLikeUsers();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +189,7 @@ refreshList();
             @Override
             public void onResponse(Call<ResponseModel<List<MatchedFriend>>> call, Response<ResponseModel<List<MatchedFriend>>> restResponse, ResponseModel<List<MatchedFriend>> response) {
                 if (RestCallBack.isSuccessFull(response)) {
+                    matchList.clear();
                     for (MatchedFriend friend:response.data) {
                         prepareMatchDataOne(friend);
                     }
@@ -187,17 +199,19 @@ refreshList();
         });
     }
     private void prepareMatchDataOne(MatchedFriend friend) {
+
+        UserData user;
         if(TempStorage.getUser().getId()==friend.getSenderId()){
-            matchList.add(friend.getReceiver());
-            mAdapter.notifyDataSetChanged();
-           // MyApplication.getChatDataBase().userInfoDao().insert(new UserInfo());
+            user =friend.getReceiver();
         }
         else{
-            matchList.add(friend.getSender());
-            mAdapter.notifyDataSetChanged();
+            user =friend.getSender();
         }
-        copyList.clear();
-        copyList.addAll(matchList);
+        user.setBlocked(friend.isBlocked());
+        matchList.add(user);
+        mAdapter.notifyDataSetChanged();
+
+
 
     }
 
@@ -269,6 +283,7 @@ refreshList();
             @Override
             public void onResponse(Call<ResponseModel<List<SuperLikeModel>>> call, Response<ResponseModel<List<SuperLikeModel>>> restResponse, ResponseModel<List<SuperLikeModel>> response) {
                 if(isSuccessFull(response)){
+                    usersListWhoLiked.clear();
                     if(response.data.size()>0){
                         textViewActive.setVisibility(View.VISIBLE);
                         recyclerViewLiked.setVisibility(View.VISIBLE);

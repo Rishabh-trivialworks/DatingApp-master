@@ -131,8 +131,18 @@ public interface ApiService {
     Call<ResponseModel<MatchedFriend>> requestFriend(@Body AcceptRejectModel acceptRejectModel);
 
     @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.BLOCK)
+    Call<ResponseModel<Object>> block(@Body SuperLikeRequest superLikeRequest);
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.UNBLOCK)
+    Call<ResponseModel<Object>> unblock(@Body SuperLikeRequest superLikeRequest);
+
+
+    @Headers("Content-type: application/json")
     @POST(AppConstants.Url.SUPER_LIKE)
     Call<ResponseModel<Object>> superLike(@Body SuperLikeRequest superLikeRequest);
+
 
     @Headers("Content-type: application/json")
     @GET(AppConstants.Url.SUPER_LIKE)

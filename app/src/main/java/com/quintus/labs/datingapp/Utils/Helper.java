@@ -86,6 +86,24 @@ public static void loadImage(Context context, List<ImageModel> media, String gen
             break;
     }
 }
+    public static void loadImage(Context context, ImageModel media, String gender,ImageView profileImage){
+        String url = "";
+        if(media!=null){
+            url = media.getUrl();
+        }
+        switch (gender) {
+            case "Female":
+                GlideUtils.loadImage(context,url,profileImage,R.drawable.default_woman);
+                break;
+            case "Male":
+                GlideUtils.loadImage(context,url,profileImage,R.drawable.default_man);
+                break;
+            default:
+                GlideUtils.loadImage(context,url,profileImage,R.drawable.default_man);
+                break;
+        }
+    }
+
     public static void loadImage(Context context, ImageModel media, ImageView profileImage){
         String url = "";
             url = media.getUrl();

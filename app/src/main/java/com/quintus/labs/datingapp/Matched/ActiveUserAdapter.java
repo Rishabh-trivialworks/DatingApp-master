@@ -16,8 +16,10 @@ import com.quintus.labs.datingapp.Utils.ImageUtils;
 import com.quintus.labs.datingapp.chat.ChattingActivity;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
+import com.quintus.labs.datingapp.xmpp.utils.UserDeviceInfoModel;
 import com.quintus.labs.datingapp.xmpp.utils.UserModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -58,14 +60,14 @@ public class ActiveUserAdapter extends RecyclerView.Adapter<ActiveUserAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserInfo userModel = MyApplication.getChatDataBase().userInfoDao().get(users.getId());
-                if (userModel != null) {
-                    ChattingActivity.openActivity(activity,new UserData(new UserModel(userModel)));
-
-                }else{
-                    ChattingActivity.openActivity(activity,new UserData(users));
-
-                }
+                List<UserDeviceInfoModel> list = new ArrayList<>();
+                list.add(new UserDeviceInfoModel("android","1.0.0"));
+                users.setPremiumUser(true);
+                users.setReceivePrivateMsg(true);
+                users.setOnWhoseSide("OTHER");
+                users.setDeviceInfo(list);
+                users.setHideReadReceipt(false);
+                ChattingActivity.openActivity(activity,users);
             }
         });
 

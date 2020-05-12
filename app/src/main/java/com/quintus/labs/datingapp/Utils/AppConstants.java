@@ -105,6 +105,8 @@ public class AppConstants {
         public static final String GET_PAYMENT_INTENT = "api/v1/initiate-payment";
         public static final String PAYMENT_URL = "/api/v1/payment";
         public static final String SUPER_LIKE = "api/v1/super-like";
+        public static final String BLOCK = "api/v1/block";
+        public static final String UNBLOCK = "api/v1/unblock";
 
 
 

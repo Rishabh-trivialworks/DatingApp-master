@@ -11,8 +11,14 @@ import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
 import com.quintus.labs.datingapp.Utils.EventBroadcastHelper;
 import com.quintus.labs.datingapp.Utils.LogUtils;
+import com.quintus.labs.datingapp.Utils.SuperLikeDialog;
 import com.quintus.labs.datingapp.Utils.TempStorage;
+import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.chat.ChattingActivity;
+import com.quintus.labs.datingapp.rest.RequestModel.SuperLikeRequest;
+import com.quintus.labs.datingapp.rest.Response.ResponseModel;
+import com.quintus.labs.datingapp.rest.RestCallBack;
+import com.quintus.labs.datingapp.rest.RestServiceFactory;
 import com.quintus.labs.datingapp.xmpp.extensions.DisplayedExtension;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatConversation;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatMessage;
@@ -61,6 +67,9 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -617,13 +626,32 @@ public class XMPPHelper implements JidsBlockedListener, JidsUnblockedListener, S
             NetworkUtil.handleNoInternet(context);
             return;
         }
-        UserInfo userInfo = MyApplication.getChatDataBase().userInfoDao().get(userId);
-        if (userInfo != null) {
-            userInfo.setBlocked(true);
-            MyApplication.getChatDataBase().userInfoDao().update(userInfo);
-        }
+        Call<ResponseModel<Object>> responseModelCall = RestServiceFactory.createService().block( new SuperLikeRequest(userId));
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<Object>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<Object>> call, String message) {
+                ToastUtils.show(context,message);
 
-        blockUnblock(userId, true);
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<Object>> call, Response<ResponseModel<Object>> restResponse, ResponseModel<Object> response) {
+                if(isSuccessFull(response)){
+                    UserInfo userInfo = MyApplication.getChatDataBase().userInfoDao().get(userId);
+                    if (userInfo != null) {
+                        userInfo.setBlocked(true);
+                        MyApplication.getChatDataBase().userInfoDao().update(userInfo);
+                    }
+
+                    blockUnblock(userId, true);
+
+                }
+
+            }
+        });
+
+
+
 
     }
 
@@ -684,13 +712,32 @@ public class XMPPHelper implements JidsBlockedListener, JidsUnblockedListener, S
             NetworkUtil.handleNoInternet(context);
             return;
         }
-        UserInfo userInfo = MyApplication.getChatDataBase().userInfoDao().get(userId);
-        if (userInfo != null) {
-            userInfo.setBlocked(false);
-            MyApplication.getChatDataBase().userInfoDao().update(userInfo);
-        }
+        Call<ResponseModel<Object>> responseModelCall = RestServiceFactory.createService().unblock( new SuperLikeRequest(userId));
+        responseModelCall.enqueue(new RestCallBack<ResponseModel<Object>>() {
+            @Override
+            public void onFailure(Call<ResponseModel<Object>> call, String message) {
+                ToastUtils.show(context,message);
 
-        blockUnblock(userId, false);
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel<Object>> call, Response<ResponseModel<Object>> restResponse, ResponseModel<Object> response) {
+                if(isSuccessFull(response)){
+                    UserInfo userInfo = MyApplication.getChatDataBase().userInfoDao().get(userId);
+                    if (userInfo != null) {
+                        userInfo.setBlocked(false);
+                        MyApplication.getChatDataBase().userInfoDao().update(userInfo);
+                    }
+
+                    blockUnblock(userId, false);
+
+                }
+
+            }
+        });
+
+
+
 
 
     }

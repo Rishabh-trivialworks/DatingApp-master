@@ -231,7 +231,7 @@ public class EditProfileNewActivity extends AppCompatActivity implements OnSpinn
                edit_text_bio.setText(userInfo.getAbout());
            }
         logoutLayout.setOnClickListener(v -> {
-            TempStorage.logoutUser();
+            TempStorage.logoutUser(mContext);
             Intent in = new Intent(EditProfileNewActivity.this, Login.class);
             startActivity(in);
             finish();

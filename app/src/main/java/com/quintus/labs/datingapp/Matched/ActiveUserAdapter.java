@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
+import com.quintus.labs.datingapp.Utils.EventBroadcastHelper;
 import com.quintus.labs.datingapp.Utils.Helper;
 import com.quintus.labs.datingapp.Utils.ImageUtils;
+import com.quintus.labs.datingapp.Utils.RequestMatch;
 import com.quintus.labs.datingapp.chat.ChattingActivity;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
@@ -67,7 +70,7 @@ public class ActiveUserAdapter extends RecyclerView.Adapter<ActiveUserAdapter.My
                 users.setOnWhoseSide("OTHER");
                 users.setDeviceInfo(list);
                 users.setHideReadReceipt(false);
-                ChattingActivity.openActivity(activity,users);
+                EventBroadcastHelper.sendUserEvent(users);
             }
         });
 

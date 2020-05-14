@@ -51,6 +51,7 @@
     <string name="thank_you">Thank you</string>
     <string name="its_a_match">You can now say hi to %s</string>
     <string name="got_it">Got it</string>
+
     <string name="i_l_do_it_later">I will Do it Later</string>
     <string name="its_a_match_title">Its A Match</string>
     <string name="say_hi">Say hi</string>
@@ -1476,6 +1477,7 @@ This option will automatically delete and restore your data. This could take few
     <string name="activate">Activate</string>
     <string name="super_like">Super Like</string>
     <string name="super_like_message">You super liked %s.He will receive notification.</string>
+    <string name="super_like_you">%s super liked you.Accept to start chatting.</string>
 
 
 </resources>

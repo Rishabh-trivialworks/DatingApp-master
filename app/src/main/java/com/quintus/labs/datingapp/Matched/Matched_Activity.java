@@ -27,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.LogUtils;
+import com.quintus.labs.datingapp.Utils.RequestMatch;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.User;
@@ -43,7 +45,6 @@ import com.quintus.labs.datingapp.xmpp.LocalBinder;
 import com.quintus.labs.datingapp.xmpp.MyService;
 import com.quintus.labs.datingapp.xmpp.room.models.MessageData;
 import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
-import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -128,6 +129,30 @@ refreshList();
             }
         });
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getUserEvent(Events.UserEvent userevent) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showAlertSuperLike(userevent.getUser());
+
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshList(Events.RefreshMatched refresh) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getFriendList();
+                getSuperLikeUsers();
+            }
+        });
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -367,5 +392,14 @@ refreshList();
         intent.putExtra("classUser", user);
 
         startActivity(intent);
+    }
+
+    private void showAlertSuperLike(UserData users){
+        RequestMatch superLikeDialog = new RequestMatch(mContext, mContext.getString(R.string.super_like),String.format(mContext.getString(R.string.super_like_you),"<b>"+users.getFullName()+"</b>"),mContext.getString(R.string.accept),users, AppConstants.Navigation.HOME_PAGE);
+        try {
+            superLikeDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

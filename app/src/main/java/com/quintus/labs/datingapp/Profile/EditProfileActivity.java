@@ -195,7 +195,7 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
 
         });
         logout.setOnClickListener(v -> {
-            TempStorage.logoutUser();
+            TempStorage.logoutUser(mContext);
             Intent i = new Intent(mContext, Login.class);
             startActivity(i);
             finish();

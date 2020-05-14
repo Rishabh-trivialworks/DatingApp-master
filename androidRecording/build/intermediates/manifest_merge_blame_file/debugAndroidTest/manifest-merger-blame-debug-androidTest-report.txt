@@ -1,0 +1,42 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.skd.androidrecording.test" >
+4
+5    <uses-sdk
+5-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:5:5-74
+6        android:minSdkVersion="16"
+6-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:5:15-41
+7        android:targetSdkVersion="26" />
+7-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:5:42-71
+8
+9    <instrumentation
+9-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:11:5-15:79
+10        android:name="android.test.InstrumentationTestRunner"
+10-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:11:22-75
+11        android:functionalTest="false"
+11-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:13:22-53
+13        android:label="Tests for com.skd.androidrecording.test"
+13-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:15:22-77
+14        android:targetPackage="com.skd.androidrecording.test" />
+14-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:12:22-75
+15
+16    <application
+16-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:7:5-9:19
+17        android:allowBackup="true"
+17-->[__tested_artifact__::androidRecording] /Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-35
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.0.0] /Users/rishabhshukla/.gradle/caches/transforms-2/files-2.1/ef6a6105d1f0cf6fbd30819349ec5c6b/core-1.0.0/AndroidManifest.xml:22:18-86
+19        android:debuggable="true"
+19-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:7:18-43
+20        android:label="@string/app_name"
+20-->[__tested_artifact__::androidRecording] /Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-41
+21        android:theme="@style/AppTheme" >
+21-->[__tested_artifact__::androidRecording] /Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-40
+22        <uses-library android:name="android.test.runner" />
+22-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:8:9-60
+22-->/Volumes/Rishabh/RishabhMyu/DatingApp-master/androidRecording/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3919372384387460409.xml:8:23-57
+23    </application>
+24
+25</manifest>

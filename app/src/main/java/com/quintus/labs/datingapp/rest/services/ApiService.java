@@ -17,6 +17,8 @@ import com.quintus.labs.datingapp.rest.RequestModel.PaymentResultRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.RegisterRequest;
 import com.quintus.labs.datingapp.rest.RequestModel.SaveBookingModel;
 import com.quintus.labs.datingapp.rest.RequestModel.SuperLikeRequest;
+import com.quintus.labs.datingapp.rest.RequestModel.VerifyMobileModel;
+import com.quintus.labs.datingapp.rest.RequestModel.VerifyOtpModel;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
 import com.quintus.labs.datingapp.rest.Response.CardList;
 import com.quintus.labs.datingapp.rest.Response.CatagoryList;
@@ -29,6 +31,7 @@ import com.quintus.labs.datingapp.rest.Response.ServiceproviderList;
 import com.quintus.labs.datingapp.rest.Response.SubCategoryList;
 import com.quintus.labs.datingapp.rest.Response.SuperLikeModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.rest.Response.VerifyMobile;
 import com.quintus.labs.datingapp.rest.model.PaymentIntentModel;
 import com.quintus.labs.datingapp.rest.model.PaymentResultModel;
 
@@ -203,5 +206,13 @@ public interface ApiService {
     @Headers("Content-type: application/json")
     @POST(AppConstants.Url.CHANGEPASSWORD)
     Call<ResponseModel> changePassword(@Body ChangePasswordModel changePasswordModel);
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.VERIFY_MOBILE)
+    Call<ResponseModel> verifyPassword(@Body VerifyMobileModel verifyMobileModel);
+
+    @Headers("Content-type: application/json")
+    @POST(AppConstants.Url.VERIFY_MOBILE)
+    Call<ResponseModel> verifyOTP(@Body VerifyOtpModel verifyMobileModel);
 
 }

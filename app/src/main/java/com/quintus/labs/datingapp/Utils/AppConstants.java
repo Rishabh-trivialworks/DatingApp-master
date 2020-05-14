@@ -105,6 +105,8 @@ public class AppConstants {
         public static final String GET_PAYMENT_INTENT = "api/v1/initiate-payment";
         public static final String PAYMENT_URL = "/api/v1/payment";
         public static final String SUPER_LIKE = "api/v1/super-like";
+        public static final String VERIFY_OTP = "api/v1/number-verification";
+        public static final String VERIFY_MOBILE = "api/v1/send-otp";
 
 
 

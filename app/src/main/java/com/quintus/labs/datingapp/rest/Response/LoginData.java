@@ -30,6 +30,12 @@ public class LoginData implements Serializable {
     @Expose
     private String createdAt;
 
+    @SerializedName("mobileVerified")
+    @Expose
+    private boolean mobileVerified;
+
+
+
     public String getStatus() {
         return status;
     }
@@ -86,4 +92,11 @@ public class LoginData implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public boolean isMobileVerified() {
+        return mobileVerified;
+    }
+
+    public void setMobileVerified(boolean mobileVerified) {
+        this.mobileVerified = mobileVerified;
+    }
 }

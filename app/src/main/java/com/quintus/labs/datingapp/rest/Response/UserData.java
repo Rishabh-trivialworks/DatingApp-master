@@ -228,6 +228,9 @@ public class UserData implements Serializable {
     @Expose
     private int subscriptionId;
 
+    @SerializedName("mobileVerified")
+    @Expose
+    private boolean mobileVerified;
 
     private boolean receivePrivateMsg;
     private boolean receivePrivateMsgNotification;
@@ -625,5 +628,12 @@ public class UserData implements Serializable {
 
     public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
+    }
+    public boolean isMobileVerified() {
+        return mobileVerified;
+    }
+
+    public void setMobileVerified(boolean mobileVerified) {
+        this.mobileVerified = mobileVerified;
     }
 }

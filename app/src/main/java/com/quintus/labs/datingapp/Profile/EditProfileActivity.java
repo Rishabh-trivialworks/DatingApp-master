@@ -3,6 +3,8 @@ package com.quintus.labs.datingapp.Profile;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +18,8 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,17 +38,24 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.quintus.labs.datingapp.Login.Login;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.DialogUtils;
 import com.quintus.labs.datingapp.Utils.LogUtils;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.ToastUtils;
 import com.quintus.labs.datingapp.rest.ProgressRequestBody;
+import com.quintus.labs.datingapp.rest.RequestModel.ChangePasswordModel;
 import com.quintus.labs.datingapp.rest.RequestModel.EditProfileUpdateRequest;
+import com.quintus.labs.datingapp.rest.RequestModel.VerifyMobileModel;
+import com.quintus.labs.datingapp.rest.RequestModel.VerifyOtpModel;
 import com.quintus.labs.datingapp.rest.Response.ImageModel;
 import com.quintus.labs.datingapp.rest.Response.ResponseModel;
 import com.quintus.labs.datingapp.rest.Response.UserData;
+import com.quintus.labs.datingapp.rest.Response.VerifyMobile;
 import com.quintus.labs.datingapp.rest.RestCallBack;
 import com.quintus.labs.datingapp.rest.RestServiceFactory;
 
@@ -87,15 +98,16 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
     private Context context;
     private UserData userInfo;
     private ImageModel selectedImageModel;
-    private RelativeLayout control_profile,logout;
+    private RelativeLayout control_profile,logout,verify_mobile;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
-
-
+    private Dialog dialog;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        progressDialog = createProgressDialog(mContext, mContext.getString(R.string.pleasewait));
 
         permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
         requestMultiplePermissions();
@@ -110,6 +122,7 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
         toolbartag = findViewById(R.id.textViewTitle);
         control_profile = findViewById(R.id.control_profile);
         logout = findViewById(R.id.logout);
+        verify_mobile = findViewById(R.id.verify_mobile);
 
         toolbartag.setText("Manage Profile");
         imageViewOptions.setVisibility(View.GONE);
@@ -188,6 +201,15 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
             finish();
         });
 
+        verify_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TempStorage.getUserData().isMobileVerified()) {
+                   openChangePassword(1);
+                }
+            }
+        });
+
 
 //        imageView1.setOnClickListener(v -> {
 //            imageView = imageView1;
@@ -240,6 +262,124 @@ public class EditProfileActivity extends AppCompatActivity implements MyRecycler
 //        });
 
         setUpImages();
+    }
+
+
+    public static ProgressDialog createProgressDialog(Context context, String message) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        return progressDialog;
+    }
+    private void openChangePassword(int verion) {
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.verify_mobile_dialoge);
+
+        final View ok = dialog.findViewById(R.id.change_button_ok);
+        final View cancel = dialog.findViewById(R.id.change_button_cancel);
+        final EditText oldPassword = (EditText) dialog.findViewById(R.id.edt_mobile_no);
+        if(verion==1){
+            oldPassword.setHint("Enter your mobile no.");
+        }else{
+            oldPassword.setHint("Enter your otp.");
+        }
+
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (oldPassword.getText() == null || oldPassword.getText().toString().isEmpty()) {
+                    if(verion==1) {
+                        ToastUtils.show(mContext, "Please enter mobile no.");
+                    }else{
+                        ToastUtils.show(mContext, "Please enter otp.");
+
+                    }
+                    oldPassword.requestFocus();
+                    return;
+                }
+
+                if(verion==1) {
+                    VerifyMobileModel verifyMobileModel = new VerifyMobileModel(oldPassword.getText().toString());
+                    hitApiToVerifyMobile(verifyMobileModel);
+                }else{
+                    VerifyOtpModel verifyOtpModel = new VerifyOtpModel(oldPassword.getText().toString().trim());
+                    hitApiToVerifyOTP(verifyOtpModel);
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        window.setAttributes(wlp);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        dialog.show();
+    }
+
+    private void hitApiToVerifyOTP(VerifyOtpModel verifyOtpModel) {
+        progressDialog.show();
+        Call<ResponseModel> objChangePassword = RestServiceFactory.createService().verifyOTP(verifyOtpModel);
+        objChangePassword.enqueue(new RestCallBack<ResponseModel>() {
+            @Override
+            public void onFailure(Call<ResponseModel> call, String message) {
+                progressDialog.hide();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                ToastUtils.show(mContext,message);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> restResponse, ResponseModel response) {
+                if(RestCallBack.isSuccessFull(response)) {
+                    progressDialog.hide();
+                    if (progressDialog != null)
+                        progressDialog.dismiss();
+                    dialog.dismiss();
+                    TempStorage.getUserData().setMobileVerified(true);
+                }
+            }
+        });
+    }
+
+    private void hitApiToVerifyMobile(VerifyMobileModel verifyMobileModel) {
+        progressDialog.show();
+        Call<ResponseModel> objChangePassword = RestServiceFactory.createService().verifyPassword(verifyMobileModel);
+        objChangePassword.enqueue(new RestCallBack<ResponseModel>() {
+            @Override
+            public void onFailure(Call<ResponseModel> call, String message) {
+                progressDialog.hide();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                ToastUtils.show(mContext,message);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> restResponse, ResponseModel response) {
+                if(RestCallBack.isSuccessFull(response)) {
+                    progressDialog.hide();
+                    if (progressDialog != null)
+                        progressDialog.dismiss();
+                    dialog.dismiss();
+
+                    openChangePassword(2);
+                }
+            }
+        });
+
     }
 
     private void setUpGeneder(TextView selectedText,Button selectedButton,TextView otherText,Button otherButton,TextView EveryOneText,Button everyButton){

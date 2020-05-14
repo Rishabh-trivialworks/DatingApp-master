@@ -107,6 +107,8 @@ public class AppConstants {
         public static final String SUPER_LIKE = "api/v1/super-like";
         public static final String VERIFY_OTP = "api/v1/number-verification";
         public static final String VERIFY_MOBILE = "api/v1/send-otp";
+        public static final String BLOCK = "api/v1/block";
+        public static final String UNBLOCK = "api/v1/unblock";
 
 
 

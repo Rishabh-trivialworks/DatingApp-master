@@ -58,7 +58,6 @@ public class UserData implements Serializable {
         this.name = userModel.getFullName();
         this.fullName = userModel.getFullName();
         this.username = userModel.getFullName();
-
         this.email = userModel.getEmail();
         this.id = userModel.getId();
         this.isPremiumUser = true;
@@ -67,15 +66,15 @@ public class UserData implements Serializable {
         List<UserDeviceInfoModel> list = new ArrayList<>();
         list.add(new UserDeviceInfoModel("android","1.0.0"));
         this.deviceInfo = list;
-        this.isBlocked = false;
+        this.isBlocked = userModel.isBlocked();
         this.hideReadReceipt=false;
+        this.image = userModel.getImage();
 
 
 
     }
 
     private  String username;
-    private  boolean isBlocked;
     private  String onWhoseSide;
     private  List<UserDeviceInfoModel> deviceInfo;
     private  boolean hideReadReceipt;
@@ -228,10 +227,21 @@ public class UserData implements Serializable {
     @Expose
     private int subscriptionId;
 
+    @SerializedName("image")
+    @Expose
+    private ImageModel image;
+
+    @SerializedName("imageId")
+    @Expose
+    private int imageId;
+
+    @SerializedName("isBlocked")
+    @Expose
+    private  boolean isBlocked;
+
     @SerializedName("mobileVerified")
     @Expose
     private boolean mobileVerified;
-
     private boolean receivePrivateMsg;
     private boolean receivePrivateMsgNotification;
 
@@ -629,6 +639,23 @@ public class UserData implements Serializable {
     public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
+
+    public ImageModel getImage() {
+        return image;
+    }
+
+    public void setImage(ImageModel image) {
+        this.image = image;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
     public boolean isMobileVerified() {
         return mobileVerified;
     }

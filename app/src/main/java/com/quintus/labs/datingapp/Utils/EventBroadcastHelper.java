@@ -7,6 +7,7 @@ import android.content.Context;
 import com.quintus.labs.datingapp.eventbus.Events;
 import com.quintus.labs.datingapp.eventbus.GlobalBus;
 import com.quintus.labs.datingapp.rest.Response.AddressList;
+import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatMessage;
 import com.quintus.labs.datingapp.xmpp.room.models.GroupChatInfo;
 import com.quintus.labs.datingapp.xmpp.utils.AppSharedPreferences;
@@ -161,6 +162,13 @@ public class EventBroadcastHelper {
 
     public static void sendUserBlockedUnblocked(boolean isBlocked, int userId) {
         GlobalBus.getBus().post(new Events.UserBlockUnblocked(isBlocked, userId));
+    }
+
+    public static void sendMatchedRefresh() {
+        GlobalBus.getBus().post(new Events.RefreshMatched());
+    }
+    public static void sendUserEvent(UserData user) {
+        GlobalBus.getBus().post(new Events.UserEvent(user));
     }
 
     public static void sendUserOnlineStatus(int userId, boolean isAvailable) {

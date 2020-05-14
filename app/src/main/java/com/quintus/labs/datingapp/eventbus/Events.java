@@ -2,6 +2,7 @@ package com.quintus.labs.datingapp.eventbus;
 
 
 import com.quintus.labs.datingapp.rest.Response.AddressList;
+import com.quintus.labs.datingapp.rest.Response.UserData;
 import com.quintus.labs.datingapp.xmpp.room.models.ChatMessage;
 import com.quintus.labs.datingapp.xmpp.room.models.GroupChatInfo;
 import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
@@ -429,6 +430,32 @@ public class Events {
 
         public void setUserId(int userId) {
             this.userId = userId;
+        }
+    }
+
+    public static class RefreshMatched {
+
+
+        public RefreshMatched() {
+
+        }
+
+
+    }
+
+    public static class UserEvent {
+
+      private UserData user;
+        public UserEvent(UserData user) {
+this.user =user;
+        }
+
+        public UserData getUser() {
+            return user;
+        }
+
+        public void setUser(UserData user) {
+            this.user = user;
         }
     }
 

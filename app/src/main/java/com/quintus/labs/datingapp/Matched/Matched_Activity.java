@@ -27,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.quintus.labs.datingapp.MyApplication;
 import com.quintus.labs.datingapp.R;
+import com.quintus.labs.datingapp.Utils.AppConstants;
 import com.quintus.labs.datingapp.Utils.LogUtils;
+import com.quintus.labs.datingapp.Utils.RequestMatch;
 import com.quintus.labs.datingapp.Utils.TempStorage;
 import com.quintus.labs.datingapp.Utils.TopNavigationViewHelper;
 import com.quintus.labs.datingapp.Utils.User;
@@ -43,7 +45,6 @@ import com.quintus.labs.datingapp.xmpp.LocalBinder;
 import com.quintus.labs.datingapp.xmpp.MyService;
 import com.quintus.labs.datingapp.xmpp.room.models.MessageData;
 import com.quintus.labs.datingapp.xmpp.room.models.UserInfo;
-import com.quintus.labs.datingapp.xmpp.utils.AppConstants;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -118,6 +119,41 @@ refreshList();
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getBlockedUnblockedUsers(Events.UserBlockUnblocked userBlockUnblocked) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getFriendList();
+                getSuperLikeUsers();
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getUserEvent(Events.UserEvent userevent) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showAlertSuperLike(userevent.getUser());
+
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshList(Events.RefreshMatched refresh) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getFriendList();
+                getSuperLikeUsers();
+            }
+        });
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +214,7 @@ refreshList();
             @Override
             public void onResponse(Call<ResponseModel<List<MatchedFriend>>> call, Response<ResponseModel<List<MatchedFriend>>> restResponse, ResponseModel<List<MatchedFriend>> response) {
                 if (RestCallBack.isSuccessFull(response)) {
+                    matchList.clear();
                     for (MatchedFriend friend:response.data) {
                         prepareMatchDataOne(friend);
                     }
@@ -187,17 +224,19 @@ refreshList();
         });
     }
     private void prepareMatchDataOne(MatchedFriend friend) {
+
+        UserData user;
         if(TempStorage.getUser().getId()==friend.getSenderId()){
-            matchList.add(friend.getReceiver());
-            mAdapter.notifyDataSetChanged();
-           // MyApplication.getChatDataBase().userInfoDao().insert(new UserInfo());
+            user =friend.getReceiver();
         }
         else{
-            matchList.add(friend.getSender());
-            mAdapter.notifyDataSetChanged();
+            user =friend.getSender();
         }
-        copyList.clear();
-        copyList.addAll(matchList);
+        user.setBlocked(friend.isBlocked());
+        matchList.add(user);
+        mAdapter.notifyDataSetChanged();
+
+
 
     }
 
@@ -269,6 +308,7 @@ refreshList();
             @Override
             public void onResponse(Call<ResponseModel<List<SuperLikeModel>>> call, Response<ResponseModel<List<SuperLikeModel>>> restResponse, ResponseModel<List<SuperLikeModel>> response) {
                 if(isSuccessFull(response)){
+                    usersListWhoLiked.clear();
                     if(response.data.size()>0){
                         textViewActive.setVisibility(View.VISIBLE);
                         recyclerViewLiked.setVisibility(View.VISIBLE);
@@ -352,5 +392,14 @@ refreshList();
         intent.putExtra("classUser", user);
 
         startActivity(intent);
+    }
+
+    private void showAlertSuperLike(UserData users){
+        RequestMatch superLikeDialog = new RequestMatch(mContext, mContext.getString(R.string.super_like),String.format(mContext.getString(R.string.super_like_you),"<b>"+users.getFullName()+"</b>"),mContext.getString(R.string.accept),users, AppConstants.Navigation.HOME_PAGE);
+        try {
+            superLikeDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

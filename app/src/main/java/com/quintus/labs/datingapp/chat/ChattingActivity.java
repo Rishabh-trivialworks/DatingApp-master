@@ -1110,6 +1110,9 @@ public class ChattingActivity extends AppCompatActivity implements NetworkChange
             if (userDetailModel.getMedia() != null&&userDetailModel.getMedia().size()>0) {
                 url = userDetailModel.getMedia().get(0).getUrl();
             }
+            if(userDetailModel.getImage()!=null){
+                url=userDetailModel.getImage().getUrl();
+            }
 
             errorImageRes = R.drawable.user_default_profile_pic;
 

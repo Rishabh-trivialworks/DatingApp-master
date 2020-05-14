@@ -1,6 +1,8 @@
 package com.quintus.labs.datingapp.Utils;
 
 
+import android.content.Context;
+
 import com.quintus.labs.datingapp.rest.Response.LoginData;
 import com.quintus.labs.datingapp.rest.Response.UserData;
 
@@ -88,7 +90,25 @@ public class TempStorage {
     }
 
 
-    public static void logoutUser() {
+    public static void logoutUser(Context context) {
+        disconnectLogout();
+        PreferencesManager.clear();
         setUserData(null);
+    }
+    public static void disconnectLogout() {
+        if (TempStorage.getXMPPHelper().isConnected()) {
+            TempStorage.getXMPPHelper().disconnect(new XMPPHelper.OnDisconnectListeners() {
+                @Override
+                public void disconnected() {
+                }
+
+                @Override
+                public void error() {
+
+                }
+            });
+        } else {
+            TempStorage.getXMPPHelper().disconnect(null);
+        }
     }
 }
